@@ -9,6 +9,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => console.log("You are connected to the database"))
     .catch((err) => {
         console.error(err)
+        console.error(process.env.MONGODB_URI)
     });
 
 module.exports = {mongoose};

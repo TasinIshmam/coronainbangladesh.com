@@ -48,6 +48,9 @@ const myth_schema = new mongoose.Schema({
 });
 
 
-let Myth = mongoose.model("Myth", myth_schema)
+myth_schema.plugin(beautifyUnique);
+
+
+let Myth = mongoose.model("Myth", myth_schema);
 
 module.exports = {Myth};

@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "start-local": "node -r dotenv/config ./bin/www",
+    "initialize-database-local": "node -r dotenv/config ./playground/initialize_database.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,10 +14,13 @@
     "mongoose": "^5.7.1",
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "morgan": "~1.9.1",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "mongoose-type-url": "^1.0.6"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
-    "mongoose-type-url": "^1.0.6"
+    "dotenv": "^8.2.0"
+  },
+  "engines": {
+    "node": "10.x.x"
   }
 }
