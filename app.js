@@ -16,11 +16,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
-var cron = require('node-cron');
 
-cron.schedule('20 * * * * *', () => {
-    console.log('running a task every minute');
-});
 
 var app = express();
 
@@ -32,5 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
-a = 2/ 0;
+
+
 module.exports = app;
