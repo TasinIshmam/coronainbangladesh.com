@@ -4,6 +4,11 @@
 #
 #.idea files
 .idea/*
+
+#Scratch Folder
+playground/*
+playground
+
 ### Node ###
 # Logs
 logs
