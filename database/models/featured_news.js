@@ -1,32 +1,35 @@
+const mongoose = require('mongoose');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 
-const news_schmea = {
-    title : {
+const Featured_News_Schema = new mongoose.Schema({
+
+    title: {
         type: String,
         required: true,
         unique: true,
         trim: true,
         minLength: 1
     },
-    description : {
+    description: {
         type: String,
         required: true,
         unique: true,
         trim: true,
         minLength: 1
     },
-    link : {
+    link: {
         type: URL,
         required: true,
 
     },
-    image_url : {
+    image_url: {
         type: URL,
         required: true,
 
     },
-    date : {
-        type : Date,
+    date: {
+        type: Date,
         default: Date.now
     },
     importance_rating: {
@@ -34,9 +37,10 @@ const news_schmea = {
         min: 0,
         max: 5
     }
-}
+});
 
+Featured_News_Schema.plugin(beautifyUnique);
 
-let News = mongoose.model("News", news_schmea)
+let FeaturedNews = mongoose.model("FeaturedNews", Featured_News_Schema);
 
-module.exports = {News};
+module.exports = {FeaturedNews};

@@ -40,7 +40,7 @@ const myth_schema = new mongoose.Schema({
         minLength: 1
     },
     source: {
-        type: String,
+        type: mongoose.SchemaTypes.Url ,
         required: true
     }
 
