@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
+require('mongoose-type-url');
 
 
 const Featured_News_Schema = new mongoose.Schema({
@@ -19,12 +20,12 @@ const Featured_News_Schema = new mongoose.Schema({
         minLength: 1
     },
     link: {
-        type: URL,
+        type: mongoose.SchemaTypes.Url,
         required: true,
 
     },
     image_url: {
-        type: URL,
+        type: mongoose.SchemaTypes.Url,
         required: true,
 
     },
@@ -35,7 +36,8 @@ const Featured_News_Schema = new mongoose.Schema({
     importance_rating: {
         type: Number,
         min: 0,
-        max: 5
+        max: 5,
+        default: 3 //todo default to 3 when done testing
     }
 });
 
