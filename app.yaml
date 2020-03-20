@@ -5,3 +5,10 @@ runtime: nodejs10
 env_variables:
   MONGODB_URI: "mongodb+srv://admin:yufgJnAKGZ5GpwhS@corona-in-bd-mongo-qcuic.gcp.mongodb.net/test?retryWrites=true&w=majority"
   ab : "test"
+
+
+handlers:
+  - url: /.*
+    secure: always
+    redirect_http_response_code: 301
+    script: auto

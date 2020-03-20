@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "start-local": "node -r dotenv/config ./bin/www",
     "initialize-database-local": "node -r dotenv/config ./playground/initialize_database.js",
+    "initialize-database-global": "cross-env NODE_ENV=production node -r dotenv/config ./playground/initialize_database.js",
     "test-local": "node -r dotenv/config ./playground/test.js"
   },
   "dependencies": {
@@ -19,10 +20,12 @@
     "mongoose-type-url": "^1.0.6",
     "morgan": "~1.9.1",
     "node-cron": "^2.0.3",
-    "validator": "^13.0.0"
+    "validator": "^13.0.0",
+    "axios": "^0.19.2"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
+
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0"
   },
   "engines": {
