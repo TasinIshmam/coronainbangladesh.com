@@ -3,7 +3,7 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 const validator = require('validator');
 
 
-let users_quiz_schema =  new mongoose.Schema({
+const users_quiz_schema =  new mongoose.Schema({
 
     email: {
         type: String,
@@ -32,7 +32,7 @@ let users_quiz_schema =  new mongoose.Schema({
 });
 
 
-users_quiz_schema.plugins(beautifyUnique);
+users_quiz_schema.plugin(beautifyUnique);
 
 const UsersQuiz = mongoose.model("UsersQuiz", users_quiz_schema);
 

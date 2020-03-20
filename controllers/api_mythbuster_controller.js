@@ -22,4 +22,4 @@ handle_get_myths = async (req, res) => {
 
 };
 
-module.exports = {handle_get_myths}
+module.exports = {handle_get_myths};
