@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('mongoose-type-url');
 
 
+
 const myth_schema = new mongoose.Schema({
     question_bangla : {
         type: String,
@@ -49,7 +50,6 @@ const myth_schema = new mongoose.Schema({
 
 
 myth_schema.plugin(beautifyUnique);
-
 
 let Myth = mongoose.model("Myth", myth_schema);
 

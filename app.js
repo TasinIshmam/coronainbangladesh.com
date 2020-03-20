@@ -1,4 +1,6 @@
 
+
+//initialization
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
@@ -9,9 +11,10 @@ if (env === 'development') {
     process.env.PORT = 1338;
 }
 
-
+//connect to database
 require('./database/mongoose');
 
+//load modules
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
