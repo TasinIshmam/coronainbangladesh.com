@@ -20,8 +20,8 @@
     "moment": "^2.24.0"
   },
   "devDependencies": {
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0"
-
   },
   "engines": {
     "node": "10.x.x"
