@@ -1,39 +1,47 @@
-
-
 //initialization
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
-    require('dotenv').config();
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-   // process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
-    process.env.NODE_ENV = "development";
-    process.env.PORT = 1338;
+	require('dotenv').config();
+	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+	// process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
+	process.env.NODE_ENV = 'development';
+	process.env.PORT = 1338;
 }
 
 //connect to database
 require('./database/mongoose');
 
 //load modules
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
-
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Templating Engine Setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+//Handling routes
 app.use('/', indexRouter);
+app.use('/corona', indexRouter);
+
 app.use('/api', apiRouter);
 
+app.get('*', function(req, res) {
+	res.status(404).send('404 Not Found!');
+});
 
 module.exports = app;
