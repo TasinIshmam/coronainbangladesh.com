@@ -8,6 +8,7 @@ async function add_new_user(user) {
         let ret = await UsersQuiz.create(user);
         return true;
     }   catch (e) {
+        console.error(e);
         return false;
     }
 
