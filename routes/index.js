@@ -61,6 +61,16 @@ router.get('/en/prevention', function(req, res, next) {
 	res.render('preventions_en');
 });
 
+/* GET bn prevention page. */
+router.get('/mythbuster', function(req, res, next) {
+	res.render('mythbuster');
+});
+
+/* GET en mythbuster page. */
+router.get('/en/mythbuster', function(req, res, next) {
+	res.render('mythbuster_en');
+});
+
 /* GET bn emergency page. */
 router.get('/emergency', function(req, res, next) {
 	res.render('emergencies');
