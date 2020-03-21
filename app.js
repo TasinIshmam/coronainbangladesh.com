@@ -50,6 +50,12 @@ app.use('/en/emergency', indexRouter);
 app.use('/contact', indexRouter);
 app.use('/en/contact', indexRouter);
 
+app.use('/about', indexRouter);
+app.use('/en/about', indexRouter);
+
+app.use('/privacy-policy', indexRouter);
+app.use('/en/privacy-policy', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 

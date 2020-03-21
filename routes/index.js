@@ -81,4 +81,24 @@ router.get('/en/contact', function(req, res, next) {
 	res.render('contact_en');
 });
 
+/* GET bn about page. */
+router.get('/about', function(req, res, next) {
+	res.render('about');
+});
+
+/* GET en about page. */
+router.get('/en/about', function(req, res, next) {
+	res.render('about_en');
+});
+
+/* GET bn privacy page. */
+router.get('/privacy', function(req, res, next) {
+	res.render('privacy');
+});
+
+/* GET en privacy page. */
+router.get('/en/privacy', function(req, res, next) {
+	res.render('privacy_en');
+});
+
 module.exports = router;
