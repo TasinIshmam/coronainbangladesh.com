@@ -63,12 +63,16 @@ router.get('/en/prevention', function(req, res, next) {
 
 /* GET bn prevention page. */
 router.get('/mythbuster', function(req, res, next) {
-	res.render('mythbuster');
+	res.render('mythbuster', {
+		validation_token: process.env.USER_PUT_SECRET_KEY
+	});
 });
 
 /* GET en mythbuster page. */
 router.get('/en/mythbuster', function(req, res, next) {
-	res.render('mythbuster_en');
+	res.render('mythbuster_en', {
+		validation_token: process.env.USER_PUT_SECRET_KEY
+	});
 });
 
 /* GET bn emergency page. */
