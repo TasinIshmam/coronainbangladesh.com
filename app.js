@@ -44,6 +44,9 @@ app.use('/en/corona', indexRouter);
 app.use('/prevention', indexRouter);
 app.use('/en/prevention', indexRouter);
 
+app.use('/mythbuster', indexRouter);
+app.use('/en/mythbuster', indexRouter);
+
 app.use('/emergency', indexRouter);
 app.use('/en/emergency', indexRouter);
 
