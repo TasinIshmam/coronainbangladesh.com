@@ -41,6 +41,9 @@ app.use('/en', indexRouter);
 app.use('/corona', indexRouter);
 app.use('/en/corona', indexRouter);
 
+app.use('/prevention', indexRouter);
+app.use('/en/prevention', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 
