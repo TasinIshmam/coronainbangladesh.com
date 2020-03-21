@@ -61,4 +61,14 @@ router.get('/en/prevention', function(req, res, next) {
 	res.render('preventions_en');
 });
 
+/* GET bn emergency page. */
+router.get('/emergency', function(req, res, next) {
+	res.render('emergencies');
+});
+
+/* GET en emergency page. */
+router.get('/en/emergency', function(req, res, next) {
+	res.render('emergencies_en');
+});
+
 module.exports = router;
