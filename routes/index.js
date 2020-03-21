@@ -92,12 +92,12 @@ router.get('/en/about', function(req, res, next) {
 });
 
 /* GET bn privacy page. */
-router.get('/privacy', function(req, res, next) {
+router.get('/privacy-policy', function(req, res, next) {
 	res.render('privacy');
 });
 
 /* GET en privacy page. */
-router.get('/en/privacy', function(req, res, next) {
+router.get('/en/privacy-policy', function(req, res, next) {
 	res.render('privacy_en');
 });
 
