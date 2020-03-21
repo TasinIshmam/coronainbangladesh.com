@@ -14,7 +14,7 @@ async function insertManyNews(newsArray) {
 //todo TEST THOROUGHLY.
 //todo if endDate is given, make sure it includes everything in End Date REGARDLESS of the time value.
 async function getNewsBetweenDatesWithCount(
-	count = 200,
+	count = 20,
 	startDate = moment().startOf('day').subtract(5, 'day'),
 	endDate = moment().endOf('day')
 ) {

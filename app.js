@@ -23,7 +23,7 @@ const helmet = require('helmet');
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
-//const limiter = require('./middleware/rate_limit_middleware');
+const limiter = require('./middleware/rate_limit_middleware');
 
 const app = express();
 
@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(rate_limit_per_second_middleware);  //prevents too many requests from the same ip
+app.use(limiter.rateLimiterMiddlewareInMemory);  //prevents too many requests from the same ip
 
 //Templating Engine Setup
 app.set('views', path.join(__dirname, 'views'));
