@@ -7,7 +7,8 @@
     "start-local": "node -r dotenv/config ./bin/www",
     "initialize-database-local": "node -r dotenv/config ./playground/initialize_database.js",
     "initialize-database-global": "cross-env NODE_ENV=production node -r dotenv/config ./playground/initialize_database.js",
-    "test-local": "node -r dotenv/config ./playground/test.js"
+    "test-local": "node -r dotenv/config ./playground/test.js",
+    "test-global": "cross-env NODE_ENV=production node -r dotenv/config ./playground/test.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
