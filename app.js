@@ -36,12 +36,17 @@ app.set('view engine', 'ejs');
 
 //Handling routes
 app.use('/', indexRouter);
-app.use('/corona', indexRouter);
+app.use('/en', indexRouter);
 
+app.use('/corona', indexRouter);
+app.use('/en/corona', indexRouter);
+
+//API ROUTES
 app.use('/api', apiRouter);
 
+//404
 app.get('*', function(req, res) {
-	res.status(404).send('404 Not Found!');
+	res.status(404).render('404');
 });
 
 module.exports = app;
