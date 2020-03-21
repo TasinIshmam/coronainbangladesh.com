@@ -47,6 +47,9 @@ app.use('/en/prevention', indexRouter);
 app.use('/emergency', indexRouter);
 app.use('/en/emergency', indexRouter);
 
+app.use('/contact', indexRouter);
+app.use('/en/contact', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 

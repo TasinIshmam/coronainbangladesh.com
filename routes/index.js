@@ -71,4 +71,14 @@ router.get('/en/emergency', function(req, res, next) {
 	res.render('emergencies_en');
 });
 
+/* GET bn contact page. */
+router.get('/contact', function(req, res, next) {
+	res.render('contact');
+});
+
+/* GET en contact page. */
+router.get('/en/contact', function(req, res, next) {
+	res.render('contact_en');
+});
+
 module.exports = router;
