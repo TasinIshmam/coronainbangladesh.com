@@ -5,7 +5,7 @@ const users_quiz_database_interface = require('../database/interface/users_quiz_
 
 let handle_PUT_user =  async (req, res) => {
 
-    console.debug(req.body);
+
 
     try {
         let result = await users_quiz_database_interface.add_new_user({

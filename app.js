@@ -26,7 +26,8 @@ const {rate_limit_per_second_middleware} = require('./middleware/rate_limit_midd
 
 const app = express();
 
-app.use(logger('dev'));
+morgan_format = process.env.NODE_ENV === 'development' ? 'dev' : 'common';
+app.use(logger(morgan_format));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
