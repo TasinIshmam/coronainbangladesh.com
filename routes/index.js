@@ -33,7 +33,7 @@ router.get('/en', async function(req, res, next) {
 	});
 });
 
-/* GET bn home page. */
+/* GET bn what is corona page. */
 router.get('/corona', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_world();
 
@@ -42,13 +42,23 @@ router.get('/corona', async function(req, res, next) {
 	});
 });
 
-/* GET en home page. */
+/* GET en what is corona page. */
 router.get('/en/corona', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_world();
 
 	res.render('coronavirus_en', {
 		stats: stats
 	});
+});
+
+/* GET bn prevention page. */
+router.get('/prevention', function(req, res, next) {
+	res.render('preventions');
+});
+
+/* GET en prevention page. */
+router.get('/en/prevention', function(req, res, next) {
+	res.render('preventions_en');
 });
 
 module.exports = router;
