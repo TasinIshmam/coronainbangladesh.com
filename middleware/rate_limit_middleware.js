@@ -3,14 +3,14 @@ const {mongoose} = require('../database/mongoose');
 
 
 
-const max_requests_every_second = 20;
+const max_requests_every_second = 30;
 
 const request_per_second_rate_limit = new RateLimiterMongo({
     storeClient: mongoose.connection,
     keyPrefix: 'too_many_requests_ip_per_second',
     points: max_requests_every_second,
     duration: 1,
-    blockDuration: 60, // Block for one minute if requests exceeded.
+    blockDuration: 120, // Block for one minute if requests exceeded.
 });
 
 const rate_limit_per_second_middleware = (req, res, next) => {

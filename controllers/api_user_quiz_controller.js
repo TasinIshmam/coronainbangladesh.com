@@ -5,9 +5,16 @@ const users_quiz_database_interface = require('../database/interface/users_quiz_
 
 let handle_PUT_user =  async (req, res) => {
 
-    console.debug(req.body);
+
 
     try {
+
+        //todo This
+        if (req.query.validation_token !== process.env.USER_PUT_SECRET_KEY) {
+            console.log("Received PUT /api/myths/users with INVALID validation token. Discarding request");
+            return res.send(401);
+        }
+
         let result = await users_quiz_database_interface.add_new_user({
             name : req.body.name,
             email : req.body.email,
