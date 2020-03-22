@@ -6,9 +6,10 @@ const parser = require('../util/parser');
 async function handle_live_news_update(req, res) {
 
 
+
     try {
         let live_result = await parser.get_all_live_news();
-        let db_result = await live_news_interface.get_all_live_news(5000); //todo change defaults
+        let db_result = await live_news_interface.get_all_live_news(5000); //todo change get all live news to default to all.
         let new_news = find_set_difference_news(live_result, db_result);
         let db_response = await live_news_interface.insert_live_news_many(new_news);
 
