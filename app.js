@@ -29,11 +29,13 @@ const app = express();
 
 morgan_format = process.env.NODE_ENV === 'development' ? 'dev' : 'common';
 app.use(logger(morgan_format));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(limiter.rateLimiterMiddlewareInMemory);  //prevents too many requests from the same ip
 
 //Templating Engine Setup

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-async function getAllLiveNews() {
+async function get_all_live_news() {
 	/*
  * parses current live news from ProthomAlo/Live.
  * 
@@ -39,7 +39,7 @@ async function getAllLiveNews() {
 		let lastSpaceIdx = time.lastIndexOf(' ');
 		let dt = '';
 		let tm = '';
-		if (firstSpaceIdx == lastSpaceIdx) {
+		if (firstSpaceIdx === lastSpaceIdx) {
 			tm = time;
 		} else {
 			dt = time.substr(0, firstSpaceIdx);
@@ -66,4 +66,4 @@ async function getAllLiveNews() {
 	return allLiveNews;
 }
 
-module.exports = { getAllLiveNews };
+module.exports = {  get_all_live_news };
