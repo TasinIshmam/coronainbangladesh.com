@@ -11,7 +11,7 @@ const myth_interface = require('../database/interface/myth_interface');
 router.get('/', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const featured_news = await featured_news_interface.getNewsBetweenDatesWithCount();
-	const live_news = await live_news_interface.get_all_live_news();
+	const live_news = await live_news_interface.get_all_live_news(10);
 
 	res.render('index', {
 		stats: stats,
@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
 router.get('/en', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const featured_news = await featured_news_interface.getNewsBetweenDatesWithCount();
-	const live_news = await live_news_interface.get_all_live_news();
+	const live_news = await live_news_interface.get_all_live_news(10);
 
 	res.render('index_en', {
 		stats: stats,

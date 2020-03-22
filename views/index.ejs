@@ -75,6 +75,7 @@
     </header>
 
     <section class="content" style="margin-top:70px">
+      
       <div class="row call-to-actions">
         <div class="col-md-3">
             <a href="/corona" class="action">
@@ -101,33 +102,34 @@
             </a>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-6">
-          <div class="corona-box">
+          <div class="corona-box live-update">
             <div class="corona-title">
               <svg height="20" width="50" class="blinking">
-                <circle cx="25" cy="10" r="10" fill="red" />
-                Sorry, your browser does not support inline SVG.  
-              </svg> 
+                <circle cx="25" cy="10" r="10" fill="red"></circle>
+                Sorry, your browser does not support inline SVG.
+              </svg>
               <h2 class="live-title">লাইভ আপডেট</h2>
             </div>
             <div class="corona-content">
               <div class="row corona-numbers">
                 <div class="col-4">
                   <div class="numbers-box confirmed">
-                    <h2><%= stats.confirmed < 24 ? 24 : stats.confirmed %></h2>
+                    <h2><%= stats.confirmed %></h2>
                     <span>জন আক্রান্ত হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2><%= stats.recovered < 3 ? 3 : stats.recovered %></h2>
+                    <h2><%= stats.recovered %></h2>
                     <span>জন সুস্থ হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2><%= stats.deaths < 2 ? 2 : stats.deaths %></h2>
+                    <h2><%= stats.deaths %></h2>
                     <span>জন মৃত্যুবরণ করেছেন</span>
                   </div>
                 </div>
@@ -135,17 +137,118 @@
 
               <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[তথ্যসূত্র: CSSE JHU]</a></small></p>
 
-              <div class="news-box" style="height:453px">
-                
+              <div class="news-box" style="height:470px">
                 <% for (let news of live_news) { %>
                   <div href="#" class="news-text">
                     <p class="m0"><i class="fa fa-clock"></i> <%= news.date %> <%= news.time %></p>
                     <h6><%= news.title %></h6>
                   </div>
-                <% } %>  
+                <% } %>
+              </div>
+              <br>
+              <center><a href="/live-update" class="btn btn-corona">বিস্তারিত দেখুন</a></center>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="corona-box preventions">
+            <div class="corona-title">
+              <h2>সংক্রমণ প্রতিরোধে করণীয়</h2>
+            </div>
+            <div class="corona-content">
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-1.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>মানুষের সাথে ঘনিষ্ঠতা পরিহার করুন (করমর্দন বা হ্যান্ডশেক, আলিঙ্গন বা কোলাকুলি করা, চুম্বন ইত্যাদি)।</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-2.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>মুখের যেকোন অংশে (চোখ, নাক, ঠোঁট ইত্যাদি) হাত দেয়া থেকে বিরত থাকুন।</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-3.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>হাঁচি বা কাশি দেয়ার সময় টিস্যু দিয়ে মুখ ঢেকে নিন, তারপর টিস্যুটি ফেলে দিন। হাতের নাগালে টিস্যু না থাকলে বগল বা কনুই ব্যবহার করে মুখ ঢেকে নিন।</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-4.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>অহরহ হাত ধোয়ার অভ্যাস করুন। সাবান এবং পানি দিয়ে অন্তত ২০ সেকেন্ড সময় নিয়ে হাত ধোয়া উচিত। সাবান এবং পানি হাতের কাছে না থাকলে হ্যান্ড স্যানিটাইজার ব্যবহার করুন।</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-5.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>অসুস্থ হলে বাসায় থাকুন, যদি না আপনার চিকিৎসা প্রয়োজন হয়।</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="prevention-tip">
+                <div class="row h-100">
+                  <div class="col-xl-2 col-lg-3 col-4" style="margin:auto">
+                    <img src="images/prevention-6.svg" alt="">
+                  </div>
+                  <div class="col-xl-10 col-lg-9 col-8" style="margin:auto">
+                    <h5>দৈনন্দিন ব্যবহারের বিভিন্ন সরঞ্জামাদি (যেমন মোবাইল ফোন, ল্যাপ্টপ, চশমা, মানিব্যাগ ইত্যাদি) পরিষ্কার এবং জীবাণুমুক্ত করুন।</h5>
+                  </div>
+                </div>
               </div>
 
-              <p class="text-right mt-0"><small><a href="https://www.prothomalo.com/live" target="_blank">[তথ্যসূত্র: প্রথম আলো]</a></small></p>
+              <center><a href="/prevention" class="btn btn-corona">আরো জানুন</a></center>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="corona-box">
+            <div class="corona-title">
+              <h2>সত্য নাকি মিথ্যা?</h2>
+            </div>
+            <div class="corona-content">
+              <div id="myths" style="display:block">
+                  <div class="myth" style="display:block">
+                      <div class="right_or_wrong">
+                          <h2 class="the_myth">থানকুনি পাতা খাওয়ার মাধ্যমে করোনা ভাইরাস সংক্রমণের সম্ভাবনা কমিয়ে আনা যায়</h2>
+
+                          <a href="#" class="right_button">সত্য</a> <a href="#" class="wrong_button">মিথ্যা</a>
+                      </div>
+
+                      <div class="the_answer">
+                          <h2 class="right_answer">আপনার উত্তরটি <strong>সঠিক</strong></h2>
+                          <h2 class="wrong_answer">আপনার উত্তরটি <strong>সঠিক নয়</strong></h2>
+
+                          <p>থানকুনি পাতা খাওয়ার সাথে করোনা ভাইরাস সংক্রমণ রোধের কোনো সম্পর্ক নেই। এরকম আরো ভুল ধারণা সম্পর্কে অবগত হতে আমাদের <strong>সত্য নাকি মিথ্যা</strong> গেমটি খেলুন।</p>
+
+                          <a href="/mythbuster"><button class="next_question">শুরু করুন</button></a>
+                      </div>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
@@ -178,9 +281,47 @@
       <p class="m0"><a href="/about">আমাদের সম্পর্কে</a> | <a href="/privacy-policy">তথ্যের গোপনীয়তা</a> | <a href="/contact">যোগাযোগ</a></p>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   
+   <script type="text/javascript">
+      function fix_height() {
+        var live_update = $('.live-update').height();
+        var preventions = $('.preventions').height();
 
+        if ($(window).height() > 800) {
+          if (live_update > preventions) {
+            $('.preventions').css({height: live_update+'px'});
+          } else {
+            $('.live-update').css({height: preventions+'px'});
+          }
+        }
+      }
+
+      $(document).ready(function(){
+        fix_height();
+
+        $('.right_button').click(function(){
+          $('.the_answer .wrong_answer').show();
+          $('.right_or_wrong').hide();
+          $('.the_answer').fadeIn();
+
+          return false;
+        });
+
+        $('.wrong_button').click(function(){
+          $('.the_answer .right_answer').show();
+          $('.right_or_wrong').hide();
+          $('.the_answer').fadeIn();
+
+          return false;
+        });
+      });
+
+      $(window).resize(function(){
+        fix_height();
+      });
+    </script>
   </body>
 </html>
