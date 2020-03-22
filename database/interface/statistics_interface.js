@@ -31,7 +31,7 @@ async function get_statistics_bangladesh() {
                 lastUpdate: response.lastUpdate
             };
 
-            console.log(obj);
+            //console.log(obj);
 
             return obj;
 
@@ -54,7 +54,7 @@ async function get_statistics_bangladesh() {
                         lastUpdate: response.data[0].lastUpdate
                     };
 
-                    console.log(obj);
+                    //console.log(obj);
 
                     return obj;
 
