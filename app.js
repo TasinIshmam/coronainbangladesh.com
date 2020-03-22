@@ -2,11 +2,11 @@
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
-    require('dotenv').config();
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-    // process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
-    process.env.NODE_ENV = 'development';
-    process.env.PORT = 1338;
+	require('dotenv').config();
+	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+	// process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
+	process.env.NODE_ENV = 'development';
+	process.env.PORT = 1338;
 }
 
 //connect to database
@@ -18,7 +18,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
-
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -36,7 +35,7 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(limiter.rateLimiterMiddlewareInMemory);  //prevents too many requests from the same ip
+app.use(limiter.rateLimiterMiddlewareInMemory); //prevents too many requests from the same ip
 
 //Templating Engine Setup
 app.set('views', path.join(__dirname, 'views'));
@@ -67,12 +66,15 @@ app.use('/en/about', indexRouter);
 app.use('/privacy-policy', indexRouter);
 app.use('/en/privacy-policy', indexRouter);
 
+app.use('/live-update', indexRouter);
+app.use('/en/live-update', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 
 //404
 app.get('*', function(req, res) {
-    res.status(404).render('404');
+	res.status(404).render('404');
 });
 
 module.exports = app;

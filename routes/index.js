@@ -33,6 +33,32 @@ router.get('/en', async function(req, res, next) {
 	});
 });
 
+/* GET bn live update page. */
+router.get('/live-update', async function(req, res, next) {
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const live_news = await live_news_interface.get_all_live_news();
+
+	res.render('live_update', {
+		stats: stats,
+		world_stats: world_stats,
+		live_news: live_news
+	});
+});
+
+/* GET en live update page. */
+router.get('/en/live-update', async function(req, res, next) {
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const live_news = await live_news_interface.get_all_live_news();
+
+	res.render('live_update_en', {
+		stats: stats,
+		world_stats: world_stats,
+		live_news: live_news
+	});
+});
+
 /* GET bn what is corona page. */
 router.get('/corona', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_world();
