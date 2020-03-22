@@ -6,8 +6,14 @@ const redis = require('async-redis');
 const REDISHOST = process.env.REDISHOST || 'localhost';
 const REDISPORT = process.env.REDISPORT || 6379;
 
-const client = redis.createClient(REDISPORT, REDISHOST);
-
+const client = redis.createClient(REDISPORT, REDISHOST, {
+    retry_strategy: function (options) {
+        if (options.error && options.error.code === "ECONNREFUSED") {
+            return new Error("The server refused the connection.");
+        }
+        return Math.min(options.attempt*100, 3000);
+    }
+});
 
 client.on('error', (err) => {
     console.log("Errorrrrr " + err);
@@ -15,7 +21,7 @@ client.on('error', (err) => {
 
 async function get_statistics_bangladesh() {
 
-    return client.get('BD').then( (result) => {
+    return client.get('BD').then((result) => {
         //console.log("WTF");
         if (result) {
 
@@ -62,12 +68,20 @@ async function get_statistics_bangladesh() {
 
         }
     }).catch( (err) => {
-        return  {
-            confirmed: 0,
-            recovered: 0,
-            deaths: 0,
-            lastUpdate: 0
-        };
+        return axios.get("https://covid19.mathdro.id/api/countries/BD/deaths")
+            .then(response => {
+
+                let obj = {
+                    confirmed: response.data[0].confirmed,
+                    recovered: response.data[0].recovered,
+                    deaths: response.data[0].deaths,
+                    active: response.data[0].active,
+                    lastUpdate: response.data[0].lastUpdate
+                };
+
+                return obj;
+
+            });
     });
 
 
@@ -118,12 +132,20 @@ async function get_statistics_world() {
 
         }
     }).catch( (error) => {
-        return  {
-            confirmed: 0,
-            recovered: 0,
-            deaths: 0,
-            lastUpdate: 0
-        };
+        return axios.get("https://covid19.mathdro.id/api/")
+            .then(response => {
+
+                let obj = {
+                    confirmed: response.data[0].confirmed.value,
+                    recovered: response.data[0].recovered.value,
+                    deaths: response.data[0].deaths.value,
+                    lastUpdate: response.data[0].lastUpdate
+
+                };
+
+                return obj;
+
+            });
     });
 
 }
