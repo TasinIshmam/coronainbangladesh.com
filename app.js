@@ -13,6 +13,7 @@ if (env === 'development') {
 require('./database/mongoose');
 
 //load modules
+const responseTime = require('response-time');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -29,6 +30,7 @@ const app = express();
 morgan_format = process.env.NODE_ENV === 'development' ? 'dev' : 'common';
 app.use(logger(morgan_format));
 
+app.use(responseTime());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
