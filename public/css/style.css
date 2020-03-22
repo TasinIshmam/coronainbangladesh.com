@@ -642,6 +642,7 @@ footer {
 
 	#myths .myth .the_answer h2 {
 		margin-top: 20px;
+		font-size: 25px !important;
 	}
 	.myth_heading {
 		font-size: 24px;
@@ -655,6 +656,7 @@ footer {
 
 	.numbers-box span {
 		min-height: 45px;
+		font-size: 10px;
 	}
 
 	.corona-box .btn-corona {
