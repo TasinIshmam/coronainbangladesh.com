@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Corona in Bangladesh - A comprehensive information hub about the Coronavirus in Bangladesh</title>
+
+    <link rel="shortcut icon" href="../images/favicon.svg" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://kit.fontawesome.com/ad532652d6.js" crossorigin="anonymous"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110318517-12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110318517-12');
+    </script>
+  </head>
+  <body class="corona-bg-dark">
+    <header>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark-corona">
+        <a class="navbar-brand" href="/en"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-right" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/en">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/corona">What is Coronavirus?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/prevention">Preventions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/mythbuster">Mythbuster</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/emergency">Emergencies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link switch" href="/live-update">বাংলা তে দেখুন</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="content" style="margin-top:70px">
+      <div class="container">
+          <div class="corona-box">
+            <div class="corona-title">
+              <svg height="20" width="50" class="blinking">
+                <circle cx="25" cy="10" r="10" fill="red"></circle>
+                Sorry, your browser does not support inline SVG.
+              </svg>
+              <h2 class="live-title">LIVE UPDATE</h2>
+            </div>
+            <div class="corona-content">
+              <h5 class="text-center">In Bangladesh</h5>
+
+              <div class="row corona-numbers" style="margin-bottom:25px">
+                <div class="col-4">
+                  <div class="numbers-box confirmed">
+                    <h2><%= stats.confirmed %></h2>
+                    <span>CONFIRMED CASES</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="numbers-box recoveries">
+                    <h2><%= stats.recovered %></h2>
+                    <span>RECOVERIES</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="numbers-box deaths">
+                    <h2><%= stats.deaths %></h2>
+                    <span>DEATHS</span>
+                  </div>
+                </div>
+              </div>
+
+              <h5 class="text-center">Around the World</h5>
+
+              <div class="row corona-numbers int-numbers">
+                <div class="col-4">
+                  <div class="numbers-box confirmed">
+                    <h2><%= world_stats.confirmed %></h2>
+                    <span>CONFIRMED CASES</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="numbers-box recoveries">
+                    <h2><%= world_stats.recovered %></h2>
+                    <span>RECOVERIES</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="numbers-box deaths">
+                    <h2><%= world_stats.deaths %></h2>
+                    <span>DEATHS</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>
+
+              <div class="news-box" style="height:470px">
+								<% for (let news of live_news) { %>
+                  <div href="#" class="news-text">
+                    <p class="m0"><i class="fa fa-clock"></i> <%= news.date %> <%= news.time %></p>
+                    <h6><%= news.title %></h6>
+                  </div>
+                <% } %>
+              </div>
+
+              <p class="text-right mt-0"><small><a href="https://www.prothomalo.com/live" target="_blank">[Source: Prothom Alo]</a></small></p>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <footer>
+      <p class="m0"><strong>Corona in Bangladesh</strong> is a voluntary initiative with a mission to build and serve a comprehensive and trustworthy online information hub in the time of coronavirus epidemic in Bangladesh.</p>
+      <p class="m0"><a href="/en/about">About</a> | <a href="/en/privacy-policy">Privacy Policy</a> | <a href="/en/contact">Contact</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
