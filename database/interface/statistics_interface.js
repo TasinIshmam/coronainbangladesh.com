@@ -9,6 +9,7 @@ const REDISPORT = process.env.REDISPORT || 6379;
 const client = redis.createClient(REDISPORT, REDISHOST, {
     retry_strategy: function (options) {
         if (options.error && options.error.code === "ECONNREFUSED") {
+            console.log('SERVER REFUSED CONNECTION!!!');
             return new Error("The server refused the connection.");
         }
         return Math.min(options.attempt*100, 3000);
@@ -103,7 +104,7 @@ async function get_statistics_world() {
 
             };
 
-            console.log(obj);
+            //console.log(obj);
 
             return obj;
 
@@ -112,19 +113,21 @@ async function get_statistics_world() {
             return axios.get("https://covid19.mathdro.id/api/")
                 .then(response => {
 
-                    const responseJSON = response.data[0];
+                    console.log(response.data);
+
+                    const responseJSON = response.data;
 
                     client.set('BD', JSON.stringify(responseJSON));
 
                     let obj = {
-                        confirmed: response.data[0].confirmed.value,
-                        recovered: response.data[0].recovered.value,
-                        deaths: response.data[0].deaths.value,
-                        lastUpdate: response.data[0].lastUpdate
+                        confirmed: response.data.confirmed.value,
+                        recovered: response.data.recovered.value,
+                        deaths: response.data.deaths.value,
+                        lastUpdate: response.data.lastUpdate
 
                     };
 
-                    console.log(obj);
+                    //console.log(obj);
 
                     return obj;
 
@@ -135,11 +138,13 @@ async function get_statistics_world() {
         return axios.get("https://covid19.mathdro.id/api/")
             .then(response => {
 
+                console.log(response.data);
+
                 let obj = {
-                    confirmed: response.data[0].confirmed.value,
-                    recovered: response.data[0].recovered.value,
-                    deaths: response.data[0].deaths.value,
-                    lastUpdate: response.data[0].lastUpdate
+                    confirmed: response.data.confirmed.value,
+                    recovered: response.data.recovered.value,
+                    deaths: response.data.deaths.value,
+                    lastUpdate: response.data.lastUpdate
 
                 };
 
@@ -149,6 +154,5 @@ async function get_statistics_world() {
     });
 
 }
-
 
 module.exports = {get_statistics_bangladesh, get_statistics_world};
