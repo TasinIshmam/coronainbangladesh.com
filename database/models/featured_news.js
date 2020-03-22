@@ -37,7 +37,7 @@ const Featured_News_Schema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 5,
-        default: 3 //todo default to 3 when done testing
+        default: 3
     }
 });
 
