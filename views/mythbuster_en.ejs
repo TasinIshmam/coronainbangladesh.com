@@ -515,7 +515,7 @@
 
             var time = new Date($.now());
 
-            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email, correct_answers: correct, level: rank, time: time});
+            // $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email, correct_answers: correct, level: rank, time: time});
 
 
             return false;
@@ -532,6 +532,8 @@
             $("#login").hide();
             $("#myths .unanswered:first").show();
             $("#myths").fadeIn();
+
+            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email});
 
             return false;
         });
