@@ -4,6 +4,10 @@ let featured_news_interface = require('../database/interface/featured_news_inter
  * Receives featurednews json Array in request. Updates database.
  *
  * validation_token needed as query parameter
+ * eg, req.body = [
+ * {
+ *     featured_news_object
+ * }]
  * @dependencies  ./database/interface/featured_news_interface,
  * @dependencies mongoose
  * @param {Httprequest}req

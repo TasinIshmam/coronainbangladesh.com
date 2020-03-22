@@ -15,7 +15,7 @@ let featured_news_controller = require('../controllers/featured_news_controller'
 router.get('/myths', api_mythbuster_controller.handle_get_myths );
 
 //route for emails of users playing mythbusters
-router.post('/myths/users', api_user_quiz_controller.handle_PUT_user);
+router.post('/myths/users', api_user_quiz_controller.handle_POST_user);
 
 //post new featured news
 router.post('/featurednews' , featured_news_controller.handle_POST_featured_news);
