@@ -3,9 +3,17 @@
 const live_news_interface = require('../database/interface/live_news_interface');
 const parser = require('../util/parser');
 
+
+/**
+ * Gets all live news from web source (prothomalo) by using a parser
+ * Gets all live news from a database.
+ * Finds new lives from the web source not included in database (Set difference)
+ * Adds them to database
+ * @param req
+ * @param res
+ * @returns response status
+ */
 async function handle_live_news_update(req, res) {
-
-
 
     try {
         let live_result = await parser.get_all_live_news();
