@@ -16,12 +16,12 @@ client.on('error', (err) => {
 async function get_statistics_bangladesh() {
 
     return client.get('BD').then( (result) => {
-        console.log("WTF");
+        //console.log("WTF");
         if (result) {
 
             const response = JSON.parse(result);
 
-            console.log('REDIS CACHE DATA ', response);
+            //console.log('REDIS CACHE DATA ', response);
 
             let obj = {
                 confirmed: response.confirmed,
@@ -42,8 +42,7 @@ async function get_statistics_bangladesh() {
 
                     const responseJSON = response.data[0];
 
-
-                    console.log('API CALL DATA ', responseJSON);
+                    //console.log('API CALL DATA ', responseJSON);
 
                     client.set('BD', JSON.stringify(responseJSON));
 
@@ -83,10 +82,10 @@ async function get_statistics_world() {
             const response = JSON.parse(result);
 
             let obj =  {
-                confirmed: response.data.confirmed.value,
-                recovered: response.data.recovered.value,
-                deaths: response.data.deaths.value,
-                lastUpdate: response.data.lastUpdate
+                confirmed: response.confirmed.value,
+                recovered: response.recovered.value,
+                deaths: response.deaths.value,
+                lastUpdate: response.lastUpdate
 
             };
 
@@ -99,15 +98,15 @@ async function get_statistics_world() {
             return axios.get("https://covid19.mathdro.id/api/")
                 .then(response => {
 
-                    const responseJSON = response.data;
+                    const responseJSON = response.data[0];
 
                     client.set('BD', JSON.stringify(responseJSON));
 
                     let obj = {
-                        confirmed: response.data.confirmed.value,
-                        recovered: response.data.recovered.value,
-                        deaths: response.data.deaths.value,
-                        lastUpdate: response.data.lastUpdate
+                        confirmed: response.data[0].confirmed.value,
+                        recovered: response.data[0].recovered.value,
+                        deaths: response.data[0].deaths.value,
+                        lastUpdate: response.data[0].lastUpdate
 
                     };
 
