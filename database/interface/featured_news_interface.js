@@ -5,9 +5,9 @@ async function insertManyNews(newsArray) {
 	try {
 		let result = await FeaturedNews.insertMany(newsArray, { upsert: true, setDefaultOnInsert: true });
 
-		return result.length === newsArray.length;
+		return result;
 	} catch (e) {
-		return false;
+		return {};
 	}
 }
 
