@@ -113,11 +113,11 @@ async function get_statistics_world() {
             return axios.get("https://covid19.mathdro.id/api/")
                 .then(response => {
 
-                    console.log(response.data);
+                    //console.log(response.data);
 
                     const responseJSON = response.data;
 
-                    client.set('BD', JSON.stringify(responseJSON));
+                    client.set('World', JSON.stringify(responseJSON));
 
                     let obj = {
                         confirmed: response.data.confirmed.value,
@@ -138,7 +138,7 @@ async function get_statistics_world() {
         return axios.get("https://covid19.mathdro.id/api/")
             .then(response => {
 
-                console.log(response.data);
+                //console.log(response.data);
 
                 let obj = {
                     confirmed: response.data.confirmed.value,
