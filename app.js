@@ -2,11 +2,11 @@
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
-	require('dotenv').config();
-	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-	// process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
-	process.env.NODE_ENV = 'development';
-	process.env.PORT = 1338;
+    require('dotenv').config();
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+    // process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
+    process.env.NODE_ENV = 'development';
+    process.env.PORT = 1338;
 }
 
 //connect to database
@@ -70,7 +70,7 @@ app.use('/api', apiRouter);
 
 //404
 app.get('*', function(req, res) {
-	res.status(404).render('404');
+    res.status(404).render('404');
 });
 
 module.exports = app;
