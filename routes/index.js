@@ -6,7 +6,8 @@ const moment = require('moment');
 const stat_interface = require('../database/interface/statistics_interface');
 const live_news_interface = require('../database/interface/live_news_interface');
 const featured_news_interface = require('../database/interface/featured_news_interface');
-const myth_interface = require('../database/interface/myth_interface');
+const daily_news_interface = require('../database/interface/daily_news_interface');
+// const myth_interface = require('../database/interface/myth_interface');
 
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {
@@ -62,10 +63,12 @@ router.get('/en/live-update', async function(req, res, next) {
 
 /* GET bn daily update page. */
 router.get('/daily-update', async function(req, res, next) {
+	console.log(req.query.date);
+
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await live_news_interface.get_all_live_news();
-	const world_news = await live_news_interface.get_all_live_news();
+	const bd_news = await daily_news_interface.get_BANGLA_daily_news_BD_with_date();
+	const world_news = await daily_news_interface.get_BANGLA_daily_news_GLOBAL_with_date();
 	const date = moment().format('Do MMMM, YYYY');
 
 	res.render('daily_update', {
@@ -79,10 +82,12 @@ router.get('/daily-update', async function(req, res, next) {
 
 /* GET en daily update page. */
 router.get('/en/daily-update', async function(req, res, next) {
+	console.log(req.query.date);
+
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await live_news_interface.get_all_live_news();
-	const world_news = await live_news_interface.get_all_live_news();
+	const bd_news = await daily_news_interface.get_ENGLISH_daily_news_BD_with_date();
+	const world_news = await daily_news_interface.get_ENGLISH_daily_news_GLOBAL_with_date();
 	const date = moment().format('Do MMMM, YYYY');
 
 	res.render('daily_update_en', {
