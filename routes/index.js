@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 // Importing DB Interfaces
 const stat_interface = require('../database/interface/statistics_interface');
@@ -56,6 +57,40 @@ router.get('/en/live-update', async function(req, res, next) {
 		stats: stats,
 		world_stats: world_stats,
 		live_news: live_news
+	});
+});
+
+/* GET bn daily update page. */
+router.get('/daily-update', async function(req, res, next) {
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const bd_news = await live_news_interface.get_all_live_news();
+	const world_news = await live_news_interface.get_all_live_news();
+	const date = moment().format('Do MMMM, YYYY');
+
+	res.render('daily_update', {
+		stats: stats,
+		world_stats: world_stats,
+		bd_news: bd_news,
+		world_news: world_news,
+		date: date
+	});
+});
+
+/* GET en daily update page. */
+router.get('/en/daily-update', async function(req, res, next) {
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const bd_news = await live_news_interface.get_all_live_news();
+	const world_news = await live_news_interface.get_all_live_news();
+	const date = moment().format('Do MMMM, YYYY');
+
+	res.render('daily_update_en', {
+		stats: stats,
+		world_stats: world_stats,
+		bd_news: bd_news,
+		world_news: world_news,
+		date: date
 	});
 });
 
