@@ -118,13 +118,13 @@
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2><%= stats.recovered < 33 ? 33 : stats.recovered %></h2>
+                    <h2><%= stats.recovered < 33 ? 5 : stats.recovered %></h2>
                     <span>RECOVERIES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2><%= stats.deaths < 33 ? 33 : stats.deaths %></h2>
+                    <h2><%= stats.deaths < 33 ? 3 : stats.deaths %></h2>
                     <span>DEATHS</span>
                   </div>
                 </div>
@@ -160,13 +160,13 @@
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2><%= world_stats.confirmed %></h2>
+                    <h2><%= world_stats.recovered %></h2>
                     <span>RECOVERIES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2><%= world_stats.confirmed %></h2>
+                    <h2><%= world_stats.deaths %></h2>
                     <span>DEATHS</span>
                   </div>
                 </div>
