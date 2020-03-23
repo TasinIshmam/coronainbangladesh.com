@@ -63,39 +63,61 @@ router.get('/en/live-update', async function(req, res, next) {
 
 /* GET bn daily update page. */
 router.get('/updates', async function(req, res, next) {
-	console.log(req.query.date);
-
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const world_stats = await stat_interface.get_statistics_world();
 	const bd_news = await daily_news_interface.get_BANGLA_daily_news_BD_with_date();
 	const world_news = await daily_news_interface.get_BANGLA_daily_news_GLOBAL_with_date();
-	const date = moment().format('Do MMMM, YYYY');
+
+	let date = moment().format('Do MMMM, YYYY');
+	let default_date = moment().format('MM/DD/YYYY');
+
+	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
+
+	if (req.query.date != null) {
+		console.log(req.query.date.match(dateReg));
+		if (req.query.date.match(dateReg) !== null) {
+			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
+			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+		}
+	}
 
 	res.render('daily_update', {
 		stats: stats,
 		world_stats: world_stats,
 		bd_news: bd_news,
 		world_news: world_news,
-		date: date
+		date: date,
+		default_date: default_date
 	});
 });
 
 /* GET en daily update page. */
 router.get('/en/updates', async function(req, res, next) {
-	console.log(req.query.date);
-
 	const stats = await stat_interface.get_statistics_bangladesh();
 	const world_stats = await stat_interface.get_statistics_world();
 	const bd_news = await daily_news_interface.get_ENGLISH_daily_news_BD_with_date();
 	const world_news = await daily_news_interface.get_ENGLISH_daily_news_GLOBAL_with_date();
-	const date = moment().format('Do MMMM, YYYY');
+
+	let date = moment().format('Do MMMM, YYYY');
+	let default_date = moment().format('MM/DD/YYYY');
+
+	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
+
+	if (req.query.date != null) {
+		console.log(req.query.date.match(dateReg));
+		if (req.query.date.match(dateReg) !== null) {
+			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
+			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+		}
+	}
 
 	res.render('daily_update_en', {
 		stats: stats,
 		world_stats: world_stats,
 		bd_news: bd_news,
 		world_news: world_news,
-		date: date
+		date: date,
+		default_date: default_date
 	});
 });
 

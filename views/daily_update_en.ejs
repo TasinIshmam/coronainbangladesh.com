@@ -94,7 +94,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <input type="text" class="form-control corona-input" id="dateDrop" placeholder="Pick a date">
+                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="Pick a date">
               </div>
             </div>
           </div>
@@ -266,8 +266,16 @@
           theme: 'leaf',
           large: true,
           largeDefault: true,
-          minDate: '03/23/2020',
-          maxDate: '03/23/2020'
+          minDate: '03/20/2020',
+          maxDate: '03/27/2020',
+          format: 'd-m-Y',
+          onChange: function(res) {
+            let selected_date = res.date.m+'/'+res.date.d+'/'+res.date.Y;
+            let default_date = $("#dateDrop").attr('data-dd-default-date');
+            if (selected_date != default_date) {
+              window.location.href = "/en/updates?date="+selected_date;
+            }
+          }
         });
 
         $('#selectors a[href="#bangladesh"]').click(function(){
@@ -281,7 +289,6 @@
 
       $("form#login_form").submit(function () {
             name = $("#login_form #login_form_name").val();
-            // contact_number = $("#login_form #login_form_contact_number").val();
             email = $("#login_form #login_form_email").val();
 
             // $("#progress_meter").slideDown();
