@@ -3,35 +3,30 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 require('mongoose-type-url');
 
 
-const featured_news_schema = new mongoose.Schema({
 
-    title: {
+const daily_news_schema = new mongoose.Schema({
+
+    text : {
         type: String,
         required: true,
         unique: true,
         trim: true,
         minLength: 1
     },
-    description: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        minLength: 1
-    },
-    link: {
+    reference: {
         type: mongoose.SchemaTypes.Url,
         required: true,
 
     },
     image_url: {
         type: mongoose.SchemaTypes.Url,
-        required: true,
+        required: false,
 
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     },
     importance_rating: {
         type: Number,
@@ -40,9 +35,3 @@ const featured_news_schema = new mongoose.Schema({
         default: 3
     }
 });
-
-featured_news_schema.plugin(beautifyUnique);
-
-let FeaturedNews = mongoose.model("FeaturedNews", featured_news_schema);
-
-module.exports = {FeaturedNews};

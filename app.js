@@ -3,15 +3,14 @@ const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
 	require('dotenv').config();
-	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-	// process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
+	//process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+	 process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.
 	process.env.NODE_ENV = 'development';
 	process.env.PORT = 1338;
 }
 
 //connect to database
-require('./database/mongoose');
-
+let {mongoose} = require('./database/mongoose');
 //load modules
 const responseTime = require('response-time');
 const express = require('express');
@@ -78,5 +77,23 @@ app.use('/api', apiRouter);
 app.get('*', function(req, res) {
 	res.status(404).render('404');
 });
+
+
+process.on('SIGINT', async function() {  //todo shift from console.error to something more...reasonable
+	console.error("SIGINT called");
+	await mongoose.disconnect();
+	console.error("Mongoose connection terminated");
+	process.exit(0);
+
+});
+
+process.on('SIGTERM', async function() {
+	console.error("SIGTERM called");
+	await mongoose.disconnect();
+	console.error("Mongoose connection terminated");
+	process.exit(0);
+
+});
+
 
 module.exports = app;
