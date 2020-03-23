@@ -1,5 +1,20 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /live-update
+
+
+User-agent: googlebot
+Allow: /
+Allow: /live-update
+Disallow: /api/
+
+
+User-agent: Slurp
+Allow: /
+Allow: /live-update
+Disallow: /api/
+
+
 
 Sitemap: https://coronainbangladesh.com/sitemap.xml
