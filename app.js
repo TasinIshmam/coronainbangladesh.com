@@ -70,8 +70,8 @@ app.use('/en/privacy-policy', indexRouter);
 app.use('/live-update', indexRouter);
 app.use('/en/live-update', indexRouter);
 
-app.use('/daily-update', indexRouter);
-app.use('/en/daily-update', indexRouter);
+app.use('/updates', indexRouter);
+app.use('/en/updates', indexRouter);
 
 //API ROUTES
 app.use('/api', apiRouter);

@@ -62,7 +62,7 @@ router.get('/en/live-update', async function(req, res, next) {
 });
 
 /* GET bn daily update page. */
-router.get('/daily-update', async function(req, res, next) {
+router.get('/updates', async function(req, res, next) {
 	console.log(req.query.date);
 
 	const stats = await stat_interface.get_statistics_bangladesh();
@@ -81,7 +81,7 @@ router.get('/daily-update', async function(req, res, next) {
 });
 
 /* GET en daily update page. */
-router.get('/en/daily-update', async function(req, res, next) {
+router.get('/en/updates', async function(req, res, next) {
 	console.log(req.query.date);
 
 	const stats = await stat_interface.get_statistics_bangladesh();
