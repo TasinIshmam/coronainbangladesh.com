@@ -130,26 +130,12 @@
               <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>
 
               <div class="updates">
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
+                <% for (let news of bd_news) { %>
+									<div class="update">
+										<p><%= news.text %></p>
+										<p class="text-right"><small><a href="<%= news.reference %>" target="_blank">[Source]</a></small></p>
+									</div>
+								<% } %>
               </div>
             </div>
           </div>
@@ -186,26 +172,12 @@
               <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>
 
               <div class="updates">
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
-                <div class="update">
-                  <p>যুক্তরাজ্যে করোনাভাইরাসে আক্রান্ত রোগীর সংখ্যা ৫ হাজার ছাড়াল। দেশটিতে করোনা আক্রান্ত রোগী এখন ৫ হাজার ১৮ জন। যুক্তরাজ্যে এখন পর্যন্ত ২৩৩ জনের মৃত্যু হয়েছে করোনায়।</p>
-
-                  <p class="text-right"><small><a href="#" target="_blank">[source]</a></small></p>
-                </div>
+                <% for (let news of world_news) { %>
+									<div class="update">
+										<p><%= news.text %></p>
+										<p class="text-right"><small><a href="<%= news.reference %>" target="_blank">[Source]</a></small></p>
+									</div>
+								<% } %>
               </div>
             </div>
           </div>
@@ -221,14 +193,14 @@
             <div class="corona-content text-center">
               <h5>Get daily updates on the coronavirus pandemic straight into your inbox every day.</h5>
               <br><br>
-              <form action="#" method="post">
+              <form action="#" method="post" id="login_form">
                 <div class="row" style="margin-bottom:10px">
                   <div class="col-md-6">
-                    <input type="text" class="form-control corona-input" placeholder="Your Name" aria-label="Your Name" required>
+                    <input type="text" id="login_form_name" class="form-control corona-input" placeholder="Your Name" aria-label="Your Name" required>
                     <br>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control corona-input" placeholder="Your Email Address" aria-label="Your Email Address" required>
+                    <input type="text" id="login_form_email" class="form-control corona-input" placeholder="Your Email Address" aria-label="Your Email Address" required>
                   </div>
                 </div>
 
@@ -245,7 +217,7 @@
             <div class="corona-content text-center">
               <a href="https://www.facebook.com/YouthPolicyForumBD" target="_blank"><img src="../images/ypf.png" alt="" class="ypf-logo"></a>
               <br><br>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Youth Policy Forum is a discussion platform that aims to create enlightened and well informed young citizens through knowledge sharing, debates and discussions on pressing policy issues of our time. We believe young people need to learn history, philosophy and the art of statecraft to take responsibilities in shaping the future of their states.</p>
             </div>
           </div>
         </div>
@@ -298,6 +270,23 @@
           $('html, body').animate({scrollTop: $('#international').offset().top - 80}, 800);
         });
       });
+
+      $("form#login_form").submit(function () {
+            name = $("#login_form #login_form_name").val();
+            // contact_number = $("#login_form #login_form_contact_number").val();
+            email = $("#login_form #login_form_email").val();
+
+            // $("#progress_meter").slideDown();
+            // $("#progress_meter span.unanswered:first").removeClass('unanswered').addClass('selected');
+
+            // $("#login").hide();
+            // $("#myths .unanswered:first").show();
+            // $("#myths").fadeIn();
+
+            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email});
+
+            return false;
+				});
 
       $(window).resize(function(){
         fix_height();
