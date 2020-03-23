@@ -195,21 +195,26 @@
               <h2><i class="fas fa-envelope-open-text"></i> সাবস্ক্রাইব করুন</h2>
             </div>
             <div class="corona-content text-center">
-              <h5>করোনাভাইরাস সম্পর্কিত সকল আপডেট আপনার ইনবক্সে প্রতিদিন পেতে আমাদের নিউজলেটার এর জন্য সাবস্ক্রাইব করুন।</h5>
-              <br><br>
-              <form action="#" method="post" id="login_form">
-                <div class="row" style="margin-bottom:10px">
-                  <div class="col-md-6">
-                    <input type="text" id="login_form_name" class="form-control corona-input" placeholder="আপনার নাম" aria-label="আপনার নাম" required>
-                    <br>
+              <div id="subscription-form">
+                <h5>করোনাভাইরাস সম্পর্কিত সকল আপডেট আপনার ইনবক্সে প্রতিদিন পেতে আমাদের নিউজলেটার এর জন্য সাবস্ক্রাইব করুন।</h5>
+                <br><br>
+                <form action="#" method="post" id="login_form">
+                  <div class="row" style="margin-bottom:10px">
+                    <div class="col-md-6">
+                      <input type="text" id="login_form_name" class="form-control corona-input" placeholder="আপনার নাম" aria-label="আপনার নাম" required>
+                      <br>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" id="login_form_email" class="form-control corona-input" placeholder="আপনার ইমেইল এড্রেস" aria-label="আপনার ইমেইল এড্রেস" required>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <input type="text" id="login_form_email" class="form-control corona-input" placeholder="আপনার ইমেইল এড্রেস" aria-label="আপনার ইমেইল এড্রেস" required>
-                  </div>
-                </div>
 
-                <button class="btn btn-corona btn-lg" type="submit"><i class="fas fa-envelope-open-text"></i> সাবস্ক্রাইব করুন</button>
-              </form>
+                  <button class="btn btn-corona btn-lg" type="submit"><i class="fas fa-envelope-open-text"></i> সাবস্ক্রাইব করুন</button>
+                </form>
+              </div>
+              <div id="subscription-success" style="display: none;">
+                <h2><i class="fas fa-check-circle" style="color: #00a048;"></i> সাবস্ক্রিপশন সফল</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -279,7 +284,7 @@
             // contact_number = $("#login_form #login_form_contact_number").val();
             email = $("#login_form #login_form_email").val();
 
-            // $("#progress_meter").slideDown();
+            
             // $("#progress_meter span.unanswered:first").removeClass('unanswered').addClass('selected');
 
             // $("#login").hide();
@@ -288,7 +293,8 @@
 
             $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email});
 
-            alert('Subscription Successful!');
+            $("#subscription-form").css("display", "none");
+            $("#subscription-success").css("display", "");
 
             return false;
 				});
