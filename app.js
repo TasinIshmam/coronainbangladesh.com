@@ -10,7 +10,7 @@ if (env === 'development') {
 }
 
 //connect to database
-let {mongoose} = require('./database/mongoose');
+let { mongoose } = require('./database/mongoose');
 //load modules
 const responseTime = require('response-time');
 const express = require('express');
@@ -70,6 +70,9 @@ app.use('/en/privacy-policy', indexRouter);
 app.use('/live-update', indexRouter);
 app.use('/en/live-update', indexRouter);
 
+app.use('/daily-update', indexRouter);
+app.use('/en/daily-update', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 
@@ -78,22 +81,19 @@ app.get('*', function(req, res) {
 	res.status(404).render('404');
 });
 
-
-process.on('SIGINT', async function() {  //todo shift from console.error to something more...reasonable
-	console.error("SIGINT called");
+process.on('SIGINT', async function() {
+	//todo shift from console.error to something more...reasonable
+	console.error('SIGINT called');
 	await mongoose.disconnect();
-	console.error("Mongoose connection terminated");
+	console.error('Mongoose connection terminated');
 	process.exit(0);
-
 });
 
 process.on('SIGTERM', async function() {
-	console.error("SIGTERM called");
+	console.error('SIGTERM called');
 	await mongoose.disconnect();
-	console.error("Mongoose connection terminated");
+	console.error('Mongoose connection terminated');
 	process.exit(0);
-
 });
-
 
 module.exports = app;

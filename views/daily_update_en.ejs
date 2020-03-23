@@ -68,7 +68,7 @@
               <a class="nav-link" href="/en/contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link switch" href="/">বাংলা তে দেখুন</a>
+              <a class="nav-link switch" href="/daily-update">বাংলা তে দেখুন</a>
             </li>
           </ul>
         </div>
@@ -83,7 +83,7 @@
         <div class="corona-content">
           <div class="row">
             <div class="col-md-6">
-              <h5>You are currently viewing all the updates from <strong>23rd March 2020</strong>. You can also see updates from other days.</h5>
+              <h5>You are currently viewing all the updates from <strong><%= date %></strong>. You can also see updates from other days.</h5>
             </div>
             <div class="col-md-6">
               <!-- <input type="text" id="dateDrop"> -->
@@ -109,19 +109,19 @@
               <div class="row corona-numbers int-numbers">
                 <div class="col-4">
                   <div class="numbers-box confirmed">
-                    <h2>12</h2>
+                    <h2><%= stats.confirmed < 33 ? 33 : stats.confirmed %></h2>
                     <span>CONFIRMED CASES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2>12</h2>
+                    <h2><%= stats.recovered < 33 ? 33 : stats.recovered %></h2>
                     <span>RECOVERIES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2>12</h2>
+                    <h2><%= stats.deaths < 33 ? 33 : stats.deaths %></h2>
                     <span>DEATHS</span>
                   </div>
                 </div>
@@ -165,19 +165,19 @@
               <div class="row corona-numbers int-numbers">
                 <div class="col-4">
                   <div class="numbers-box confirmed">
-                    <h2>12</h2>
+                    <h2><%= world_stats.confirmed %></h2>
                     <span>CONFIRMED CASES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2>12</h2>
+                    <h2><%= world_stats.confirmed %></h2>
                     <span>RECOVERIES</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2>12</h2>
+                    <h2><%= world_stats.confirmed %></h2>
                     <span>DEATHS</span>
                   </div>
                 </div>

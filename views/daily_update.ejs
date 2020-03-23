@@ -68,7 +68,7 @@
               <a class="nav-link" href="/contact">যোগাযোগ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link switch" href="/en">Switch to English</a>
+              <a class="nav-link switch" href="/en/daily-update">Switch to English</a>
             </li>
           </ul>
         </div>
@@ -83,7 +83,7 @@
         <div class="corona-content">
           <div class="row">
             <div class="col-md-6">
-              <h5>আপনি এই মুহূর্তে <strong>২৩শে মার্চ ২০২০</strong> এর সকল আপডেট দেখছেন। আপনি চাইলে অন্য কোনো দিনের সকল আপডেট দেখতে পারেন।</h5>
+              <h5>আপনি এই মুহূর্তে <strong><%= date %></strong> এর সকল আপডেট দেখছেন। আপনি চাইলে অন্য কোনো দিনের সকল আপডেট দেখতে পারেন।</h5>
             </div>
             <div class="col-md-6">
               <!-- <input type="text" id="dateDrop"> -->
@@ -109,19 +109,19 @@
               <div class="row corona-numbers int-numbers">
                 <div class="col-4">
                   <div class="numbers-box confirmed">
-                    <h2>12</h2>
+                    <h2><%= stats.confirmed < 33 ? 33 : stats.confirmed %></h2>
                     <span>জন আক্রান্ত হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2>12</h2>
+                    <h2><%= stats.recovered < 3 ? 3 : stats.recovered %></h2>
                     <span>জন সুস্থ হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2>12</h2>
+                    <h2><%= stats.deaths < 3 ? 3 : stats.deaths %></h2>
                     <span>জন মৃত্যুবরণ করেছেন</span>
                   </div>
                 </div>
@@ -165,19 +165,19 @@
               <div class="row corona-numbers int-numbers">
                 <div class="col-4">
                   <div class="numbers-box confirmed">
-                    <h2>2332444</h2>
+                    <h2><%= world_stats.confirmed %></h2>
                     <span>জন আক্রান্ত হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box recoveries">
-                    <h2>3277464</h2>
+                    <h2><%= world_stats.recovered %></h2>
                     <span>জন সুস্থ হয়েছেন</span>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="numbers-box deaths">
-                    <h2>327237</h2>
+                    <h2><%= world_stats.deaths %></h2>
                     <span>জন মৃত্যুবরণ করেছেন</span>
                   </div>
                 </div>
