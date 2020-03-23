@@ -1,17 +1,26 @@
 
 const users_quiz_database_interface = require('../database/interface/users_quiz_interface');
 
-
-
-let handle_PUT_user =  async (req, res) => {
-
-
+//todo find a secure way to send validation_token. Replace temporary token USER_PUT_SECRET_KEY with standard token VALIDATION_TOKEN_WEBSITE
+/**
+ * Adds quiz players user email and name to database.
+ * eg:
+ * req.body = {
+ *     name:
+ *     email:
+ *     time: (Optional)
+ * }
+ * @param req
+ * @param res
+ * @returns {Promise<HTTPResponseStatus>}
+ */
+let handle_POST_user =  async (req, res) => {
 
     try {
 
         //todo This
         if (req.query.validation_token !== process.env.USER_PUT_SECRET_KEY) {
-            console.log("Received PUT /api/myths/users with INVALID validation token. Discarding request");
+            console.log("Received POST /api/myths/users with INVALID validation token. Discarding request");
             return res.send(401);
         }
 
@@ -21,15 +30,15 @@ let handle_PUT_user =  async (req, res) => {
         });
 
         if (result) {
-           return  res.send(200);
-        } else return res.send(400);
+           return  res.sendStatus(200);
+        } else return res.sendStatus(400);
 
     } catch (e) {
-        return res.send(400);
+        return res.sendStatus(400);
     }
 
 
 };
 
 
-module.exports = {handle_PUT_user};
+module.exports = {handle_POST_user: handle_POST_user};
