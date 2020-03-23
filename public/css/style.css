@@ -535,6 +535,53 @@ body a:hover {
 
 /* #result #repeat {} */
 
+/* .updates {} */
+.updates .update {
+	display: block;
+	margin-bottom: 10px;
+	background: #3a3a4f;
+	padding: 15px;
+	border: 2px solid #d9d16f;
+	font-size: 18px;
+}
+
+.corona-input {
+	display: block;
+	background: #3a3a4f;
+	border: none;
+	padding: 30px 15px !important;
+	color: #d9d16f;
+	font-size: 18px;
+}
+.input-group-text {
+	background: #d9d16f;
+	border: none;
+	font-size: 18px;
+}
+
+#selectors {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	display: none;
+}
+#selectors a {
+	width: 50%;
+	background: #d9d16f;
+	color: #3a3a4f;
+	display: inline-block;
+	text-align: center;
+	font-size: 18px;
+	padding: 10px 0;
+	font-weight: bold;
+}
+#selectors a.selected,
+#selectors a:hover {
+	background: #222242;
+	color: #d9d16f;
+	text-decoration: none;
+}
+
 .m0 {
 	margin: 0;
 }
@@ -547,6 +594,10 @@ h1 {
 
 .h-100 > div {
 	margin: auto;
+}
+
+.ypf-logo {
+	width: 50%;
 }
 
 footer {
@@ -580,6 +631,9 @@ footer {
 		padding: 20px;
 	}
 
+	.corona-box .corona-title h2 {
+		font-size: 21px;
+	}
 	.corona-box .corona-content {
 		padding: 15px;
 	}
@@ -661,12 +715,24 @@ footer {
 
 	.corona-box .btn-corona {
 		display: block;
+		width: 100%;
 	}
 
 	.live-update .news-box {
 		height: auto !important;
 		min-height: auto !important;
 		overflow: auto;
+	}
+
+	.dateDropZone {
+		margin-top: 10px;
+	}
+	.ypf-logo {
+		width: 75%;
+	}
+
+	#selectors {
+		display: block;
 	}
 }
 
