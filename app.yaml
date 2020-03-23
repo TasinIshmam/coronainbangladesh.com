@@ -3,10 +3,13 @@ runtime: nodejs10
 
 
 env_variables:
+  REDISHOST: '10.27.107.155'
+  REDISPORT: '6379'
   MONGODB_URI: "mongodb+srv://node_server:neWkPDlUsWrWYNqf@corona-in-bd-mongo-qcuic.gcp.mongodb.net/test?retryWrites=true&w=majority"
   USER_PUT_SECRET_KEY : "sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2"
-  VALIDATION_TOKEN_WEBSITE : "dgvdrhGHdvo3sfhsgvszIOHGsfdo32423ngrngrgg24r5rfgvs33sqDF"
 
+vpc_access_connector:
+  name: 'projects/corona-website-node-appeng/locations/asia-east2/connectors/corona-website-connector'
 
 handlers:
   - url: /.*
