@@ -28,7 +28,7 @@ async function get_statistics_bangladesh() {
 
             const response = JSON.parse(result);
 
-            //console.log('REDIS CACHE DATA ', response);
+            console.log('REDIS CACHE DATA ', response);
 
             let obj = {
                 confirmed: response.confirmed,
@@ -49,7 +49,7 @@ async function get_statistics_bangladesh() {
 
                     const responseJSON = response.data[0];
 
-                    //console.log('API CALL DATA ', responseJSON);
+                    console.log('API CALL DATA ', responseJSON);
 
                     client.set('BD', JSON.stringify(responseJSON));
 
