@@ -1,39 +1,251 @@
-const axios = require('axios');
+'use strict';
 
+const axios = require('axios');
+const redis = require('async-redis');
+const moment = require('moment');
+
+const REDISHOST = process.env.REDISHOST || 'localhost';
+const REDISPORT = process.env.REDISPORT || 6379;
+const THRESHOLD = 1800;
+
+const client = redis.createClient(REDISPORT, REDISHOST, {
+    retry_strategy: function (options) {
+        if (options.error && options.error.code === "ECONNREFUSED") {
+            console.log('SERVER REFUSED CONNECTION!!!');
+            return new Error("The server refused the connection.");
+        }
+        return Math.min(options.attempt*100, 3000);
+    }
+});
+
+client.on('error', (err) => {
+    console.log("Errorrrrr " + err);
+});
 
 async function get_statistics_bangladesh() {
 
-    let response = await axios.get("https://covid19.mathdro.id/api/countries/BD/deaths");
+    return client.get('lastUpdateBD').then((lastUpdate) => {
 
-    let obj = {
-        confirmed: response.data[0].confirmed,
-        recovered: response.data[0].recovered,
-        deaths: response.data[0].deaths,
-        active: response.data[0].active,
-        lastUpdate: response.data[0].lastUpdate
+        //console.log("CURRENT TIME = ", moment().unix());
 
-    };
+        //console.log("LAST UPDATE = ", lastUpdate);
 
-    return obj;
+        //console.log("DIFFERENCE = ", (moment().unix() - lastUpdate));
+
+        if ((moment().unix() - lastUpdate) <= THRESHOLD) {
+            return client.get('BD').then((result) => {
+
+                if (result) {
+
+                    const response = JSON.parse(result);
+
+                    //console.log('REDIS CACHE DATA ', response);
+                    console.log('REDIS CACHE DATA BD');
+
+                    let obj = {
+                        confirmed: response.confirmed,
+                        recovered: response.recovered,
+                        deaths: response.deaths,
+                        active: response.active,
+                        lastUpdate: response.lastUpdate
+                    };
+
+                    //console.log(obj);
+
+                    return obj;
+
+                } else {
+
+                    return axios.get("https://covid19.mathdro.id/api/countries/BD/deaths")
+                        .then(response => {
+
+                            const responseJSON = response.data[0];
+
+                            //console.log('API CALL DATA ', responseJSON);
+                            console.log('API CALL DATA BD');
+
+                            client.set('BD', JSON.stringify(responseJSON));
+
+                            client.set('lastUpdateBD', moment().unix());
+
+                            let obj = {
+                                confirmed: response.data[0].confirmed,
+                                recovered: response.data[0].recovered,
+                                deaths: response.data[0].deaths,
+                                active: response.data[0].active,
+                                lastUpdate: response.data[0].lastUpdate
+                            };
+
+                            //console.log(obj);
+
+                            return obj;
+
+                        });
+
+                }
+            }).catch( (err) => {
+                return axios.get("https://covid19.mathdro.id/api/countries/BD/deaths")
+                    .then(response => {
+
+                        let obj = {
+                            confirmed: response.data[0].confirmed,
+                            recovered: response.data[0].recovered,
+                            deaths: response.data[0].deaths,
+                            active: response.data[0].active,
+                            lastUpdate: response.data[0].lastUpdate
+                        };
+
+                        return obj;
+
+                    });
+            });
+        } else {
+
+            return axios.get("https://covid19.mathdro.id/api/countries/BD/deaths")
+                .then(response => {
+
+                    const responseJSON = response.data[0];
+
+                    //console.log('API CALL DATA TIMED - ', responseJSON);
+                    console.log('API CALL DATA BD - TIMED');
+
+                    client.set('BD', JSON.stringify(responseJSON));
+
+                    client.set('lastUpdateBD', moment().unix());
+
+                    let obj = {
+                        confirmed: response.data[0].confirmed,
+                        recovered: response.data[0].recovered,
+                        deaths: response.data[0].deaths,
+                        active: response.data[0].active,
+                        lastUpdate: response.data[0].lastUpdate
+                    };
+
+                    //console.log(obj);
+
+                    return obj;
+
+                });
+        }
+    }).catch((err) => {
+        console.log(err.message);
+        return 0;
+    });
+
+
+
+
 }
-
 
 async function get_statistics_world() {
 
-    let response = await axios.get("https://covid19.mathdro.id/api/");
+
+    return client.get('lastUpdateWorld').then((lastUpdate) => {
+
+        if ((moment().unix() - lastUpdate) <= THRESHOLD) {
+            return client.get('World').then( (result) => {
+
+                if (result) {
+
+                    const response = JSON.parse(result);
+
+                    console.log('REDIS CACHE DATA WORLD');
+
+                    let obj =  {
+                        confirmed: response.confirmed.value,
+                        recovered: response.recovered.value,
+                        deaths: response.deaths.value,
+                        lastUpdate: response.lastUpdate
+
+                    };
+
+                    //console.log(obj);
+
+                    return obj;
+
+                } else {
+
+                    return axios.get("https://covid19.mathdro.id/api/")
+                        .then(response => {
+
+                            //console.log(response.data);
+
+                            const responseJSON = response.data;
+
+                            client.set('World', JSON.stringify(responseJSON));
+
+                            client.set('lastUpdateWorld', moment().unix());
+
+                            console.log('API CALL DATA WORLD');
 
 
-    let obj = {
-        confirmed: response.data.confirmed.value,
-        recovered: response.data.recovered.value,
-        deaths: response.data.deaths.value,
-        lastUpdate: response.data.lastUpdate
+                            let obj = {
+                                confirmed: response.data.confirmed.value,
+                                recovered: response.data.recovered.value,
+                                deaths: response.data.deaths.value,
+                                lastUpdate: response.data.lastUpdate
 
-    };
+                            };
 
-    return obj;
+                            //console.log(obj);
+
+                            return obj;
+
+                        });
+
+                }
+            }).catch( (error) => {
+                return axios.get("https://covid19.mathdro.id/api/")
+                    .then(response => {
+
+                        //console.log(response.data);
+
+                        let obj = {
+                            confirmed: response.data.confirmed.value,
+                            recovered: response.data.recovered.value,
+                            deaths: response.data.deaths.value,
+                            lastUpdate: response.data.lastUpdate
+
+                        };
+
+                        return obj;
+
+                    });
+            });
+        } else {
+            return axios.get("https://covid19.mathdro.id/api/")
+                .then(response => {
+
+                    //console.log(response.data);
+
+                    const responseJSON = response.data;
+
+                    client.set('World', JSON.stringify(responseJSON));
+
+                    client.set('lastUpdateWorld', moment().unix());
+
+                    console.log('API CALL DATA WORLD - TIMED');
+
+                    let obj = {
+                        confirmed: response.data.confirmed.value,
+                        recovered: response.data.recovered.value,
+                        deaths: response.data.deaths.value,
+                        lastUpdate: response.data.lastUpdate
+
+                    };
+
+                    //console.log(obj);
+
+                    return obj;
+
+                });
+        }
+
+    }).catch((err) => {
+        console.log(err.message);
+        return 0;
+    });
 
 }
-
 
 module.exports = {get_statistics_bangladesh, get_statistics_world};

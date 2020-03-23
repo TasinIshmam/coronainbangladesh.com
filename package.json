@@ -11,6 +11,7 @@
     "test-global": "cross-env NODE_ENV=production node -r dotenv/config ./playground/test.js"
   },
   "dependencies": {
+    "async-redis": "^1.1.7",
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "~1.4.4",
@@ -28,6 +29,7 @@
     "node-cron": "^2.0.3",
     "rate-limit-mongo": "^2.1.0",
     "rate-limiter-flexible": "^2.1.3",
+    "response-time": "^2.3.2",
     "validator": "^13.0.0"
   },
   "devDependencies": {
