@@ -194,21 +194,26 @@
               <h2><i class="fas fa-envelope-open-text"></i> Newsletter</h2>
             </div>
             <div class="corona-content text-center">
-              <h5>Get daily updates on the coronavirus pandemic straight into your inbox every day.</h5>
-              <br><br>
-              <form action="#" method="post" id="login_form">
-                <div class="row" style="margin-bottom:10px">
-                  <div class="col-md-6">
-                    <input type="text" id="login_form_name" class="form-control corona-input" placeholder="Your Name" aria-label="Your Name" required>
-                    <br>
+              <div id="subscription-form">
+                <h5>Get daily updates on the coronavirus pandemic straight into your inbox every day.</h5>
+                <br><br>
+                <form action="#" method="post" id="login_form">
+                  <div class="row" style="margin-bottom:10px">
+                    <div class="col-md-6">
+                      <input type="text" id="login_form_name" class="form-control corona-input" placeholder="Your Name" aria-label="Your Name" required>
+                      <br>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" id="login_form_email" class="form-control corona-input" placeholder="Your Email Address" aria-label="Your Email Address" required>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <input type="text" id="login_form_email" class="form-control corona-input" placeholder="Your Email Address" aria-label="Your Email Address" required>
-                  </div>
-                </div>
-
-                <button class="btn btn-corona btn-lg" type="submit"><i class="fas fa-envelope-open-text"></i> Subscribe Now</button>
-              </form>
+  
+                  <button class="btn btn-corona btn-lg" type="submit"><i class="fas fa-envelope-open-text"></i> Subscribe Now</button>
+                </form>
+              </div>
+              <div id="subscription-success" style="display: none;">
+                <h2><i class="fas fa-check-circle" style="color: #00a048;"></i> Subscription Successful</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -288,7 +293,8 @@
 
             $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email});
 
-            alert('Subscription Successful!');
+            $("#subscription-form").css("display", "none");
+            $("#subscription-success").css("display", "");
 
             return false;
 				});
