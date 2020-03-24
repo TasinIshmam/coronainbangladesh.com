@@ -109,28 +109,28 @@
               <h2 class="live-title">Bangladesh</h2>
             </div>
             <div class="corona-content">
-              <div class="row corona-numbers int-numbers">
-                <div class="col-4">
-                  <div class="numbers-box confirmed">
-                    <h2><%= stats.confirmed < 33 ? 33 : stats.confirmed %></h2>
-                    <span>CONFIRMED CASES</span>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="numbers-box recoveries">
-                    <h2><%= stats.recovered < 33 ? 5 : stats.recovered %></h2>
-                    <span>RECOVERIES</span>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="numbers-box deaths">
-                    <h2><%= stats.deaths < 33 ? 3 : stats.deaths %></h2>
-                    <span>DEATHS</span>
-                  </div>
-                </div>
-              </div>
+<!--              <div class="row corona-numbers int-numbers">-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box confirmed">-->
+<!--                    <h2><%= stats.confirmed < 33 ? 33 : stats.confirmed %></h2>-->
+<!--                    <span>CONFIRMED CASES</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box recoveries">-->
+<!--                    <h2><%= stats.recovered < 33 ? 5 : stats.recovered %></h2>-->
+<!--                    <span>RECOVERIES</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box deaths">-->
+<!--                    <h2><%= stats.deaths < 33 ? 3 : stats.deaths %></h2>-->
+<!--                    <span>DEATHS</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>
+<!--              <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>-->
 
               <div class="updates">
                 <% for (let news of bd_news) { %>
@@ -151,28 +151,28 @@
               <h2 class="live-title">International</h2>
             </div>
             <div class="corona-content">
-              <div class="row corona-numbers int-numbers">
-                <div class="col-4">
-                  <div class="numbers-box confirmed">
-                    <h2><%= world_stats.confirmed %></h2>
-                    <span>CONFIRMED CASES</span>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="numbers-box recoveries">
-                    <h2><%= world_stats.recovered %></h2>
-                    <span>RECOVERIES</span>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="numbers-box deaths">
-                    <h2><%= world_stats.deaths %></h2>
-                    <span>DEATHS</span>
-                  </div>
-                </div>
-              </div>
+<!--              <div class="row corona-numbers int-numbers">-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box confirmed">-->
+<!--                    <h2><%= world_stats.confirmed %></h2>-->
+<!--                    <span>CONFIRMED CASES</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box recoveries">-->
+<!--                    <h2><%= world_stats.recovered %></h2>-->
+<!--                    <span>RECOVERIES</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                  <div class="numbers-box deaths">-->
+<!--                    <h2><%= world_stats.deaths %></h2>-->
+<!--                    <span>DEATHS</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>
+<!--              <p class="text-right mt-0"><small><a href="https://coronavirus.jhu.edu/map.html?fbclid=IwAR2Nd2b77YSttHTU3Ts5HsFGA5WLYV8z5a62g4ZmAMWX4KyHNf_0dTYzizY" target="_blank">[Source: CSSE JHU]</a></small></p>-->
 
               <div class="updates">
                 <% for (let news of world_news) { %>
