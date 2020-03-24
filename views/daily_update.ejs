@@ -94,7 +94,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <input type="text" class="form-control corona-input" id="dateDrop" placeholder="দিন সিলেক্ট করুন">
+                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="দিন সিলেক্ট করুন">
               </div>
             </div>
           </div>
@@ -267,8 +267,16 @@
           theme: 'leaf',
           large: true,
           largeDefault: true,
-          minDate: '03/23/2020',
-          maxDate: '03/23/2020'
+          minDate: '03/20/2020',
+          maxDate: '03/27/2020',
+          format: 'd-m-Y',
+          onChange: function(res) {
+            let selected_date = res.date.m+'/'+res.date.d+'/'+res.date.Y;
+            let default_date = $("#dateDrop").attr('data-dd-default-date');
+            if (selected_date != default_date) {
+              window.location.href = "/updates?date="+selected_date;
+            }
+          }
         });
 
         $('#selectors a[href="#bangladesh"]').click(function(){
