@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 require('mongoose-type-url');
+var validate = require('mongoose-validator');
 
 
+
+var urlValidator = [
+    validate({
+        validator: 'isURL',
+        passIfEmpty: true,
+        message: 'Should be URL',
+    })
+];
 
 const daily_news_schema = new mongoose.Schema({
 
-    text_english : {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        minLength: 1
-    },
-
-    text_bangla: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        minLength: 1
-    },
 
     reference: {
-        type: mongoose.SchemaTypes.Url,
+        type: String,
+        validate: urlValidator,
         required: true,
 
     },
     image_url: {
-        type: mongoose.SchemaTypes.Url,
+        type: String,
+        validate: urlValidator,
         required: false,
 
     },
@@ -41,7 +37,7 @@ const daily_news_schema = new mongoose.Schema({
 
     date: {
         type: Date,
-        default: Date.now,
+
         required: true
     },
 
@@ -50,7 +46,22 @@ const daily_news_schema = new mongoose.Schema({
         min: 0,
         max: 5,
         default: 3
-    }
+    },
+
+    text_english : {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 1
+    },
+
+    text_bangla: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 1
+    },
+
 });
 
 daily_news_schema.index( {"date" : 1, "locale" : 1} , {unique: false});
