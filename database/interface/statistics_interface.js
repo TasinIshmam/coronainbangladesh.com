@@ -26,7 +26,6 @@ client.on('error', (err) => {
 function extracted(targetURL, statScope, toRedis) {
     return axios.get(targetURL)
         .then(response => {
-            //stats.confirmed < 33 ? 33 : stats.confirmed
 
             let responseJSON = response.data;
 
@@ -46,25 +45,40 @@ function extracted(targetURL, statScope, toRedis) {
             }
 
 
-            if (statScope === "BD") {
-                return {
-                    confirmed: responseJSON.confirmed.value,
-                    recovered:  responseJSON.recovered.value,
-                    deaths:  responseJSON.deaths.value,
-                    lastUpdate: responseJSON.lastUpdate
-
-                };
-            } else {
-                return {
+            return {
                     confirmed: responseJSON.confirmed.value ,
                     recovered:  responseJSON.recovered.value ,
                     deaths:  responseJSON.deaths.value ,
                     lastUpdate: responseJSON.lastUpdate
 
-                };
-            }
+            };
+
 
         });
+}
+
+function extracted_from_redis(result, statScope) {
+
+    let responseJSON = JSON.parse(result);
+
+    client.get('BDisOverridden').then((res) => {
+        if (res === true) {
+            return client.get('BDOverride').then((result) => {
+                if (result) {
+                    responseJSON = result;
+                }
+            });
+        }
+    });
+
+    return {
+        confirmed: responseJSON.confirmed.value,
+        recovered:  responseJSON.recovered.value,
+        deaths:  responseJSON.deaths.value,
+        lastUpdate: responseJSON.lastUpdate
+
+    };
+
 }
 
 
@@ -80,15 +94,7 @@ async function get_statistics_bangladesh() {
 
                     console.log('REDIS CACHE DATA BD');
 
-                    const responseJSON = JSON.parse(result);
-
-                    return {
-                        confirmed: responseJSON.confirmed.value < 39? 39 :  responseJSON.confirmed.value,
-                        recovered:  responseJSON.recovered.value < 5? 5 :  responseJSON.recovered.value,
-                        deaths:  responseJSON.deaths.value < 4? 4 :  responseJSON.deaths.value,
-                        lastUpdate: responseJSON.lastUpdate
-
-                    };
+                    return extracted_from_redis(result, 'BD');
 
                 } else {
 
@@ -130,15 +136,7 @@ async function get_statistics_world() {
 
                     console.log('REDIS CACHE DATA WORLD');
 
-                    const response = JSON.parse(result);
-
-                    return {
-                        confirmed: response.confirmed.value,
-                        recovered: response.recovered.value,
-                        deaths: response.deaths.value,
-                        lastUpdate: response.lastUpdate
-
-                    };
+                    return extracted_from_redis(result, 'World');
 
                 } else {
 
