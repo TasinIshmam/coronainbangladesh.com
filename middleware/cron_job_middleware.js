@@ -4,8 +4,6 @@
 
 const verify_cron_job_gcloud_source = (req, res, next) => {
 
-
-
     try {
 
         if  (req.header('X-Appengine-Cron') === "true" && (req.ip === "::ffff:127.0.0.1" || req.ip === "::ffff:10.0.0.1") ) {

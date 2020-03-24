@@ -65,6 +65,7 @@ const daily_news_schema = new mongoose.Schema({
 
 daily_news_schema.index( {"date" : 1, "locale" : 1} , {unique: false});
 
+
 daily_news_schema.plugin(beautifyUnique);
 
 let DailyNews = mongoose.model("DailyNews", daily_news_schema);

@@ -9,6 +9,7 @@ let api_mythbuster_controller = require('../controllers/api_mythbuster_controlle
 let api_user_quiz_controller = require('../controllers/api_user_quiz_controller');
 let live_news_controller = require('../controllers/live_news_controller');
 let featured_news_controller = require('../controllers/featured_news_controller');
+let daily_news_controller = require('../controllers/daily_news_controller');
 
 
 //get mythbuster json array
@@ -27,6 +28,10 @@ if (process.env.NODE_ENV === 'development') {
 } else {  //in production environment, make sure request source is from google servers.
     router.get('/tasks/update-live-news', cron_job_middleware.verify_cron_job_gcloud_source, live_news_controller.handle_live_news_update );
 }
+
+
+//dailynews
+router.post('/dailynews' , daily_news_controller.handle_POST_daily_news);
 
 
 
