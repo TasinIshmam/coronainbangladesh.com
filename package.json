@@ -26,6 +26,7 @@
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-sequence": "^5.2.2",
     "mongoose-type-url": "^1.0.6",
+    "mongoose-validator": "^2.1.0",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3",
     "rate-limit-mongo": "^2.1.0",

@@ -63,13 +63,9 @@ router.get('/en/live-update', async function(req, res, next) {
 
 /* GET bn daily update page. */
 router.get('/updates', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await daily_news_interface.get_BANGLA_daily_news_BD_with_date();
-	const world_news = await daily_news_interface.get_BANGLA_daily_news_GLOBAL_with_date();
-
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
+	let db_date = moment();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
@@ -78,8 +74,14 @@ router.get('/updates', async function(req, res, next) {
 		if (req.query.date.match(dateReg) !== null) {
 			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
 			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+			db_date = moment(req.query.date, 'MM/DD/YYYY');
 		}
 	}
+
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const bd_news = await daily_news_interface.get_daily_news(db_date, 'BD');
+	const world_news = await daily_news_interface.get_daily_news(db_date, 'GLOBAL');
 
 	res.render('daily_update', {
 		stats: stats,
@@ -93,13 +95,9 @@ router.get('/updates', async function(req, res, next) {
 
 /* GET en daily update page. */
 router.get('/en/updates', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await daily_news_interface.get_ENGLISH_daily_news_BD_with_date();
-	const world_news = await daily_news_interface.get_ENGLISH_daily_news_GLOBAL_with_date();
-
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
+	let db_date = moment();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
@@ -108,8 +106,14 @@ router.get('/en/updates', async function(req, res, next) {
 		if (req.query.date.match(dateReg) !== null) {
 			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
 			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+			db_date = moment(req.query.date, 'MM/DD/YYYY');
 		}
 	}
+
+	const stats = await stat_interface.get_statistics_bangladesh();
+	const world_stats = await stat_interface.get_statistics_world();
+	const bd_news = await daily_news_interface.get_daily_news(db_date, 'BD');
+	const world_news = await daily_news_interface.get_daily_news(db_date, 'GLOBAL');
 
 	res.render('daily_update_en', {
 		stats: stats,
