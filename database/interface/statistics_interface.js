@@ -28,19 +28,29 @@ function extracted(targetURL, statScope, toRedis) {
         .then(response => {
             //stats.confirmed < 33 ? 33 : stats.confirmed
 
-
-            const responseJSON = response.data;
+            let responseJSON = response.data;
 
             if (toRedis === true) {
                 client.set(statScope, JSON.stringify(responseJSON));
                 client.set('lastUpdate'+statScope, moment().unix());
+
+                client.get(statScope+'isOverridden').then((res) => {
+                    if (res === true) {
+                        return client.get(statScope+'Override').then((result) => {
+                            if (result) {
+                                responseJSON = result;
+                            }
+                        });
+                    }
+                });
             }
+
 
             if (statScope === "BD") {
                 return {
-                    confirmed: responseJSON.confirmed.value < 39? 39 :  responseJSON.confirmed.value,
-                    recovered:  responseJSON.recovered.value < 5? 5 :  responseJSON.recovered.value,
-                    deaths:  responseJSON.deaths.value < 4? 4 :  responseJSON.deaths.value,
+                    confirmed: responseJSON.confirmed.value,
+                    recovered:  responseJSON.recovered.value,
+                    deaths:  responseJSON.deaths.value,
                     lastUpdate: responseJSON.lastUpdate
 
                 };
@@ -156,4 +166,18 @@ async function get_statistics_world() {
 
 }
 
-module.exports = {get_statistics_bangladesh, get_statistics_world};
+
+async function override_statistics_bangladesh(data, statScope, isOverridden) {
+
+    try {
+        client.set(statScope + 'Override', JSON.stringify(data));
+        client.set(statScope + 'isOverridden', JSON.stringify(isOverridden));
+    } catch (e) {
+        console.log(e.message);
+    }
+    return 0;
+
+}
+
+
+module.exports = {get_statistics_bangladesh, get_statistics_world, override_statistics_bangladesh};
