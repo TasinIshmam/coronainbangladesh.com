@@ -12,9 +12,14 @@ async function get_all_live_news(count = 50) {
 
 async function insert_live_news_many (live_news_array) {
 
-
+	let res = []
 	try {
-		const res = await LiveNews.insertMany(live_news_array, {upsert: true, setDefaultOnInsert: true});
+
+		for(let i = 0; i < live_news_array.length ; i++) {
+			let temp = await LiveNews.create(live_news_array[i]);
+			res.push(temp);
+		}
+
 		return res;
 	} catch (e) {
 		console.error(e);

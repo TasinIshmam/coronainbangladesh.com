@@ -55,7 +55,7 @@ async function get_all_live_news() {
 	const allLiveNews = [];
 	for (let i = 0; i < allNewsTitle.length; i++) {
 		allLiveNews.push({
-			id: i + 1,
+
 			title: allNewsTitle[i],
 			url: '',
 			date: allNewsTime[i].date,

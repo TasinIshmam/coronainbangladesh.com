@@ -24,6 +24,7 @@
     "mongodb-atlas-backup": "^0.9.2",
     "mongoose": "^5.7.1",
     "mongoose-beautiful-unique-validation": "^7.1.1",
+    "mongoose-sequence": "^5.2.2",
     "mongoose-type-url": "^1.0.6",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3",

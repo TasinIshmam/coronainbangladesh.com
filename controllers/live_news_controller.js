@@ -27,12 +27,12 @@ async function handle_live_news_update(req, res) {
 
         } else {
             console.error("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + res.length);
-            return res.sendStatus(500);
+            return res.sendStatus(500).send("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + res.length);
         }
     } catch (e) {
         console.error("ERROR in GET /api/tasks/update-live-news");
         console.error(e);
-        return res.sendStatus(500);
+        return res.sendStatus(500).send("ERROR in GET /api/tasks/update-live-news");
     }
 
 
@@ -54,7 +54,7 @@ function find_set_difference_news(new_news_arr, old_news_arr) {
     let difference = new_news_arr.filter( (element) => {
 
         let old_news_element = old_news_arr.filter( old_arr_element => {
-            return old_arr_element.id === element.id;
+            return old_arr_element.title === element.title;
         });
 
          return old_news_element.length === 0;

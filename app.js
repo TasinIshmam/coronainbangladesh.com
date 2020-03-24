@@ -9,6 +9,11 @@ if (env === 'development') {
 	process.env.PORT = 1338;
 }
 
+console.log(process.env.MONGODB_URI);
+
+let a = 2;
+
+
 //connect to database
 let { mongoose } = require('./database/mongoose');
 //load modules
