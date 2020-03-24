@@ -26,7 +26,6 @@ client.on('error', (err) => {
 function extracted(targetURL, statScope, toRedis) {
     return axios.get(targetURL)
         .then(response => {
-            //stats.confirmed < 33 ? 33 : stats.confirmed
 
             let responseJSON = response.data;
 
@@ -46,23 +45,14 @@ function extracted(targetURL, statScope, toRedis) {
             }
 
 
-            if (statScope === "BD") {
-                return {
-                    confirmed: responseJSON.confirmed.value,
-                    recovered:  responseJSON.recovered.value,
-                    deaths:  responseJSON.deaths.value,
-                    lastUpdate: responseJSON.lastUpdate
-
-                };
-            } else {
-                return {
+            return {
                     confirmed: responseJSON.confirmed.value ,
                     recovered:  responseJSON.recovered.value ,
                     deaths:  responseJSON.deaths.value ,
                     lastUpdate: responseJSON.lastUpdate
 
-                };
-            }
+            };
+
 
         });
 }
