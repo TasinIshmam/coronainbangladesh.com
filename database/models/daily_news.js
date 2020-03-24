@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
-require('mongoose-type-url');
 var validate = require('mongoose-validator');
 
 
