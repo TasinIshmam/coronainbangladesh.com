@@ -26,6 +26,8 @@ client.on('error', (err) => {
 function extracted(targetURL, statScope, toRedis) {
     return axios.get(targetURL)
         .then(response => {
+            //stats.confirmed < 33 ? 33 : stats.confirmed
+
 
             const responseJSON = response.data;
 
@@ -34,13 +36,24 @@ function extracted(targetURL, statScope, toRedis) {
                 client.set('lastUpdate'+statScope, moment().unix());
             }
 
-            return {
-                confirmed: responseJSON.confirmed.value,
-                recovered: responseJSON.recovered.value,
-                deaths: responseJSON.deaths.value,
-                lastUpdate: responseJSON.lastUpdate
+            if (statScope === "BD") {
+                return {
+                    confirmed: responseJSON.confirmed.value < 39? 39 :  responseJSON.confirmed.value,
+                    recovered:  responseJSON.recovered.value < 5? 5 :  responseJSON.recovered.value,
+                    deaths:  responseJSON.deaths.value < 4? 4 :  responseJSON.deaths.value,
+                    lastUpdate: responseJSON.lastUpdate
 
-            };
+                };
+            } else {
+                return {
+                    confirmed: responseJSON.confirmed.value ,
+                    recovered:  responseJSON.recovered.value ,
+                    deaths:  responseJSON.deaths.value ,
+                    lastUpdate: responseJSON.lastUpdate
+
+                };
+            }
+
         });
 }
 
@@ -57,13 +70,13 @@ async function get_statistics_bangladesh() {
 
                     console.log('REDIS CACHE DATA BD');
 
-                    const response = JSON.parse(result);
+                    const responseJSON = JSON.parse(result);
 
                     return {
-                        confirmed: response.confirmed.value,
-                        recovered: response.recovered.value,
-                        deaths: response.deaths.value,
-                        lastUpdate: response.lastUpdate
+                        confirmed: responseJSON.confirmed.value < 39? 39 :  responseJSON.confirmed.value,
+                        recovered:  responseJSON.recovered.value < 5? 5 :  responseJSON.recovered.value,
+                        deaths:  responseJSON.deaths.value < 4? 4 :  responseJSON.deaths.value,
+                        lastUpdate: responseJSON.lastUpdate
 
                     };
 
