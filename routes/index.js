@@ -12,7 +12,7 @@ const daily_news_interface = require('../database/interface/daily_news_interface
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_bangladesh();
-	const featured_news = await featured_news_interface.getNewsBetweenDatesWithCount();
+	const featured_news = await featured_news_interface.get_news_between_dates_with_count();
 	const live_news = await live_news_interface.get_all_live_news(10);
 
 	res.render('index', {
@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
 /* GET en home page. */
 router.get('/en', async function(req, res, next) {
 	const stats = await stat_interface.get_statistics_bangladesh();
-	const featured_news = await featured_news_interface.getNewsBetweenDatesWithCount();
+	const featured_news = await featured_news_interface.get_news_between_dates_with_count();
 	const live_news = await live_news_interface.get_all_live_news(10);
 
 	res.render('index_en', {

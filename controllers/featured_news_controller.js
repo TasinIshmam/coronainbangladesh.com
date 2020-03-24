@@ -25,7 +25,7 @@ async function handle_POST_featured_news(req, res) {
         }
 
         let news_arr = req.body;
-        let result = await featured_news_interface.insertManyNews(news_arr);
+        let result = await featured_news_interface.insert_many_featured_news(news_arr);
         if( news_arr.length === result.length) {
             console.log("POST /api/featurednews successfully finished.")
             return res.sendStatus(200);

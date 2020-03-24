@@ -1,7 +1,13 @@
 const { FeaturedNews } = require('../models/featured_news');
 const moment = require('moment');
 
-async function insertManyNews(newsArray) {
+
+/**
+ * Inserts into db
+ * @param [{FeaturedNews}]newsArray
+ * @returns {Promise<[{FeaturedNews}]|*>}  elements inserted into database.
+ */
+async function insert_many_featured_news(newsArray) {
 	try {
 		let result = await FeaturedNews.insertMany(newsArray, { upsert: true, setDefaultOnInsert: true });
 
@@ -12,8 +18,15 @@ async function insertManyNews(newsArray) {
 }
 
 //todo TEST THOROUGHLY.
-//todo if endDate is given, make sure it includes everything in End Date REGARDLESS of the time value.
-async function getNewsBetweenDatesWithCount(
+
+/**
+ *
+ * @param {Number} count - Number of news items to return
+ * @param {moment} startDate
+ * @param {moment} endDate
+ * @returns {Promise<[{FeaturedNews}]>} Fetched items array from Database
+ */
+async function get_news_between_dates_with_count(
 	count = 20,
 	startDate = moment().startOf('day').subtract(5, 'day'),
 	endDate = moment().endOf('day')
@@ -26,8 +39,9 @@ async function getNewsBetweenDatesWithCount(
 		//console.debug(result.length);
 		return result;
 	} catch (e) {
+		console.error(e);
 		return {};
 	}
 }
 
-module.exports = { insertManyNews, getNewsBetweenDatesWithCount };
+module.exports = {  insert_many_featured_news,  get_news_between_dates_with_count };
