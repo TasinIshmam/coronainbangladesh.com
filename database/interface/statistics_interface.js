@@ -22,21 +22,44 @@ client.on('error', (err) => {
     console.log("Errorrrrr " + err);
 });
 
+
+function extracted(targetURL, statScope, toRedis) {
+    return axios.get(targetURL)
+        .then(response => {
+
+            const responseJSON = response.data;
+
+            if (toRedis === true) {
+                client.set(statScope, JSON.stringify(responseJSON));
+                client.set('lastUpdate'+statScope, moment().unix());
+            }
+
+            return {
+                confirmed: responseJSON.confirmed.value,
+                recovered: responseJSON.recovered.value,
+                deaths: responseJSON.deaths.value,
+                lastUpdate: responseJSON.lastUpdate
+
+            };
+        });
+}
+
+
 async function get_statistics_bangladesh() {
 
     return client.get('lastUpdateBD').then((lastUpdate) => {
 
         if ((moment().unix() - lastUpdate) <= THRESHOLD) {
+
             return client.get('BD').then((result) => {
 
                 if (result) {
 
-                    const response = JSON.parse(result);
-
-                    //console.log('REDIS CACHE DATA ', response);
                     console.log('REDIS CACHE DATA BD');
 
-                    let obj =  {
+                    const response = JSON.parse(result);
+
+                    return {
                         confirmed: response.confirmed.value,
                         recovered: response.recovered.value,
                         deaths: response.deaths.value,
@@ -44,91 +67,30 @@ async function get_statistics_bangladesh() {
 
                     };
 
-                    //console.log(obj);
-
-                    return obj;
-
                 } else {
 
-                    return axios.get("https://covid19.mathdro.id/api/countries/BD")
-                        .then(response => {
+                    console.log('API CALL DATA BD');
 
-                            const responseJSON = response.data;
-
-                            //console.log('API CALL DATA ', responseJSON);
-                            console.log('API CALL DATA BD');
-
-                            client.set('BD', JSON.stringify(responseJSON));
-
-                            client.set('lastUpdateBD', moment().unix());
-
-                            let obj = {
-                                confirmed: response.data.confirmed.value,
-                                recovered: response.data.recovered.value,
-                                deaths: response.data.deaths.value,
-                                lastUpdate: response.data.lastUpdate
-
-                            };
-
-                            //console.log(obj);
-
-                            return obj;
-
-                        });
+                    return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
 
                 }
-            }).catch( (err) => {
-                return axios.get("https://covid19.mathdro.id/api/countries/BD/")
-                    .then(response => {
-
-                        let obj = {
-                            confirmed: response.data.confirmed.value,
-                            recovered: response.data.recovered.value,
-                            deaths: response.data.deaths.value,
-                            lastUpdate: response.data.lastUpdate
-
-                        };
-
-
-                        return obj;
-
-                    });
             });
         } else {
 
-            return axios.get("https://covid19.mathdro.id/api/countries/BD/")
-                .then(response => {
+            console.log('API CALL DATA BD - TIMED');
 
-                    const responseJSON = response.data;
+            return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
 
-                    //console.log('API CALL DATA TIMED - ', responseJSON);
-                    console.log('API CALL DATA BD - TIMED');
-
-                    client.set('BD', JSON.stringify(responseJSON));
-
-                    client.set('lastUpdateBD', moment().unix());
-
-                    let obj = {
-                        confirmed: response.data.confirmed.value,
-                        recovered: response.data.recovered.value,
-                        deaths: response.data.deaths.value,
-                        lastUpdate: response.data.lastUpdate
-
-                    };
-
-
-                    //console.log(obj);
-
-                    return obj;
-
-                });
         }
-    }).catch((err) => {
+    }).catch( (err) => {
+
         console.log(err.message);
-        return 0;
+
+        console.log('API CALL DATA BD - REDIS FAILURE');
+
+        return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", false);
+
     });
-
-
 
 
 }
@@ -143,11 +105,11 @@ async function get_statistics_world() {
 
                 if (result) {
 
-                    const response = JSON.parse(result);
-
                     console.log('REDIS CACHE DATA WORLD');
 
-                    let obj =  {
+                    const response = JSON.parse(result);
+
+                    return {
                         confirmed: response.confirmed.value,
                         recovered: response.recovered.value,
                         deaths: response.deaths.value,
@@ -155,91 +117,28 @@ async function get_statistics_world() {
 
                     };
 
-                    //console.log(obj);
-
-                    return obj;
-
                 } else {
 
-                    return axios.get("https://covid19.mathdro.id/api/")
-                        .then(response => {
+                    console.log('API CALL DATA WORLD');
 
-                            //console.log(response.data);
-
-                            const responseJSON = response.data;
-
-                            client.set('World', JSON.stringify(responseJSON));
-
-                            client.set('lastUpdateWorld', moment().unix());
-
-                            console.log('API CALL DATA WORLD');
-
-
-                            let obj = {
-                                confirmed: response.data.confirmed.value,
-                                recovered: response.data.recovered.value,
-                                deaths: response.data.deaths.value,
-                                lastUpdate: response.data.lastUpdate
-
-                            };
-
-                            //console.log(obj);
-
-                            return obj;
-
-                        });
+                    return extracted("https://covid19.mathdro.id/api/", "World", true);
 
                 }
-            }).catch( (error) => {
-                return axios.get("https://covid19.mathdro.id/api/")
-                    .then(response => {
-
-                        //console.log(response.data);
-
-                        let obj = {
-                            confirmed: response.data.confirmed.value,
-                            recovered: response.data.recovered.value,
-                            deaths: response.data.deaths.value,
-                            lastUpdate: response.data.lastUpdate
-
-                        };
-
-                        return obj;
-
-                    });
             });
         } else {
-            return axios.get("https://covid19.mathdro.id/api/")
-                .then(response => {
 
-                    //console.log(response.data);
+            console.log('API CALL DATA WORLD - TIMED');
 
-                    const responseJSON = response.data;
+            return extracted("https://covid19.mathdro.id/api/", "World", true);
 
-                    client.set('World', JSON.stringify(responseJSON));
-
-                    client.set('lastUpdateWorld', moment().unix());
-
-                    console.log('API CALL DATA WORLD - TIMED');
-
-                    let obj = {
-                        confirmed: response.data.confirmed.value,
-                        recovered: response.data.recovered.value,
-                        deaths: response.data.deaths.value,
-                        lastUpdate: response.data.lastUpdate
-
-                    };
-
-                    //console.log(obj);
-
-                    return obj;
-
-                });
         }
 
-    }).catch((err) => {
-        console.log(err.message);
-        return 0;
+    }).catch( (error) => {
+
+        console.log(error.message);
+
+        return extracted("https://covid19.mathdro.id/api/", "World", false);
+
     });
 
 }
