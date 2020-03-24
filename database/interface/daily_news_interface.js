@@ -179,6 +179,11 @@ async function get_ENGLISH_daily_news_GLOBAL_with_date(targetDate) {
     return dummy_news_bd_23_march;
 }
 
+/**
+ * Bulk Insert Daily News from Json Array.
+ * @param [{DailyNews}] dailys_news_arr
+ * @returns  [{DailyNews}] inserted elements
+ */
 async function insert_many_daily_news(dailys_news_arr) {
     try {
         let res = await DailyNews.insertMany(dailys_news_arr);
@@ -188,6 +193,13 @@ async function insert_many_daily_news(dailys_news_arr) {
         return {};
     }
 }
+
+/**
+ * Get's daily news
+ * @param {moment} date - All news from that given date.
+ * @param @enum {"BD", "GLOBAL"} locale  - Bangladesh news or global news
+ * @returns [{DailyNews}] Query Result
+ */
 
 async function get_daily_news(date, locale) {
 
