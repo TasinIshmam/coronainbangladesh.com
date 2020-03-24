@@ -6,13 +6,22 @@ require('mongoose-type-url');
 
 const daily_news_schema = new mongoose.Schema({
 
-    text : {
+    text_english : {
         type: String,
         required: true,
         unique: true,
         trim: true,
         minLength: 1
     },
+
+    text_bangla: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minLength: 1
+    },
+
     reference: {
         type: mongoose.SchemaTypes.Url,
         required: true,
@@ -23,11 +32,19 @@ const daily_news_schema = new mongoose.Schema({
         required: false,
 
     },
+
+    locale: {
+        type: String,
+        enum : ['BD' , "GLOBAL"],
+        required: true
+    },
+
     date: {
         type: Date,
         default: Date.now,
         required: true
     },
+
     importance_rating: {
         type: Number,
         min: 0,
@@ -35,3 +52,11 @@ const daily_news_schema = new mongoose.Schema({
         default: 3
     }
 });
+
+daily_news_schema.index( {"date" : 1, "locale" : 1} , {unique: false});
+
+daily_news_schema.plugin(beautifyUnique);
+
+let DailyNews = mongoose.model("DailyNews", daily_news_schema);
+
+module.exports = {DailyNews};
