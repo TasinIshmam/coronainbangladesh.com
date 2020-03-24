@@ -9,7 +9,7 @@ if (env === 'development') {
 	process.env.PORT = 1338;
 }
 
-console.log(process.env.MONGODB_URI);
+//console.log(process.env.MONGODB_URI);
 
 let a = 2;
 
