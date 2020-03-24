@@ -135,7 +135,7 @@
               <div class="updates">
 								<% for (let news of bd_news) { %>
 									<div class="update">
-										<p><%= news.text %></p>
+										<p><%= news.text_bangla %></p>
 										<p class="text-right"><small><a href="<%= news.reference %>" target="_blank">[তথ্যসূত্র]</a></small></p>
 									</div>
 								<% } %>
@@ -177,7 +177,7 @@
               <div class="updates">
 								<% for (let news of world_news) { %>
 									<div class="update">
-										<p><%= news.text %></p>
+										<p><%= news.text_bangla %></p>
 										<p class="text-right"><small><a href="<%= news.reference %>" target="_blank">[তথ্যসূত্র]</a></small></p>
 									</div>
 								<% } %>
@@ -267,8 +267,8 @@
           theme: 'leaf',
           large: true,
           largeDefault: true,
-          minDate: '03/20/2020',
-          maxDate: '03/27/2020',
+          minDate: '03/23/2020',
+          maxDate: '03/24/2020',
           format: 'd-m-Y',
           onChange: function(res) {
             let selected_date = res.date.m+'/'+res.date.d+'/'+res.date.Y;
