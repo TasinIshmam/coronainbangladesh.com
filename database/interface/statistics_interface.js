@@ -92,7 +92,7 @@ async function get_statistics_bangladesh() {
 
                 if (result) {
 
-                    console.log('REDIS CACHE DATA BD');
+                    console.debug('REDIS CACHE DATA BD');
 
                     return extracted_from_redis(result, 'BD');
 

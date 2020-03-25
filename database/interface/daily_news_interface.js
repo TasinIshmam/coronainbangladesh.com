@@ -11,8 +11,9 @@ async function insert_many_daily_news(dailys_news_arr) {
 		let res = await DailyNews.insertMany(dailys_news_arr);
 		return res;
 	} catch (e) {
+	    console.error("ERROR: Failed to insert daily news");
 		console.error(e);
-		return {};
+		return [];
 	}
 }
 

@@ -34,6 +34,7 @@ let handle_POST_user =  async (req, res) => {
         } else return res.sendStatus(400);
 
     } catch (e) {
+        console.error("WARN: Failed to validate user credentials ")
         return res.sendStatus(400);
     }
 
