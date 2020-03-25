@@ -23,11 +23,9 @@ router.post('/featurednews' , featured_news_controller.handle_POST_featured_news
 
 
 //in development environment no need for middleware for google source verification.
-if (process.env.NODE_ENV === 'development') {
-    router.get('/tasks/update-live-news', live_news_controller.handle_live_news_update );
-} else {  //in production environment, make sure request source is from google servers.
+
     router.get('/tasks/update-live-news', cron_job_middleware.verify_cron_job_gcloud_source, live_news_controller.handle_live_news_update );
-}
+
 
 
 //dailynews

@@ -2,26 +2,24 @@
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
-	require('dotenv').config();
-	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-	//process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
-	process.env.NODE_ENV = 'development';
-	process.env.PORT = 1338;
+    require('dotenv').config();
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+    //process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
+    process.env.NODE_ENV = 'development';
+    process.env.PORT = 1338;
 }
 
 //console.log(process.env.MONGODB_URI);
 
-let a = 2;
-
 
 //connect to database
-let { mongoose } = require('./database/mongoose');
+let {mongoose} = require('./database/mongoose');
 //load modules
 const responseTime = require('response-time');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const morgan = require('morgan');
 const helmet = require('helmet');
 
 const indexRouter = require('./routes/index');
@@ -31,12 +29,15 @@ const limiter = require('./middleware/rate_limit_middleware');
 
 const app = express();
 
-morgan_format = process.env.NODE_ENV === 'development' ? 'dev' : 'common';
-app.use(logger(morgan_format));
+//Logging
+let {morgan_options} = require('./util/logger/morgan_utils');
 
+
+//middleware
+app.use(morgan('short', morgan_options));
 app.use(responseTime());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -82,23 +83,23 @@ app.use('/en/updates', indexRouter);
 app.use('/api', apiRouter);
 
 //404
-app.get('*', function(req, res) {
-	res.status(404).render('404');
+app.get('*', function (req, res) {
+    res.status(404).render('404');
 });
 
-process.on('SIGINT', async function() {
-	//todo shift from console.error to something more...reasonable
-	console.error('SIGINT called');
-	await mongoose.disconnect();
-	console.error('Mongoose connection terminated');
-	process.exit(0);
+process.on('SIGINT', async function () {
+    //todo shift from console.error to something more...reasonable
+    console.error('SIGINT called');
+    await mongoose.disconnect();
+    console.error('Mongoose connection terminated');
+    process.exit(0);
 });
 
-process.on('SIGTERM', async function() {
-	console.error('SIGTERM called');
-	await mongoose.disconnect();
-	console.error('Mongoose connection terminated');
-	process.exit(0);
+process.on('SIGTERM', async function () {
+    console.error('SIGTERM called');
+    await mongoose.disconnect();
+    console.error('Mongoose connection terminated');
+    process.exit(0);
 });
 
 module.exports = app;
