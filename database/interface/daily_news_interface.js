@@ -18,6 +18,22 @@ async function insert_many_daily_news(dailys_news_arr) {
 }
 
 /**
+ * Get the LATEST data of the day for which we have daily news data.
+ * Eg - If it's 25-03-2020 but we have data upto 23-03-2020, then functio will return 23-03-2020 as a Date Object.
+ * @returns {Promise<Date>} - Mongoose Date Object
+ */
+async function get_last_updated_date() {
+    try {
+        let res = await DailyNews.find().select('date').sort({'date' : -1}).limit(1);
+        return res;
+    } catch (e) {
+        console.error(e);
+        //in case of error, return null;
+        return null;
+    }
+}
+
+/**
  * Get's daily news
  * @param {moment} date - All news from that given date.
  * @param @enum {"BD", "GLOBAL"} locale  - Bangladesh news or global news
@@ -38,4 +54,4 @@ async function get_daily_news(date, locale) {
     }
 }
 
-module.exports = {    insert_many_daily_news, get_daily_news};
+module.exports = {    insert_many_daily_news, get_daily_news, get_last_updated_date};
