@@ -61,9 +61,9 @@ function extracted_from_redis(result, statScope) {
 
     let responseJSON = JSON.parse(result);
 
-    client.get('BDisOverridden').then((res) => {
+    client.get(statScope+'isOverridden').then((res) => {
         if (res === true) {
-            return client.get('BDOverride').then((result) => {
+            return client.get(statScope+'BDOverride').then((result) => {
                 if (result) {
                     responseJSON = result;
                 }
