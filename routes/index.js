@@ -66,16 +66,20 @@ router.get('/updates', async function(req, res, next) {
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
 	let db_date = moment();
+	let latest_date = await daily_news_interface.get_last_updated_date();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
 	if (req.query.date != null) {
-		console.log(req.query.date.match(dateReg));
 		if (req.query.date.match(dateReg) !== null) {
 			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
 			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
 			db_date = moment(req.query.date, 'MM/DD/YYYY');
 		}
+	} else {
+		date = latest_date.format('Do MMMM, YYYY');
+		default_date = latest_date.format('MM/DD/YYYY');
+		db_date = latest_date;
 	}
 
 	const stats = await stat_interface.get_statistics_bangladesh();
@@ -89,7 +93,8 @@ router.get('/updates', async function(req, res, next) {
 		bd_news: bd_news,
 		world_news: world_news,
 		date: date,
-		default_date: default_date
+		default_date: default_date,
+		latest_date: latest_date.format('MM/DD/YYYY')
 	});
 });
 
@@ -98,16 +103,20 @@ router.get('/en/updates', async function(req, res, next) {
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
 	let db_date = moment();
+	let latest_date = await daily_news_interface.get_last_updated_date();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
 	if (req.query.date != null) {
-		console.log(req.query.date.match(dateReg));
 		if (req.query.date.match(dateReg) !== null) {
 			date = moment(req.query.date, 'MM/DD/YYYY').format('Do MMMM, YYYY');
 			default_date = moment(req.query.date, 'MM/DD/YYYY').format('MM/DD/YYYY');
 			db_date = moment(req.query.date, 'MM/DD/YYYY');
 		}
+	} else {
+		date = latest_date.format('Do MMMM, YYYY');
+		default_date = latest_date.format('MM/DD/YYYY');
+		db_date = latest_date;
 	}
 
 	const stats = await stat_interface.get_statistics_bangladesh();
@@ -121,7 +130,8 @@ router.get('/en/updates', async function(req, res, next) {
 		bd_news: bd_news,
 		world_news: world_news,
 		date: date,
-		default_date: default_date
+		default_date: default_date,
+		latest_date: latest_date.format('MM/DD/YYYY')
 	});
 });
 
