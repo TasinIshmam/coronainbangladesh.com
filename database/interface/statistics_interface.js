@@ -3,9 +3,9 @@
 const axios = require('axios');
 const moment = require('moment');
 
-const {get_cached_data, set_cache, set_cache_with_exp} = require('redis_cache_interface');
+const {get_cached_data, set_cache, set_cache_with_exp} = require('./redis_cache_interface');
 
-const THRESHOLD = 1800;
+const THRESHOLD = 5;
 
 function extracted(targetURL, statScope, toRedis) {
 
@@ -40,20 +40,33 @@ async function get_statistics_bangladesh() {
     let result = await get_cached_data('BD');
 
     if (result.status === true && result.data === null) {
-        //If there is redis cache miss, stores data in redis
+        //If there is redis cache miss, fetches data from api, stores in redis and returns the data
+
+        console.log('API CALL DATA');
+
         return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
 
     } else if (result.status === true && result.data !== null) {
+        //If there is redis cache hit, returns data from redis
+
+        console.log('REDIS CACHED DATA');
+
+        let responseJSON = JSON.parse(result.data);
 
         return {
-            confirmed: result.data.confirmed.value ,
-            recovered:  result.data.recovered.value ,
-            deaths:  result.data.deaths.value ,
-            lastUpdate: result.data.lastUpdate
+            confirmed: responseJSON.confirmed.value ,
+            recovered:  responseJSON.recovered.value ,
+            deaths:  responseJSON.deaths.value ,
+            lastUpdate: responseJSON.lastUpdate
         }
 
     } else {
+        //If redis is down, makes an api call and returns the data
+
+        console.log('REDIS DOWN');
+
         return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", false);
+
     }
 
 }
@@ -64,18 +77,32 @@ async function get_statistics_world() {
 
     if (result.status === true && result.data === null) {
 
+        //If there is redis cache miss, fetches data from api, stores in redis and returns the data
+
+        console.log('API CALL DATA');
+
         return extracted("https://covid19.mathdro.id/api/", "World", true);
 
     } else if (result.status === true && result.data !== null) {
 
+        //If there is redis cache hit, returns data from redis
+
+        console.log('REDIS CACHED DATA');
+
+        let responseJSON = JSON.parse(result.data);
+
         return {
-            confirmed: result.data.confirmed.value ,
-            recovered:  result.data.recovered.value ,
-            deaths:  result.data.deaths.value ,
-            lastUpdate: result.data.lastUpdate
+            confirmed: responseJSON.confirmed.value ,
+            recovered:  responseJSON.recovered.value ,
+            deaths:  responseJSON.deaths.value ,
+            lastUpdate: responseJSON.lastUpdate
         }
 
     } else {
+        //If redis is down, makes an api call and returns the data
+
+        console.log('REDIS DOWN');
+
         return extracted("https://covid19.mathdro.id/api/", "World", false);
     }
 
