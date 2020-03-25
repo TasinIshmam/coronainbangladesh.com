@@ -94,7 +94,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="দিন সিলেক্ট করুন">
+                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="দিন সিলেক্ট করুন" value="<%= default_date %>">
               </div>
             </div>
           </div>
@@ -268,8 +268,7 @@
           large: true,
           largeDefault: true,
           minDate: '03/23/2020',
-          maxDate: '03/24/2020',
-          format: 'd-m-Y',
+          maxDate: '<%- latest_date %>',
           onChange: function(res) {
             let selected_date = res.date.m+'/'+res.date.d+'/'+res.date.Y;
             let default_date = $("#dateDrop").attr('data-dd-default-date');
