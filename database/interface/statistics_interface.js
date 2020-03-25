@@ -3,34 +3,26 @@
 const axios = require('axios');
 const moment = require('moment');
 
-const redis_init = require('../../cache/redis_init');
+const {get_cached_data, set_cache, set_cache_with_exp} = require('redis_cache_interface');
 
-
-const client = redis_init.client;
 const THRESHOLD = 1800;
 
-
 function extracted(targetURL, statScope, toRedis) {
+
     return axios.get(targetURL)
         .then(response => {
 
             let responseJSON = response.data;
 
             if (toRedis === true) {
-                client.set(statScope, JSON.stringify(responseJSON));
-                client.set('lastUpdate'+statScope, moment().unix());
-
-                client.get(statScope+'isOverridden').then((res) => {
-                    if (res === true) {
-                        return client.get(statScope+'Override').then((result) => {
-                            if (result) {
-                                responseJSON = result;
-                            }
-                        });
+                set_cache_with_exp(statScope, JSON.stringify(responseJSON), THRESHOLD).then((res) => {
+                    if (res.status === true) {
+                        console.log('Data cached successfully.');
+                    } else {
+                        console.log('Could not cache data.')
                     }
                 });
             }
-
 
             return {
                     confirmed: responseJSON.confirmed.value ,
@@ -40,127 +32,59 @@ function extracted(targetURL, statScope, toRedis) {
 
             };
 
-
         });
 }
 
-function extracted_from_redis(result, statScope) {
-
-    let responseJSON = JSON.parse(result);
-
-    client.get(statScope+'isOverridden').then((res) => {
-        if (res === true) {
-            return client.get(statScope+'BDOverride').then((result) => {
-                if (result) {
-                    responseJSON = result;
-                }
-            });
-        }
-    });
-
-    return {
-        confirmed: responseJSON.confirmed.value,
-        recovered:  responseJSON.recovered.value,
-        deaths:  responseJSON.deaths.value,
-        lastUpdate: responseJSON.lastUpdate
-
-    };
-
-}
-
-
 async function get_statistics_bangladesh() {
 
-    return client.get('lastUpdateBD').then((lastUpdate) => {
+    let result = await get_cached_data('BD');
 
-        if ((moment().unix() - lastUpdate) <= THRESHOLD) {
+    if (result.status === true && result.data === null) {
+        //If there is redis cache miss, stores data in redis
+        return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
 
-            return client.get('BD').then((result) => {
+    } else if (result.status === true && result.data !== null) {
 
-                if (result) {
-
-                    console.log('REDIS CACHE DATA BD');
-
-                    return extracted_from_redis(result, 'BD');
-
-                } else {
-
-                    console.log('API CALL DATA BD');
-
-                    return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
-
-                }
-            });
-        } else {
-
-            console.log('API CALL DATA BD - TIMED');
-
-            return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
-
+        return {
+            confirmed: result.data.confirmed.value ,
+            recovered:  result.data.recovered.value ,
+            deaths:  result.data.deaths.value ,
+            lastUpdate: result.data.lastUpdate
         }
-    }).catch( (err) => {
 
-        console.log(err.message);
-
-        console.log('API CALL DATA BD - REDIS FAILURE');
-
+    } else {
         return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", false);
-
-    });
-
+    }
 
 }
 
 async function get_statistics_world() {
 
+    let result = await get_cached_data('World');
 
-    return client.get('lastUpdateWorld').then((lastUpdate) => {
+    if (result.status === true && result.data === null) {
 
-        if ((moment().unix() - lastUpdate) <= THRESHOLD) {
-            return client.get('World').then( (result) => {
+        return extracted("https://covid19.mathdro.id/api/", "World", true);
 
-                if (result) {
+    } else if (result.status === true && result.data !== null) {
 
-                    console.log('REDIS CACHE DATA WORLD');
-
-                    return extracted_from_redis(result, 'World');
-
-                } else {
-
-                    console.log('API CALL DATA WORLD');
-
-                    return extracted("https://covid19.mathdro.id/api/", "World", true);
-
-                }
-            });
-        } else {
-
-            console.log('API CALL DATA WORLD - TIMED');
-
-            return extracted("https://covid19.mathdro.id/api/", "World", true);
-
+        return {
+            confirmed: result.data.confirmed.value ,
+            recovered:  result.data.recovered.value ,
+            deaths:  result.data.deaths.value ,
+            lastUpdate: result.data.lastUpdate
         }
 
-    }).catch( (error) => {
-
-        console.log(error.message);
-
+    } else {
         return extracted("https://covid19.mathdro.id/api/", "World", false);
-
-    });
+    }
 
 }
 
 
-async function override_statistics_bangladesh(data, statScope, isOverridden) {
+async function override_statistics_bangladesh(data, statScope) {
 
-    try {
-        client.set(statScope + 'Override', JSON.stringify(data));
-        client.set(statScope + 'isOverridden', JSON.stringify(isOverridden));
-    } catch (e) {
-        console.log(e.message);
-    }
-    return 0;
+    await set_cache(statScope, data);
 
 }
 
