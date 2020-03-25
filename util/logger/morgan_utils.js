@@ -1,19 +1,18 @@
 
 
-
+//Not used because mysteriously decides to not work in app engine.
+//Works perfectly fine in localhost lol.
 
 let morgan_options = {
     skip: function (req, res) {
+
 
         if(process.env.NODE_ENV === 'development') {
             return false;
         }
 
-        if (req.originalUrl.startsWith('/api')) {
-            return false;
-        }
 
-        if (res.statusCode === 200 || res.statusCode === 304 || req.originalUrl('/images' || req.originalUrl('/css'))) {
+        if (res.statusCode === 304 || req.url.startsWith('/images' || req.url.startsWith('/css'))) {
             return true;
         }
 

@@ -2,7 +2,7 @@
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
-    require('dotenv').config();
+
     process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
     //process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
     process.env.NODE_ENV = 'development';
@@ -29,24 +29,25 @@ const limiter = require('./middleware/rate_limit_middleware');
 
 const app = express();
 
-//Logging
-let {morgan_options} = require('./util/logger/morgan_utils');
+//logging
+app.use(morgan('short'));
 
 
 //middleware
-app.use(morgan('short', morgan_options));
 app.use(responseTime());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(limiter.rateLimiterMiddlewareInMemory); //prevents too many requests from the same ip
 
 //Templating Engine Setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+
 
 //Handling routes
 app.use('/', indexRouter);
