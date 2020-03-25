@@ -1,26 +1,13 @@
 'use strict';
 
 const axios = require('axios');
-const redis = require('async-redis');
 const moment = require('moment');
 
-const REDISHOST = process.env.REDISHOST || 'localhost';
-const REDISPORT = process.env.REDISPORT || 6379;
+const redis_init = require('../../cache/redis_init');
+
+
+const client = redis_init.client;
 const THRESHOLD = 1800;
-
-const client = redis.createClient(REDISPORT, REDISHOST, {
-    retry_strategy: function (options) {
-        if (options.error && options.error.code === "ECONNREFUSED") {
-            console.log('SERVER REFUSED CONNECTION!');
-            return new Error("The server refused the connection.");
-        }
-        return Math.min(options.attempt*100, 3000);
-    }
-});
-
-client.on('error', (err) => {
-    console.log("Errorrrrr " + err);
-});
 
 
 function extracted(targetURL, statScope, toRedis) {
