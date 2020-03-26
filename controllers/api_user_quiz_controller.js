@@ -20,8 +20,9 @@ let handle_POST_user =  async (req, res) => {
 
         //todo This
         if (req.query.validation_token !== process.env.USER_PUT_SECRET_KEY) {
+            console.log(req.query.validation_token);
             console.log("Received POST /api/myths/users with INVALID validation token. Discarding request");
-            return res.send(401);
+            return res.sendStatus(401);
         }
 
         let result = await users_quiz_database_interface.add_new_user({
