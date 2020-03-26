@@ -52,6 +52,7 @@ const featured_news_schema = new mongoose.Schema({
         default: 3
     }
 });
+featured_news_schema.index( {"date" : 1, "importance_rating" : 1, "link" : 1, "image_url" : 1} , {unique: true});
 
 featured_news_schema.plugin(beautifyUnique);
 
