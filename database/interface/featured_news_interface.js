@@ -11,9 +11,13 @@ async function insert_many_featured_news(newsArray) {
 	try {
 		let result = await FeaturedNews.insertMany(newsArray, { upsert: true, setDefaultOnInsert: true });
 
+		if (result === null || result === undefined) return [];
+
 		return result;
 	} catch (e) {
-		return {};
+		console.error("ERROR: Error in insert_many_featured_news");
+		console.error(e);
+		return [];
 	}
 }
 
@@ -22,8 +26,8 @@ async function insert_many_featured_news(newsArray) {
 /**
  *
  * @param {Number} count - Number of news items to return
- * @param {moment} startDate
- * @param {moment} endDate
+ * @param {moment.Moment} startDate
+ * @param {moment.Moment} endDate
  * @returns {Promise<[{FeaturedNews}]>} Fetched items array from Database
  */
 async function get_news_between_dates_with_count(
@@ -36,11 +40,15 @@ async function get_news_between_dates_with_count(
 			.select(' -_id -__v')
 			.sort({ date: -1, importance_rating: -1 })
 			.limit(count);
+
+		if (result === null || result === undefined) return [];
+
 		//console.debug(result.length);
 		return result;
 	} catch (e) {
+		console.error("Error in featured_news interface in function get_news_between_dates_with_count");
 		console.error(e);
-		return {};
+		return [];
 	}
 }
 

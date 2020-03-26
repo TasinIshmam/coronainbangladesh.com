@@ -1,7 +1,6 @@
 const moment = require('moment');
 const {DailyNews} = require('../models/daily_news');
 
-
 /**
  * Bulk Insert Daily News from Json Array.
  * @param [{DailyNews}] dailys_news_arr
@@ -10,10 +9,15 @@ const {DailyNews} = require('../models/daily_news');
 async function insert_many_daily_news(dailys_news_arr) {
     try {
         let res = await DailyNews.insertMany(dailys_news_arr);
+
+        if (res === null || res === undefined) return [];
+
         return res;
+
     } catch (e) {
+        console.error("ERROR: Failed to insert_many daily news");
         console.error(e);
-        return {};
+        return [];
     }
 }
 
@@ -24,12 +28,16 @@ async function insert_many_daily_news(dailys_news_arr) {
  */
 async function get_last_updated_date() {
     try {
-        let res = await DailyNews.find().select('date').sort({'date' : -1}).limit(1);
-        return res;
+        let res = await DailyNews.find().select('date').sort({date: -1}).limit(1);
+
+        if (res === null || res === undefined || res.length <= 0) return moment();
+
+        return moment(res[0].date);
     } catch (e) {
+        console.error('ERROR: Failed to fetch latest updated date!');
         console.error(e);
         //in case of error, return null;
-        return null;
+        return moment();
     }
 }
 
@@ -41,17 +49,20 @@ async function get_last_updated_date() {
  */
 
 async function get_daily_news(date, locale) {
-
     let startDate = date.clone().startOf('day');
     let endDate = date.clone().endOf('day');
 
     try {
-        let res = await DailyNews.find( { date: { $gte: startDate, $lte: endDate }, "locale": locale}).sort({ importance_rating: -1});
-        return res;
+        let res = await DailyNews.find({date: {$gte: startDate, $lte: endDate}, locale: locale}).sort({
+            importance_rating: -1
+        });
+
+		if (res === null || res === undefined) return [];
+		return res;
     } catch (e) {
         console.error(e);
-        return {};
+        return [];
     }
 }
 
-module.exports = {    insert_many_daily_news, get_daily_news, get_last_updated_date};
+module.exports = {insert_many_daily_news, get_daily_news, get_last_updated_date};
