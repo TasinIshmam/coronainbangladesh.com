@@ -1,11 +1,10 @@
 'use strict';
 
 const axios = require('axios');
-const moment = require('moment');
 
 const {get_cached_data, set_cache, set_cache_with_exp} = require('./redis_cache_interface');
 
-const THRESHOLD = 5;
+const THRESHOLD = 1800;
 
 function extracted(targetURL, statScope, toRedis) {
 
@@ -42,14 +41,16 @@ async function get_statistics_bangladesh() {
     if (result.status === true && result.data === null) {
         //If there is redis cache miss, fetches data from api, stores in redis and returns the data
 
-        console.log('API CALL DATA');
+        console.log(result.data);
+
+        console.log('BD API CALL DATA');
 
         return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
 
     } else if (result.status === true && result.data !== null) {
         //If there is redis cache hit, returns data from redis
 
-        console.log('REDIS CACHED DATA');
+        console.log('BD REDIS CACHED DATA');
 
         let responseJSON = JSON.parse(result.data);
 
@@ -63,7 +64,7 @@ async function get_statistics_bangladesh() {
     } else {
         //If redis is down, makes an api call and returns the data
 
-        console.log('REDIS DOWN');
+        console.log('BD REDIS DOWN');
 
         return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", false);
 
@@ -79,7 +80,7 @@ async function get_statistics_world() {
 
         //If there is redis cache miss, fetches data from api, stores in redis and returns the data
 
-        console.log('API CALL DATA');
+        console.log('World API CALL DATA');
 
         return extracted("https://covid19.mathdro.id/api/", "World", true);
 
@@ -87,7 +88,7 @@ async function get_statistics_world() {
 
         //If there is redis cache hit, returns data from redis
 
-        console.log('REDIS CACHED DATA');
+        console.log('World REDIS CACHED DATA');
 
         let responseJSON = JSON.parse(result.data);
 
@@ -101,7 +102,7 @@ async function get_statistics_world() {
     } else {
         //If redis is down, makes an api call and returns the data
 
-        console.log('REDIS DOWN');
+        console.log('World REDIS DOWN');
 
         return extracted("https://covid19.mathdro.id/api/", "World", false);
     }

@@ -54,7 +54,7 @@ async function set_cache(key, val) {
 
 async function set_cache_with_exp(key, val, exp) {
     try {
-        await client.set(key, exp, val);
+        await client.setex(key, exp, val);
         return {
             status: true
         }
