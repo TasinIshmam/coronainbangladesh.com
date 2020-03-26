@@ -5,12 +5,13 @@
 const verify_cron_job_gcloud_source = (req, res, next) => {
 
     try {
-
-        if  (req.header('X-Appengine-Cron') === "true" && (req.ip === "::ffff:127.0.0.1" || req.ip === "::ffff:10.0.0.1") ) {
+        if(req.query.validation_token === process.env.VALIDATION_TOKEN_WEBSITE){
+            return next();
+        } else if  (req.header('X-Appengine-Cron') === "true" && (req.ip === "::ffff:127.0.0.1" || req.ip === "::ffff:10.0.0.1" ) ) {
             return next();
         } else {
-            console.error("Cron job failed. Could not verify gcloud source.\nRequest sent from ip: " + req.ip);
-            return res.sendStatus(401);
+            console.error("ERROR: Cron job failed. Could not verify gcloud source.\nRequest sent from ip: " + req.ip);
+            return res.sendStatus(401).send("Unauthorized");
         }
     } catch (e) {
         return res.sendStatus(500);
