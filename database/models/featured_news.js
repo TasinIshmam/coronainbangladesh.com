@@ -22,14 +22,6 @@ const featured_news_schema = new mongoose.Schema({
         minLength: 1
     },
 
-    description: {
-        type: String,
-        required: true,
-        unique: false,
-        trim: true,
-        minLength: 1
-    },
-
     link: {
         type: String,
         validate: urlValidator,
@@ -50,9 +42,18 @@ const featured_news_schema = new mongoose.Schema({
         min: 0,
         max: 5,
         default: 3
+    } ,
+
+    description: {
+        type: String,
+        required: true,
+        unique: false,
+        trim: true,
+        minLength: 1
     }
 });
-featured_news_schema.index( {"date" : 1, "importance_rating" : 1, "link" : 1, "image_url" : 1} , {unique: true});
+
+featured_news_schema.index( {"date" : 1} , {unique: false});
 
 featured_news_schema.plugin(beautifyUnique);
 

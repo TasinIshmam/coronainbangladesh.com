@@ -19,7 +19,7 @@ let handle_POST_user =  async (req, res) => {
     try {
 
         //todo This
-        if (req.query.validation_token !== process.env.USER_PUT_SECRET_KEY) {
+        if (req.query.validation_token !==   process.env.USER_PUT_SECRET_KEY ) {
             console.log(req.query.validation_token);
             console.log("Received POST /api/myths/users with INVALID validation token. Discarding request");
             return res.sendStatus(401);

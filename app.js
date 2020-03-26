@@ -4,7 +4,7 @@ const env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
 
     process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-    //process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
+    //process.env.MONGODB_URI = process.env.MONGODB_URI;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
     process.env.NODE_ENV = 'development';
     process.env.PORT = 1338;
 }
