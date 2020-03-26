@@ -36,7 +36,6 @@ const daily_news_schema = new mongoose.Schema({
 
     date: {
         type: Date,
-
         required: true
     },
 
