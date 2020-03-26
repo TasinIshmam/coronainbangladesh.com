@@ -94,7 +94,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="Pick a date">
+                <input type="text" data-dd-default-date="<%= default_date %>" class="form-control corona-input" id="dateDrop" placeholder="Pick a date" value="<%= default_date %>">
               </div>
             </div>
           </div>
@@ -241,6 +241,10 @@
       <p class="m0"><a href="/en/about">About</a> | <a href="/en/privacy-policy">Privacy Policy</a> | <a href="/en/contact">Contact</a></p>
     </footer>
 
+    <span id='variableJSON' hidden>
+      <%= JSON.stringify(validation_token); %>
+    </span>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -267,8 +271,7 @@
           large: true,
           largeDefault: true,
           minDate: '03/23/2020',
-          maxDate: '03/24/2020',
-          format: 'd-m-Y',
+          maxDate: '<%- latest_date %>',
           onChange: function(res) {
             let selected_date = res.date.m+'/'+res.date.d+'/'+res.date.Y;
             let default_date = $("#dateDrop").attr('data-dd-default-date');
@@ -298,7 +301,13 @@
             // $("#myths .unanswered:first").show();
             // $("#myths").fadeIn();
 
-            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email});
+            let variableJSON = JSON.parse($('#variableJSON').text());
+
+            $('#variableJSON').remove();
+            
+            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email, newsletter_subscription_status: true});
+
+            variableJSON = null;
 
             $("#subscription-form").css("display", "none");
             $("#subscription-success").css("display", "");
