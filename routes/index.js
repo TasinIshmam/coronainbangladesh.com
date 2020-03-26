@@ -95,7 +95,7 @@ router.get('/updates', async function(req, res, next) {
 		date: date,
 		default_date: default_date,
 		latest_date: latest_date.format('MM/DD/YYYY'),
-		validation_token: JSON.stringify(process.env.VALIDATION_TOKEN_WEBSITE)
+		validation_token: process.env.VALIDATION_TOKEN_WEBSITE
 	});
 });
 
