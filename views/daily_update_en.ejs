@@ -304,10 +304,10 @@
             let variableJSON = JSON.parse($('#variableJSON').text());
 
             $('#variableJSON').remove();
-            
-            $.post('/api/myths/users?validation_token=sdfbh435t64e5tdhjrftje5ye324r23klhgrsw2', {name: name, email: email, newsletter_subscription_status: true});
 
-            variableJSON = null;
+         $.post('/api/myths/users?validation_token=' + variableJSON, {name: name, email: email, newsletter_subscription_status: true});
+
+          variableJSON = null;
 
             $("#subscription-form").css("display", "none");
             $("#subscription-success").css("display", "");

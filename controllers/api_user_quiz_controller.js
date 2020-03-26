@@ -28,6 +28,7 @@ let handle_POST_user =  async (req, res) => {
         let result = await users_quiz_database_interface.add_new_user({
             name : req.body.name,
             email : req.body.email,
+            newsletter_subscription_status: req.body.newsletter_subscription_status
         });
 
         if (result) {
