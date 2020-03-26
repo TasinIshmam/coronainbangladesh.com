@@ -94,7 +94,8 @@ router.get('/updates', async function(req, res, next) {
 		world_news: world_news,
 		date: date,
 		default_date: default_date,
-		latest_date: latest_date.format('MM/DD/YYYY')
+		latest_date: latest_date.format('MM/DD/YYYY'),
+		validation_token: 'dgvdrhGHdvo3sfhsgvszIOHGsfdo32423ngrngrgg24r5rfgvs33sqDF'
 	});
 });
 
@@ -131,7 +132,8 @@ router.get('/en/updates', async function(req, res, next) {
 		world_news: world_news,
 		date: date,
 		default_date: default_date,
-		latest_date: latest_date.format('MM/DD/YYYY')
+		latest_date: latest_date.format('MM/DD/YYYY'),
+		validation_token: 'dgvdrhGHdvo3sfhsgvszIOHGsfdo32423ngrngrgg24r5rfgvs33sqDF'
 	});
 });
 
@@ -166,14 +168,14 @@ router.get('/en/prevention', function(req, res, next) {
 /* GET bn prevention page. */
 router.get('/mythbuster', function(req, res, next) {
 	res.render('mythbuster', {
-		validation_token: process.env.USER_PUT_SECRET_KEY
+		validation_token: 'dgvdrhGHdvo3sfhsgvszIOHGsfdo32423ngrngrgg24r5rfgvs33sqDF'
 	});
 });
 
 /* GET en mythbuster page. */
 router.get('/en/mythbuster', function(req, res, next) {
 	res.render('mythbuster_en', {
-		validation_token: process.env.USER_PUT_SECRET_KEY
+		validation_token: 'dgvdrhGHdvo3sfhsgvszIOHGsfdo32423ngrngrgg24r5rfgvs33sqDF'
 	});
 });
 
