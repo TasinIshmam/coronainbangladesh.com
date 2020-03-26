@@ -2,13 +2,14 @@ const redis_init = require('../../cache/redis_init');
 
 const client = redis_init.client;
 
-
-//Tries to get cached data. Takes one argument - key.
-//Returns an object with two attributes - status and data.
-//status is 'true' if the redis server responds either with a cache hit or miss.
-//status is 'false' if there is an error.
-//data is the cached data. Value is null for cache miss.
-
+/**
+ * Tries to get cached data.
+ * @params
+ *    {string} key - the key used to search the redis cache
+ * @returns
+ *    {boolean} status - 'true' if the redis server responds, 'false' if there is an error.
+ *    {string} data - contains cached data if there is a cache hit and null if there is a cache miss
+*/
 async function get_cached_data(key) {
     try {
         let data = await client.get(key);
@@ -25,12 +26,15 @@ async function get_cached_data(key) {
 }
 
 
-
-//Tries to set cache data. Takes two arguments - key and val.
-//Sets the value of key to be val in the cache.
-//Returns an object with one attribute - status.
-//status is 'true' if data is set successfully and 'false' if there is an error.
-
+/**
+ * Tries to set cached data.
+ * @params
+ *    {string} key - the key that will be used to search the redis cache
+ *    {string} value - the value that will be set against key
+ * @returns {status, data}
+ *    {boolean} status - 'true' if the redis server responds, 'false' if there is an error.
+ *    {string} data - contains cached data if there is a cache hit and null if there is a cache miss
+ */
 async function set_cache(key, val) {
     try {
         await client.set(key, val);
@@ -45,13 +49,16 @@ async function set_cache(key, val) {
 }
 
 
-
-//Tries to set cache data. Takes three arguments - key and val and exp.
-//Sets the value of key to be val for exp seconds in the cache.
-//After exp seconds the value will automatically become null.
-//Returns an object with one attribute - status.
-//status is 'true' if data is set successfully and 'false' if there is an error.
-
+/**
+ * Tries to set cached data with an expiration time.
+ * @params
+ *    {string} key - the key that will be used to search the redis cache
+ *    {string} value - the value that will be set against key
+ *    {Number} exp - the expiration time for this key-value pair
+ * @returns {status, data}
+ *    {boolean} status - 'true' if the redis server responds, 'false' if there is an error.
+ *    {string} data - contains cached data if there is a cache hit and null if there is a cache miss
+ */
 async function set_cache_with_exp(key, val, exp) {
     try {
         await client.setex(key, exp, val);
