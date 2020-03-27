@@ -28,7 +28,7 @@ function get_cached_data(key) {
  * Takes two arguments, returns a JSON object containing a status
  * @param key - the key to set the value against
  * @param val - the value to be set against the key
- * @returns {Promise<{status: boolean}>}
+ * @returns {{status: boolean}}
  */
 function set_cache(key, val) {
     try {
@@ -48,7 +48,7 @@ function set_cache(key, val) {
  * @param key - the key to set the value against
  * @param val - the value to be set against the key
  * @param exp - the expiration time (in seconds)
- * @returns {Promise<{status: boolean}>}
+ * @returns {{status: boolean}}
  */
 
 function set_cache_with_exp(key, val, exp) {

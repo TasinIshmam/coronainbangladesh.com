@@ -30,7 +30,7 @@ async function get_news_between_dates_with_count(
         return response.data;
     } else {
         let data = await featured_news_interface.get_news_between_dates_with_count(count, startDate, endDate);
-        await cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, THRESHOLD);
         return data;
     }
 
@@ -52,7 +52,7 @@ async function get_all_live_news(count = 50) {
         return response.data;
     } else {
         let data = await live_news_interface.get_all_live_news(count);
-        await cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, THRESHOLD);
         return data;
     }
 
@@ -77,7 +77,7 @@ async function get_daily_news(date, locale) {
 
         let data = await daily_news_interface.get_daily_news(date, locale);
 
-        await cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, THRESHOLD);
 
         return data;
     }
@@ -101,7 +101,7 @@ async function get_last_updated_date() {
 
         let data = await daily_news_interface.get_last_updated_date();
 
-        await cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, THRESHOLD);
 
         return data;
     }
