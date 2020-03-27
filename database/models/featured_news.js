@@ -3,8 +3,15 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 var validate = require('mongoose-validator');
 
 
+var urlValidator_image_url = [
+    validate({
+        validator: 'isURL',
+        passIfEmpty: true,
+        message: 'Should be URL or Empty',
+    })
+];
 
-var urlValidator = [
+var urlValidator_link = [
     validate({
         validator: 'isURL',
         passIfEmpty: false,
@@ -24,13 +31,14 @@ const featured_news_schema = new mongoose.Schema({
 
     link: {
         type: String,
-        validate: urlValidator,
+        validate: urlValidator_link,
         required: true,
 
     },
     image_url: {
-        type: mongoose.SchemaTypes.Url,
-        required: true,
+        type: String,
+        required: false,
+        validate: urlValidator_image_url
 
     },
     date: {
