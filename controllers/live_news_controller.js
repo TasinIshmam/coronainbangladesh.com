@@ -65,4 +65,4 @@ function find_set_difference_news(new_news_arr, old_news_arr) {
 
 }
 
-module.exports = {find_set_difference_news , handle_live_news_update }
+module.exports = { handle_live_news_update }

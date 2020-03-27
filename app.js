@@ -3,8 +3,8 @@ const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
 
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
-    //process.env.MONGODB_URI = process.env.MONGODB_URI_Atlas;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
+   // process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+   process.env.MONGODB_URI = process.env.MONGODB_URI;  //Atlas DB URI.  //todo make a package.json to do this run locally connect to livedb thing.
     process.env.NODE_ENV = 'development';
     process.env.PORT = 1338;
 }
@@ -45,8 +45,6 @@ app.use(limiter.rateLimiterMiddlewareInMemory); //prevents too many requests fro
 //Templating Engine Setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-
 
 
 //Handling routes

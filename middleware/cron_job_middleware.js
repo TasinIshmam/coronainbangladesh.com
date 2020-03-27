@@ -1,7 +1,15 @@
 
-//ensures request is from google servers.
-//https://cloud.google.com/appengine/docs/flexible/nodejs/scheduling-jobs-with-cron-yaml
 
+/**
+ * Middleware to ensure requests come from Google servers (With appropriate header and ip)
+ * https://cloud.google.com/appengine/docs/flexible/nodejs/scheduling-jobs-with-cron-yaml
+ * OR
+ * They have appropriate validation token (For debugging from localhost)
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 const verify_cron_job_gcloud_source = (req, res, next) => {
 
     try {
@@ -11,7 +19,7 @@ const verify_cron_job_gcloud_source = (req, res, next) => {
             return next();
         } else {
             console.error("ERROR: Cron job failed. Could not verify gcloud source.\nRequest sent from ip: " + req.ip);
-            return res.sendStatus(401).send("Unauthorized");
+            return res.status(401).send("Unauthorized");
         }
     } catch (e) {
         return res.sendStatus(500);

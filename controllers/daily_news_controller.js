@@ -15,7 +15,7 @@ async function handle_POST_daily_news(req, res) {
 
         if (req.query.validation_token !== process.env.VALIDATION_TOKEN_WEBSITE) {
             console.log("POST /api/dailynews with INVALID validation token. Discarding request");
-            return res.send(401);
+            return res.sendStatus(401);
         }
 
         let daily_news_arr = req.body;
@@ -28,13 +28,13 @@ async function handle_POST_daily_news(req, res) {
         } else {
             console.error("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + res.length);
 
-            return res.sendStatus(500).send("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + res.length);
+            return res.status(500).send("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + res.length);
         }
 
     } catch (e) {
         console.error("ERROR in POST /api/dailynews");
         console.error(e);
-        return res.sendStatus(500).send("ERROR in POST /api/dailynews");
+        return res.status(500).send("ERROR in POST /api/dailynews");
     }
 
 }

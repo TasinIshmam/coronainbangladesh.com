@@ -4,7 +4,7 @@ let {RateLimiterMemory} = require('rate-limiter-flexible');
 
 
 const opts = {
-    points: 5, // 6 points
+    points: 5, // 5 points. Each request consumes 1 point.
     duration: 1, // Per second
 };
 
@@ -18,7 +18,7 @@ const rateLimiterMiddlewareInMemory = (req, res, next) => {
         })
         .catch(() => {
             console.error("ERROR: Too many request coming in from IP. HTTP: 429");
-            return res.sendStatus(429).send('Too Many Requests');
+            return res.status(429).send('Too Many Requests');
         });
 };
 

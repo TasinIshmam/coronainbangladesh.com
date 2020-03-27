@@ -4,10 +4,18 @@ var validate = require('mongoose-validator');
 
 
 
-var urlValidator = [
+var urlValidator_image_url = [
     validate({
         validator: 'isURL',
         passIfEmpty: true,
+        message: 'Should be URL or Empty',
+    })
+];
+
+var urlValidator_reference = [
+    validate({
+        validator: 'isURL',
+        passIfEmpty: false,
         message: 'Should be URL',
     })
 ];
@@ -17,13 +25,13 @@ const daily_news_schema = new mongoose.Schema({
 
     reference: {
         type: String,
-        validate: urlValidator,
+        validate: urlValidator_reference,
         required: true,
 
     },
     image_url: {
         type: String,
-        validate: urlValidator,
+        validate: urlValidator_image_url,
         required: false,
 
     },
@@ -46,14 +54,15 @@ const daily_news_schema = new mongoose.Schema({
         default: 3
     },
 
-    text_english : {
+    text_english : {  //Text English is unique to enforce uniqueness for each collection.  (Prevents duplicate entriess in db.)
         type: String,
         required: true,
+        unique : true,
         trim: true,
         minLength: 1
     },
 
-    text_bangla: {
+    text_bangla: {  // As Text Bangla consumes more characters, it is ommitted. Indexing ha 1024 character limit.
         type: String,
         required: true,
         trim: true,

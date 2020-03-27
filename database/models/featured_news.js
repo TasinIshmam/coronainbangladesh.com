@@ -3,8 +3,15 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 var validate = require('mongoose-validator');
 
 
+var urlValidator_image_url = [
+    validate({
+        validator: 'isURL',
+        passIfEmpty: true,
+        message: 'Should be URL or Empty',
+    })
+];
 
-var urlValidator = [
+var urlValidator_link = [
     validate({
         validator: 'isURL',
         passIfEmpty: false,
@@ -22,23 +29,16 @@ const featured_news_schema = new mongoose.Schema({
         minLength: 1
     },
 
-    description: {
-        type: String,
-        required: true,
-        unique: false,
-        trim: true,
-        minLength: 1
-    },
-
     link: {
         type: String,
-        validate: urlValidator,
+        validate: urlValidator_link,
         required: true,
 
     },
     image_url: {
-        type: mongoose.SchemaTypes.Url,
-        required: true,
+        type: String,
+        required: false,
+        validate: urlValidator_image_url
 
     },
     date: {
@@ -50,9 +50,18 @@ const featured_news_schema = new mongoose.Schema({
         min: 0,
         max: 5,
         default: 3
+    } ,
+
+    description: {
+        type: String,
+        required: true,
+        unique: false,
+        trim: true,
+        minLength: 1
     }
 });
-featured_news_schema.index( {"date" : 1, "importance_rating" : 1, "link" : 1, "image_url" : 1} , {unique: true});
+
+featured_news_schema.index( {"date" : 1} , {unique: false});
 
 featured_news_schema.plugin(beautifyUnique);
 

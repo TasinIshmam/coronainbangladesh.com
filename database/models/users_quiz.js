@@ -24,6 +24,13 @@ const users_quiz_schema =  new mongoose.Schema({
         minlength: 1
     },
 
+    newsletter_subscription_status: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+
+
     date: {
         type: Date,
         default: Date.now
