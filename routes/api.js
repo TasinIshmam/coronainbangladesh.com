@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+//middleware
 let cron_job_middleware = require('../middleware/cron_job_middleware');
 
 
@@ -22,9 +23,8 @@ router.post('/myths/users', api_user_quiz_controller.handle_POST_user);
 router.post('/featurednews' , featured_news_controller.handle_POST_featured_news);
 
 
-//in development environment no need for middleware for google source verification.
-
-    router.get('/tasks/update-live-news', cron_job_middleware.verify_cron_job_gcloud_source, live_news_controller.handle_live_news_update );
+//Cron job routes
+router.get('/tasks/update-live-news', cron_job_middleware.verify_cron_job_gcloud_source, live_news_controller.handle_live_news_update );
 
 
 

@@ -4,7 +4,7 @@ let {RateLimiterMemory} = require('rate-limiter-flexible');
 
 
 const opts = {
-    points: 5, // 6 points
+    points: 5, // 5 points. Each request consumes 1 point.
     duration: 1, // Per second
 };
 
