@@ -1,5 +1,5 @@
 const NodeCache = require('node-cache');
-const my_cache = new NodeCache();
+const my_cache = new NodeCache({deleteOnExpire:true, useClones:true});
 
 
 /**
@@ -12,7 +12,7 @@ function get_cached_data(key) {
         let data = my_cache.get(key);
 
         return {
-            status: ( data === undefined || data === null ) ? false : true,
+            status: (!(data === undefined || data === null)),
             data: ( data === undefined || data === null ) ? null : data
         }
     } catch (e) {
