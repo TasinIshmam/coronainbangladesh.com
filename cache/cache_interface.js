@@ -5,14 +5,14 @@ const my_cache = new NodeCache();
 /**
  * Takes one argument, returns a JSON object containing a status and data
  * @param key - a key that will be used to search the cache
- * @returns {{data: null, status: boolean}|{data: (null|JSON), status: boolean}}
+ * @returns {{data: null, status: boolean}|{data: (null|JSON), status: boolean}} 
  */
 function get_cached_data(key) {
     try {
         let data = my_cache.get(key);
         return {
             status: true,
-            data: data === undefined ? null : data
+            data: ( data === undefined || data === null ) ? null : data
         }
     } catch (e) {
         return {
