@@ -19,7 +19,7 @@ const verify_cron_job_gcloud_source = (req, res, next) => {
             return next();
         } else {
             console.error("ERROR: Cron job failed. Could not verify gcloud source.\nRequest sent from ip: " + req.ip);
-            return res.sendStatus(401).send("Unauthorized");
+            return res.status(401).send("Unauthorized");
         }
     } catch (e) {
         return res.sendStatus(500);

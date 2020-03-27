@@ -18,7 +18,7 @@ const rateLimiterMiddlewareInMemory = (req, res, next) => {
         })
         .catch(() => {
             console.error("ERROR: Too many request coming in from IP. HTTP: 429");
-            return res.sendStatus(429).send('Too Many Requests');
+            return res.status(429).send('Too Many Requests');
         });
 };
 
