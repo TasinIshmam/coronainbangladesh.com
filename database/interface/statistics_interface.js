@@ -1,120 +1,82 @@
 'use strict';
 
 const axios = require('axios');
+const moment = require('moment');
 
-const {get_cached_data, set_cache, set_cache_with_exp} = require('./redis_cache_interface');
 
-const THRESHOLD = 1800;
-
-function extracted(targetURL, statScope, toRedis) {
-
-    return axios.get(targetURL)
-        .then(response => {
-
-            let responseJSON = response.data;
-
-            if (toRedis === true) {
-                set_cache_with_exp(statScope, JSON.stringify(responseJSON), THRESHOLD).then((res) => {
-                    if (res.status === true) {
-                        console.log('Data cached successfully.');
-                    } else {
-                        console.log('Could not cache data.')
-                    }
-                });
-            }
-
-            return {
-                    confirmed: responseJSON.confirmed.value ,
-                    recovered:  responseJSON.recovered.value ,
-                    deaths:  responseJSON.deaths.value ,
-                    lastUpdate: responseJSON.lastUpdate
-
-            };
-
-        });
+/**
+ * API call for getting Covid-19 stats for Bangladesh.
+ * @returns {Promise<{}|{recovered: *, lastUpdate, confirmed: *, deaths: *}>}
+ */
+async function get_statistics_bangladesh( ) {
+try {
+    let response = await axios.get("https://covid19.mathdro.id/api/countries/bd");
+    let stats_object =  {
+        confirmed: response.data.confirmed.value ,
+        recovered:  response.data.recovered.value ,
+        deaths:  response.data.deaths.value ,
+        lastUpdate: response.data.lastUpdate
+    };
+    return stats_object;
+} catch (e) {
+    console.error("ERROR: Error in get_statistics_bangladesh API call");
+    return {};
 }
-
-async function get_statistics_bangladesh() {
-
-    let result = await get_cached_data('BD');
-
-    if (result.status === true && result.data === null) {
-        //If there is redis cache miss, fetches data from api, stores in redis and returns the data
-
-        console.log(result.data);
-
-        console.log('BD API CALL DATA');
-
-        return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", true);
-
-    } else if (result.status === true && result.data !== null) {
-        //If there is redis cache hit, returns data from redis
-
-        console.log('BD REDIS CACHED DATA');
-
-        let responseJSON = JSON.parse(result.data);
-
-        return {
-            confirmed: responseJSON.confirmed.value ,
-            recovered:  responseJSON.recovered.value ,
-            deaths:  responseJSON.deaths.value ,
-            lastUpdate: responseJSON.lastUpdate
-        }
-
-    } else {
-        //If redis is down, makes an api call and returns the data
-
-        console.log('BD REDIS DOWN');
-
-        return extracted("https://covid19.mathdro.id/api/countries/BD", "BD", false);
-
-    }
 
 }
 
+/**
+ * API call for getting Covid-19 stats for World.
+ * @returns {Promise<{}|{recovered: *, lastUpdate, confirmed: *, deaths: *}>}
+ */
 async function get_statistics_world() {
 
-    let result = await get_cached_data('World');
-
-    if (result.status === true && result.data === null) {
-
-        //If there is redis cache miss, fetches data from api, stores in redis and returns the data
-
-        console.log('World API CALL DATA');
-
-        return extracted("https://covid19.mathdro.id/api/", "World", true);
-
-    } else if (result.status === true && result.data !== null) {
-
-        //If there is redis cache hit, returns data from redis
-
-        console.log('World REDIS CACHED DATA');
-
-        let responseJSON = JSON.parse(result.data);
-
-        return {
-            confirmed: responseJSON.confirmed.value ,
-            recovered:  responseJSON.recovered.value ,
-            deaths:  responseJSON.deaths.value ,
-            lastUpdate: responseJSON.lastUpdate
-        }
-
-    } else {
-        //If redis is down, makes an api call and returns the data
-
-        console.log('World REDIS DOWN');
-
-        return extracted("https://covid19.mathdro.id/api/", "World", false);
-    }
+try {
+    let response = await axios.get("https://covid19.mathdro.id/api/");
+    let stats_object =  {
+        confirmed: response.data.confirmed.value ,
+        recovered:  response.data.recovered.value ,
+        deaths:  response.data.deaths.value ,
+        lastUpdate: response.data.lastUpdate
+    };
+    return stats_object;
+} catch (e) {
+    console.error("ERROR: Error in get_statistics_world API call");
+    return {};
+}
 
 }
 
 
-async function override_statistics_bangladesh(data, statScope) {
-
-    await set_cache(statScope, data);
+async function override_statistics_bangladesh( ) {
 
 }
+
+
+//Unusued functions. Pore korle korbo ne :'3
+
+async  function get_statistics_bangladesh_old_date(date) {
+    let formatted_date_string = date.format('YYYY-MM-DD');
+    console.log(formatted_date_string);
+    //https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#00030720-fae3-4c72-8aea-ad01ba17adf8
+    //https://covid19api.com/
+    //Eitate paba. Apatoto eto pera nite parbo na :'3
+}
+
+async function get_statistics_world_old_date(date) {
+    let formatted_date_string = date.format('YYYY-MM-DD');
+    console.log(formatted_date_string);
+    let response = await axios.get("https://covid19.mathdro.id/api/daily/");
+
+    let res_for_date = response.data.filter((element) => {
+        return element.reportDate === formatted_date_string
+    });
+    //PROBLEM. Recovered data is missing in this api. So Can't use it.
+    //Also can't find this data in any other API. So fuck this pera nite parbo na.
+}
+
+
+
 
 
 module.exports = {get_statistics_bangladesh, get_statistics_world, override_statistics_bangladesh};

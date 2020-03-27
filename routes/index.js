@@ -3,7 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 
 // Importing DB Interfaces
-const stat_interface = require('../database/interface/statistics_interface');
+const stat_interface = require('../data_repository/statistics_data_repository');
 const live_news_interface = require('../database/interface/live_news_interface');
 const featured_news_interface = require('../database/interface/featured_news_interface');
 const daily_news_interface = require('../database/interface/daily_news_interface');

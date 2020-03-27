@@ -10,8 +10,9 @@ const my_cache = new NodeCache();
 function get_cached_data(key) {
     try {
         let data = my_cache.get(key);
+
         return {
-            status: true,
+            status: ( data === undefined || data === null ) ? false : true,
             data: ( data === undefined || data === null ) ? null : data
         }
     } catch (e) {
@@ -49,9 +50,10 @@ function set_cache(key, val) {
  * @param exp - the expiration time (in seconds)
  * @returns {Promise<{status: boolean}>}
  */
+
 function set_cache_with_exp(key, val, exp) {
     try {
-        my_cache.set(key, exp, val);
+        my_cache.set(key, val, exp);
         return {
             status: true
         }
