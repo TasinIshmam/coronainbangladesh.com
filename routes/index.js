@@ -3,17 +3,15 @@ const router = express.Router();
 const moment = require('moment');
 
 // Importing DB Interfaces
-const stat_interface = require('../data_repository/statistics_data_repository');
-const live_news_interface = require('../database/interface/live_news_interface');
-const featured_news_interface = require('../database/interface/featured_news_interface');
-const daily_news_interface = require('../database/interface/daily_news_interface');
+const statistics_data_repository = require('../data_repository/statistics_data_repository');
+const news_data_repository = require('../data_repository/news_data_repository');
 // const myth_interface = require('../database/interface/myth_interface');
 
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const featured_news = await featured_news_interface.get_news_between_dates_with_count();
-	const live_news = await live_news_interface.get_all_live_news(10);
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const featured_news = await news_data_repository.get_featured_news();
+	const live_news = await news_data_repository.get_live_news(10);
 
 	res.render('index', {
 		stats: stats,
@@ -24,9 +22,9 @@ router.get('/', async function(req, res, next) {
 
 /* GET en home page. */
 router.get('/en', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const featured_news = await featured_news_interface.get_news_between_dates_with_count();
-	const live_news = await live_news_interface.get_all_live_news(10);
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const featured_news = await news_data_repository.get_featured_news();
+	const live_news = await news_data_repository.get_live_news(10);
 
 	res.render('index_en', {
 		stats: stats,
@@ -37,9 +35,9 @@ router.get('/en', async function(req, res, next) {
 
 /* GET bn live update page. */
 router.get('/live-update', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const live_news = await live_news_interface.get_all_live_news();
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const world_stats = await statistics_data_repository.get_statistics_world();
+	const live_news = await news_data_repository.get_live_news();
 
 	res.render('live_update', {
 		stats: stats,
@@ -50,9 +48,9 @@ router.get('/live-update', async function(req, res, next) {
 
 /* GET en live update page. */
 router.get('/en/live-update', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const live_news = await live_news_interface.get_all_live_news();
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const world_stats = await statistics_data_repository.get_statistics_world();
+	const live_news = await news_data_repository.get_live_news();
 
 	res.render('live_update_en', {
 		stats: stats,
@@ -66,7 +64,7 @@ router.get('/updates', async function(req, res, next) {
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
 	let db_date = moment();
-	let latest_date = await daily_news_interface.get_last_updated_date();
+	let latest_date = await news_data_repository.get_daily_news_last_updated_date();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
@@ -82,10 +80,10 @@ router.get('/updates', async function(req, res, next) {
 		db_date = latest_date;
 	}
 
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await daily_news_interface.get_daily_news(db_date, 'BD');
-	const world_news = await daily_news_interface.get_daily_news(db_date, 'GLOBAL');
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const world_stats = await statistics_data_repository.get_statistics_world();
+	const bd_news = await news_data_repository.get_daily_news(db_date, 'BD');
+	const world_news = await news_data_repository.get_daily_news(db_date, 'GLOBAL');
 
 	res.render('daily_update', {
 		stats: stats,
@@ -104,7 +102,7 @@ router.get('/en/updates', async function(req, res, next) {
 	let date = moment().format('Do MMMM, YYYY');
 	let default_date = moment().format('MM/DD/YYYY');
 	let db_date = moment();
-	let latest_date = await daily_news_interface.get_last_updated_date();
+	let latest_date = await news_data_repository.get_daily_news_last_updated_date();
 
 	const dateReg = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/20[2-9][0-9]$/;
 
@@ -120,10 +118,10 @@ router.get('/en/updates', async function(req, res, next) {
 		db_date = latest_date;
 	}
 
-	const stats = await stat_interface.get_statistics_bangladesh();
-	const world_stats = await stat_interface.get_statistics_world();
-	const bd_news = await daily_news_interface.get_daily_news(db_date, 'BD');
-	const world_news = await daily_news_interface.get_daily_news(db_date, 'GLOBAL');
+	const stats = await statistics_data_repository.get_statistics_bangladesh();
+	const world_stats = await statistics_data_repository.get_statistics_world();
+	const bd_news = await news_data_repository.get_daily_news(db_date, 'BD');
+	const world_news = await news_data_repository.get_daily_news(db_date, 'GLOBAL');
 
 	res.render('daily_update_en', {
 		stats: stats,
@@ -139,7 +137,7 @@ router.get('/en/updates', async function(req, res, next) {
 
 /* GET bn what is corona page. */
 router.get('/corona', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_world();
+	const stats = await statistics_data_repository.get_statistics_world();
 
 	res.render('coronavirus', {
 		stats: stats
@@ -148,7 +146,7 @@ router.get('/corona', async function(req, res, next) {
 
 /* GET en what is corona page. */
 router.get('/en/corona', async function(req, res, next) {
-	const stats = await stat_interface.get_statistics_world();
+	const stats = await statistics_data_repository.get_statistics_world();
 
 	res.render('coronavirus_en', {
 		stats: stats

@@ -26,11 +26,10 @@ const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 const limiter = require('./middleware/rate_limit_middleware');
-
+const morgan_utils = require('./util/logger/morgan_utils');
 const app = express();
 
 //logging
-app.use(morgan('short'));
 
 
 //middleware
@@ -40,6 +39,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('short', morgan_utils.morgan_options));
 app.use(limiter.rateLimiterMiddlewareInMemory); //prevents too many requests from the same ip
 
 //Templating Engine Setup

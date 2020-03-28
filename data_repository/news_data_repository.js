@@ -1,5 +1,4 @@
-import moment from "moment";
-
+const moment = require('moment');
 const cache = require('../cache/cache_interface');
 const live_news_interface = require('../database/interface/live_news_interface');
 const daily_news_interface = require('../database/interface/daily_news_interface');
@@ -15,7 +14,7 @@ const THRESHOLD = 900;
  * @param endDate - the end date for which featured news must be returned
  * @returns {Promise<null|JSON|{FeaturedNews}[]>} - the array of featured news that is returned
  */
-async function get_news_between_dates_with_count(
+async function get_featured_news(
     count = 20,
     startDate = moment().startOf('day').subtract(5, 'day'),
     endDate = moment().endOf('day')
@@ -27,6 +26,7 @@ async function get_news_between_dates_with_count(
     let response = cache.get_cached_data(key);
 
     if (response.status === true) {
+        console.log("LOG: Featured news cache hit");
         return response.data;
     } else {
         let data = await featured_news_interface.get_news_between_dates_with_count(count, startDate, endDate);
@@ -42,13 +42,14 @@ async function get_news_between_dates_with_count(
  * @param count - the number of live news items to be returned
  * @returns {Promise<null|JSON|{LiveNews}[]>} - the array of live news that is returned
  */
-async function get_all_live_news(count = 50) {
+async function get_live_news(count = 50) {
 
     let key = 'live_news' + count.toString();
 
     let response = cache.get_cached_data(key);
 
     if (response.status === true) {
+        console.log("LOG: Live news cache hit");
         return response.data;
     } else {
         let data = await live_news_interface.get_all_live_news(count);
@@ -72,6 +73,7 @@ async function get_daily_news(date, locale) {
     let response = cache.get_cached_data(key);
 
     if (response.status === true) {
+        console.log("LOG: Daily news cache hit");
         return response.data;
     } else {
 
@@ -89,24 +91,23 @@ async function get_daily_news(date, locale) {
  * Returns the date of last update for daily news
  * @returns {Promise<null|JSON|Date>} - the date when the daily news collection was last updated
  */
-async function get_last_updated_date() {
+async function get_daily_news_last_updated_date() {
 
     let key = 'daily_news_last_updated_date';
 
     let response = cache.get_cached_data(key);
 
     if (response.status === true) {
-        return response.data;
+        console.log("LOG: Daily news last update cache hit");
+        return moment(response.data)
+
     } else {
-
         let data = await daily_news_interface.get_last_updated_date();
-
-        cache.set_cache_with_exp(key, data, THRESHOLD);
-
+        cache.set_cache_with_exp(key, data.unix() * 1000, THRESHOLD);
         return data;
     }
 
 }
 
 
-module.exports = {get_news_between_dates_with_count, get_all_live_news, get_daily_news, get_last_updated_date};
+module.exports = {  get_daily_news_last_updated_date, get_live_news, get_featured_news, get_daily_news };
