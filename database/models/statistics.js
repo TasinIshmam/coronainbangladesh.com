@@ -34,6 +34,8 @@ const statistics_schema = new mongoose.Schema({
 
 });
 
+//todo find a way to ensure override entry for bd  can only have one value.
+
 statistics_schema.index( {"date" : 1} , {unique: false});
 statistics_schema.index( {"date" : 1, 'locale' : 1, 'stat_type' : 1} , {unique: true});
 statistics_schema.plugin(beautifyUnique);
