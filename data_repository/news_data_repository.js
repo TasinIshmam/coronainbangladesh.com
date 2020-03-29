@@ -4,7 +4,7 @@ const live_news_interface = require('../database/interface/live_news_interface')
 const daily_news_interface = require('../database/interface/daily_news_interface');
 const  featured_news_interface = require('../database/interface/featured_news_interface');
 
-const THRESHOLD = 900;
+const CACHE_EXPIRATION_TIME = 600;
 
 
 /**
@@ -30,7 +30,7 @@ async function get_featured_news(
         return response.data;
     } else {
         let data = await featured_news_interface.get_news_between_dates_with_count(count, startDate, endDate);
-        cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, CACHE_EXPIRATION_TIME);
         return data;
     }
 
@@ -53,7 +53,7 @@ async function get_live_news(count = 50) {
         return response.data;
     } else {
         let data = await live_news_interface.get_all_live_news(count);
-        cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, CACHE_EXPIRATION_TIME);
         return data;
     }
 
@@ -79,7 +79,7 @@ async function get_daily_news(date, locale) {
 
         let data = await daily_news_interface.get_daily_news(date, locale);
 
-        cache.set_cache_with_exp(key, data, THRESHOLD);
+        cache.set_cache_with_exp(key, data, CACHE_EXPIRATION_TIME);
 
         return data;
     }
@@ -103,7 +103,7 @@ async function get_daily_news_last_updated_date() {
 
     } else {
         let data = await daily_news_interface.get_last_updated_date();
-        cache.set_cache_with_exp(key, data.unix() * 1000, THRESHOLD);
+        cache.set_cache_with_exp(key, data.unix() * 1000, CACHE_EXPIRATION_TIME);   //data.unix() returns in seconds. Multiplied to convert o miliseconds.
         return data;
     }
 
