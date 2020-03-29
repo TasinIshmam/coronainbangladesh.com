@@ -18,10 +18,6 @@ let featured_news_interface = require('../database/interface/featured_news_inter
 async function handle_POST_featured_news(req, res) {
 
     try {
-        if (req.query.validation_token !== process.env.VALIDATION_TOKEN_WEBSITE) {
-            console.log("POST /api/featurednews with INVALID validation token. Discarding request");
-            return res.sendStatus(401);
-        }
 
         let news_arr = req.body;
         let result = await featured_news_interface.insert_many_featured_news(news_arr);
