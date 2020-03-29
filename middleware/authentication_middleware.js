@@ -22,10 +22,34 @@ const verify_cron_job_gcloud_source = (req, res, next) => {
             return res.status(401).send("Unauthorized");
         }
     } catch (e) {
+        console.error("Error in verify_cron_job_gcloud_source ");
+        console.error(e);
         return res.sendStatus(500);
     }
 
-
 };
 
-module.exports = {verify_cron_job_gcloud_source};
+/**
+ * Middleware to ensure validation token was sent with query parameters.
+ * Used primarily for POST /api endpoints.
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+const verify_validation_token = (req, res, next) => {
+    try {
+        if(req.query.validation_token === process.env.VALIDATION_TOKEN_WEBSITE) {
+            return next();
+        } else {
+            return res.status(401).send("Unauthorized");
+        }
+
+    } catch (e) {
+        console.error("Error in verify_validation_token ");
+        console.error(e);
+        return res.sendStatus(500);
+    }
+};
+
+module.exports = {verify_cron_job_gcloud_source, verify_validation_token};

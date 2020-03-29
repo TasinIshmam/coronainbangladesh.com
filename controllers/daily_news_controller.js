@@ -13,10 +13,6 @@ let daily_news_interface = require('../database/interface/daily_news_interface')
 async function handle_POST_daily_news(req, res) {
     try {
 
-        if (req.query.validation_token !== process.env.VALIDATION_TOKEN_WEBSITE) {
-            console.log("POST /api/dailynews with INVALID validation token. Discarding request");
-            return res.sendStatus(401);
-        }
 
         let daily_news_arr = req.body;
         let result = await daily_news_interface.insert_many_daily_news(daily_news_arr);
