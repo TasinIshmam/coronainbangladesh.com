@@ -60,6 +60,7 @@ async function get_daily_news(date, locale) {
 		if (res === null || res === undefined) return [];
 		return res;
     } catch (e) {
+        console.error("ERROR: Error in get_daily_news in daily news interface");
         console.error(e);
         return [];
     }

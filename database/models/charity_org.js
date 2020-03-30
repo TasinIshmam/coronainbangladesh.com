@@ -28,10 +28,19 @@ const charity_org_schema = new mongoose.Schema({
         type: [String],
         validate: [validateLength, 'Error: Location List Can Not Be Empty.']
     },
-    donate: {
+
+    language: {
+        type: String,
+        enum: ["BN", "EN"],
+        required: true
+    },
+
+    donate_webiste: {
         type: String,
         validate: urlValidator_reference,
+        required : false
     },
+
     how_to_donate: [{
         platform : {
             type: String,
@@ -51,11 +60,16 @@ const charity_org_schema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+
+    importance_rating: {
+        type: Number,
+        default: 3
+    }
 });
 
 
-charity_org_schema.index({"name" : 1}, {unique: true});
+charity_org_schema.index({"name" : 1, "language" : 1}, {unique: true});
 
 charity_org_schema.plugin(beautifyUnique);
 
