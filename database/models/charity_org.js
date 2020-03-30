@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 const validate = require('mongoose-validator');
-const validator = require('validator');
 
 function validateLength(val) {
     return val.length > 0;
