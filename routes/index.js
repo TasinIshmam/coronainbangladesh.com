@@ -221,13 +221,6 @@ router.get('/en/privacy-policy', function(req, res, next) {
 router.get('/donations', async function(req, res, next) {
 	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('BN');
 
-	// console.log(JSON.stringify(charity_orgs));
-
-	for (let org of charity_orgs) {
-		console.log(org);
-		console.log(org.donate);
-	}
-
 	res.render('donations', {
 		charity_orgs: charity_orgs
 	});
@@ -236,6 +229,13 @@ router.get('/donations', async function(req, res, next) {
 /* GET en privacy page. */
 router.get('/en/donations', async function(req, res, next) {
 	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('EN');
+
+	for (let orgs of charity_orgs) {
+		let org = JSON.stringify(orgs);
+		let start = org.indexOf('"donate"');
+		let end = org.indexOf('"', start + 10);
+		console.log(org, start, end, org.substring(start, end + 1));
+	}
 
 	res.render('donations_en', {
 		charity_orgs: charity_orgs
