@@ -15,32 +15,6 @@ const urlValidator_reference = [
     })
 ];
 
-function donationMethodValidator(val) {
-    try {
-        return val.platform !== null && val.number !== null;
-    } catch (e) {
-        return false;
-    }
-}
-
-/**
- * Takes a JSON object and validates if it has proper
- * @param val
- * @returns {boolean|*}
- */
-function contactValidator(val) {
-    try {
-        if (val.platform === "phone") {
-            return val.number !== null;
-        } else {
-            return validator.isURL(val.link);
-        }
-    } catch (e) {
-        return false;
-    }
-}
-
-
 const charity_org_schema = new mongoose.Schema({
     name: {
         type: String,
@@ -60,31 +34,32 @@ const charity_org_schema = new mongoose.Schema({
         validate: urlValidator_reference,
     },
     how_to_donate: [{
-        type: String,
-        get: function(data) {
-            try {
-                return JSON.parse(data);
-            } catch(e) {
-                return data;
-            }
+        platform : {
+            type: String,
+            require: true,
         },
-        set: function(data) {
-            return JSON.stringify(data);
-        },
-        validate: [donationMethodValidator, "The Donation Method Is Not Valid"]
+        contact_info : {
+            type: String,
+            required: true
+        }
     }],
     contact: [{
-        type: String,
-        get: function(data) {
-            try {
-                return JSON.parse(data);
-            } catch(e) {
-                return data;
-            }
+        platform : {
+            type: String,
+            require: true,
         },
-        set: function(data) {
-            return JSON.stringify(data);
-        },
-        validate: [contactValidator, "Contact Method Is Not Valid"]
+        contact_info : {
+            type: String,
+            required: true
+        }
     }]
 });
+
+
+charity_org_schema.index({"name" : 1}, {unique: true});
+
+charity_org_schema.plugin(beautifyUnique);
+
+let CharityOrg = mongoose.model("CharityOrg", charity_org_schema);
+
+module.exports = {CharityOrg};
