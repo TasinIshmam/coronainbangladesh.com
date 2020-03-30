@@ -12,6 +12,7 @@ let live_news_controller = require('../controllers/live_news_controller');
 let featured_news_controller = require('../controllers/featured_news_controller');
 let daily_news_controller = require('../controllers/daily_news_controller');
 let statistics_controller = require('../controllers/statistics_controller');
+let charity_org_controller = require('../controllers/charity_org_controller');
 
 
 //get mythbuster json array
@@ -37,6 +38,9 @@ router.post('/dailynews' , authentication_middleware.verify_validation_token ,  
 //statistics
 router.post('/statistics/override' , authentication_middleware.verify_validation_token , statistics_controller.handle_POST_update_override_statistics_bangladesh);
 
+
+//charityorgs
+router.post('/charityorgs' , authentication_middleware.verify_validation_token , charity_org_controller.handle_POST_charity_org);
 
 
 module.exports = router;
