@@ -62,14 +62,16 @@ const charity_org_schema = new mongoose.Schema({
         }
     }],
 
-    importance_rating: {
+    importance_rating: {  //Higher is Better.
         type: Number,
         default: 3
     }
 });
 
 
-charity_org_schema.index({"name" : 1, "language" : 1}, {unique: true});
+charity_org_schema.index({"name" : 1, "language" : 1}, {unique: true});  //for uniqueness
+charity_org_schema.index({"language" : 1}, {unique: false});  //for fast search
+
 
 charity_org_schema.plugin(beautifyUnique);
 

@@ -5,7 +5,7 @@ const {CharityOrg} = require('../models/charity_org');
 /**
  * Inerts multiple charity orgs
  * @param [{CharityOrg}]charity_org_arr - Elements to insert
- * @returns {Promise<[CharityOrg]|*>}   - Returns charity orgs successfully inserted.
+ * @returns {Promise<[CharityOrg]|[]>}   - Returns charity orgs successfully inserted.
  */
 async function insert_many_charity_org(charity_org_arr) {
     try {
@@ -23,9 +23,9 @@ async function insert_many_charity_org(charity_org_arr) {
 }
 
 /**
- *
+ * Returns all the charity organizations. Either in Bangla or English. Sorted by order of importance
  * @param {String} language  - Enum "EN" or "BN" value
- * @returns {Promise<void>}
+ * @returns {Promise<CharityOrg|[]>}
  */
 async function get_all_charity_org(language) {
 
@@ -37,7 +37,7 @@ async function get_all_charity_org(language) {
 
     } catch (e) {
 
-        console.error("ERROR: Failed to insert_many daily news");
+        console.error("ERROR: Failed to get_all_charity_org in charity_org_interface");
         console.error(e);
         return [];
     }
