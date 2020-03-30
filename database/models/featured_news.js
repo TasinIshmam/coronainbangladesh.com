@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
-var validate = require('mongoose-validator');
+const validate = require('mongoose-validator');
 
 
-var urlValidator_image_url = [
+const urlValidator_image_url = [
     validate({
         validator: 'isURL',
         passIfEmpty: true,
@@ -11,7 +11,7 @@ var urlValidator_image_url = [
     })
 ];
 
-var urlValidator_link = [
+const urlValidator_link = [
     validate({
         validator: 'isURL',
         passIfEmpty: false,
