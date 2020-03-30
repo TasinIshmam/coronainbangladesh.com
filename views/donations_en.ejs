@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="করোনাভাইরাস: সুপারহিরোদের গল্প"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="https://coronainbangladesh.com/images/fb_og_donate.png"/>
+    <meta property="og:url" content="https://coronainbangladesh.com/donations"/>
+    <meta property="og:description"
+          content="আপনার সাহায্যের হাত বাড়িয়ে দিন, সুপারহিরোদের পাশে দাঁড়ান"/>
+
+    <!-- For Google -->
+    <meta name="description"
+          content="A voluntary initiative with a mission to build and serve a comprehensive and trustworthy online information hub in the time of coronavirus epidemic in Bangladesh."/>
+    <meta name="keywords"
+          content="coronavirus, corona, covid19, covid-19, bangladesh, epidemic, dhaka, iedcr, quarantine"/>
+
+    <title>Corona in Bangladesh - A comprehensive information hub about the Coronavirus in Bangladesh</title>
+
+    <link rel="shortcut icon" href="../images/favicon.svg" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://kit.fontawesome.com/ad532652d6.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datedropper.com/get/hc9449von9g84k8erzpufmrcnuhj0f79"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110318517-12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110318517-12');
+    </script>
+  </head>
+  <body class="corona-bg-dark">
+    <div class="modal fade" id="popup" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>...</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark-corona">
+        <a class="navbar-brand" href="/en"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-right" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/en">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/corona">What is Coronavirus?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/prevention">Preventions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/mythbuster">Mythbuster</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/updates">Updates</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/emergency">Emergencies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/en/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link switch" href="/donations">বাংলা তে দেখুন</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="content" style="margin-top:70px">
+      <div class="corona-box">
+        <div class="corona-title">
+          <h2>Coronavirus Pandemic: Where You Can Donate</h2>
+        </div>
+        <div class="corona-content">
+          <p class="superhero-intro">You won't find superheroes in comics or on your TV screen. You'll find them right here among us in the real world. They are the ones going all out to put food in the mouths of the poor, to protect our doctors with PPEs and to provide the people of our nation with sanitizers amidst this pandemic. Our friends Hassan Munhamanna and Maliha Mohsin compiled <a href="https://docs.google.com/spreadsheets/d/1MJ9uuMqLBujJ-R2HPPphPf6NwFn72AYSVhmWrZIkJnE/edit?usp=sharing" target="_blank">this list</a> of superheroes, that allowed us to present their stories to you.<br><br>If you know a superhero, send us an email with their story at: <a href="mailto:contact@coronainbangladesh.com">contact@coronainbangladesh.com</a></p>
+        </div>
+      </div>
+
+      <div class="row donations">
+
+				<% for (let i=0; i<charity_orgs.length; i++) { %>
+					<div class="col-md-4">
+						<div class="donation-card">
+							<h2 class="org-name"><%= charity_orgs[i].name %></h2>
+	
+							<div class="org-details">
+								<h5>Activities Of The Organization</h5>
+								
+								<% for (let activity of charity_orgs[i].activities) { %>
+									<p><%= activity %></p>
+								<% } %>
+	
+								<h5>Location Of Activities </h5>
+									<ul>
+										<% for (let location of charity_orgs[i].locations) { %>
+											<li><%= location %></li>
+										<% } %>
+									</ul>
+							</div>
+	
+							<div class="org-donate">
+								<% if(charity_orgs[i].how_to_donate.length > 0) { %>
+									<a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> How To Donate</a>
+									<% } else { %>
+										<a href="<%= charity_orgs[i].donate %>" class="btn btn-corona" target="_blank"><i class="fas fa-donate"></i> Donate</a>
+								<% } %>
+									<a href="#" class="btn btn-corona contact-info-btn"><i class="fas fa-phone-alt"></i> Contact Information</a>
+							</div>
+	
+							<% if(charity_orgs[i].how_to_donate.length > 0) { %>
+								<div class="how-to-donate">
+									<% for (let donation_method of charity_orgs[i].how_to_donate) { %>
+										<p>Platform : <%= donation_method.platform %> <br>
+										Contact Information : <%= donation_method.contact_info %></p>
+									<% } %>
+								</div>
+							<% } %>
+	
+							<div class="contact-info">
+								<% for (let contact_method of charity_orgs[i].contact) { %>
+									<p>Platform : <%= contact_method.platform %> <br>
+										Contact Information : <%= contact_method.contact_info %></p>
+								<% } %>
+							</div>
+						</div>
+					</div>
+					<% } %>
+      </div>
+    </section>
+
+    <footer>
+      <p class="m0"><strong>Corona in Bangladesh</strong> is a voluntary initiative with a mission to build and serve a comprehensive and trustworthy online information hub in the time of coronavirus epidemic in Bangladesh.</p>
+      <p class="m0"><a href="/en/about">About</a> | <a href="/en/privacy-policy">Privacy Policy</a> | <a href="/en/contact">Contact</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://masonry.desandro.com/masonry.pkgd.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.how-to-donate-btn').click(function(){
+          $('#popup .modal-body').html($(this).parent().parent().find('.how-to-donate').html());
+          $('#popup .modal-title').html($(this).parent().parent().find('.org-name').html());
+
+          $('#popup').modal('show');
+
+          return false;
+        });
+
+        $('.contact-info-btn').click(function(){
+          $('#popup .modal-body').html($(this).parent().parent().find('.contact-info').html());
+          $('#popup .modal-title').html($(this).parent().parent().find('.org-name').html());
+
+          $('#popup').modal('show');
+
+          return false;
+        });
+
+        $('.donations').masonry({
+          // set itemSelector so .grid-sizer is not used in layout
+          itemSelector: '.col-md-4',
+          // use element for option
+          // columnWidth: '.grid-sizer',
+          percentPosition: true
+        })
+      });
+    </script>
+  </body>
+</html>

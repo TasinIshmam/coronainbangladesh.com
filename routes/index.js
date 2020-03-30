@@ -5,7 +5,7 @@ const moment = require('moment');
 // Importing DB Interfaces
 const statistics_data_repository = require('../data_repository/statistics_data_repository');
 const news_data_repository = require('../data_repository/news_data_repository');
-// const myth_interface = require('../database/interface/myth_interface');
+const charity_orgs_data_repository = require('../data_repository/charity_org_data_repository');
 
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {
@@ -215,6 +215,31 @@ router.get('/privacy-policy', function(req, res, next) {
 /* GET en privacy page. */
 router.get('/en/privacy-policy', function(req, res, next) {
 	res.render('privacy_en');
+});
+
+/* GET bn privacy page. */
+router.get('/donations', async function(req, res, next) {
+	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('BN');
+
+	// console.log(JSON.stringify(charity_orgs));
+
+	for (let org of charity_orgs) {
+		console.log(org);
+		console.log(org.donate);
+	}
+
+	res.render('donations', {
+		charity_orgs: charity_orgs
+	});
+});
+
+/* GET en privacy page. */
+router.get('/en/donations', async function(req, res, next) {
+	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('EN');
+
+	res.render('donations_en', {
+		charity_orgs: charity_orgs
+	});
 });
 
 module.exports = router;
