@@ -149,8 +149,8 @@
                     <p>Sorry, No Information Available!</p>
                   <% } %>
 									<% for (let donation_method of charity_orgs[i].how_to_donate) { %>
-										<p style="overflow-wrap: break-word;">Platform : <%= donation_method.platform %> <br>
-										Contact Information : <%= donation_method.contact_info %></p>
+										<p style="overflow-wrap: break-word;"> <strong><%= donation_method.platform %></strong> <br>
+										<%= donation_method.contact_info %></p>
 									<% } %>
 								</div>
 							<% } %>
@@ -160,8 +160,8 @@
                   <p>Sorry, No Information Available!</p>
                 <% } %>
 								<% for (let contact_method of charity_orgs[i].contact) { %>
-									<p style="overflow-wrap: break-word;">Platform : <%= contact_method.platform %> <br>
-										Contact Information : <%= contact_method.contact_info %></p>
+									<p style="overflow-wrap: break-word;"><strong><%= contact_method.platform %></strong> <br>
+										<%= contact_method.contact_info %></p>
 								<% } %>
 							</div>
 						</div>
