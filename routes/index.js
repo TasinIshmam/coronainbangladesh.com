@@ -230,10 +230,6 @@ router.get('/donations', async function(req, res, next) {
 router.get('/en/donations', async function(req, res, next) {
 	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('EN');
 
-	for (let orgs of charity_orgs) {
-		console.log(orgs.donate_website);
-	}
-
 	res.render('donations_en', {
 		charity_orgs: charity_orgs
 	});

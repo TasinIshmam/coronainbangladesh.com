@@ -130,21 +130,24 @@
 							</div>
 	
 							<div class="org-donate">
-								<% if(charity_orgs[i].how_to_donate.length > 0) { %>
+                <%
+                  let org = JSON.stringify(charity_orgs[i]);
+                  let start = org.indexOf('"donate_website"');
+                  let end = org.indexOf('"', start + 10);
+                %>
+								<% if(charity_orgs[i].how_to_donate.length > 0 || (end - start - 18) < 5) { %>
 									<a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> Donate</a>
 									<% } else { %>
-										<%
-                    let org = JSON.stringify(charity_orgs[i]);
-                    let start = org.indexOf('"donate_website"');
-                    let end = org.indexOf('"', start + 10);
-                  %>
 									<a href=<%= org.donate_website %> class="btn btn-corona" target="_blank"><i class="fas fa-hand-holding-usd"></i> Donate</a>
 								<% } %>
 									<a href="#" class="btn btn-corona contact-info-btn"><i class="fas fa-phone-alt"></i> Contact Information</a>
 							</div>
 	
-							<% if(charity_orgs[i].how_to_donate.length > 0) { %>
+              <% if(charity_orgs[i].how_to_donate.length > 0 || (end - start - 18) < 5) { %>
 								<div class="how-to-donate">
+                  <% if (charity_orgs[i].how_to_donate.length == 0)  { %>
+                    <p>Sorry, No Information Available!</p>
+                  <% } %>
 									<% for (let donation_method of charity_orgs[i].how_to_donate) { %>
 										<p>Platform : <%= donation_method.platform %> <br>
 										Contact Information : <%= donation_method.contact_info %></p>
@@ -153,6 +156,9 @@
 							<% } %>
 	
 							<div class="contact-info">
+                <% if (charity_orgs[i].contact.length == 0)  { %>
+                  <p>Sorry, No Information Available!</p>
+                <% } %>
 								<% for (let contact_method of charity_orgs[i].contact) { %>
 									<p>Platform : <%= contact_method.platform %> <br>
 										Contact Information : <%= contact_method.contact_info %></p>
