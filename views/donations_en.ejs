@@ -127,21 +127,21 @@
 											<li><%= location %></li>
 										<% } %>
 									</ul>
-							</div>
-	
-							<div class="org-donate">
+              </div>
+              
+              <div class="org-donate">
                 <%
-                  let org = JSON.stringify(charity_orgs[i]);
-                  let start = org.indexOf('"donate_website"');
-                  let end = org.indexOf('"', start + 10);
+                    let org = JSON.stringify(charity_orgs[i]);
+                    let start = org.indexOf('"donate_website"');
+                    let end = org.indexOf('"', start + 18);
                 %>
-								<% if(charity_orgs[i].how_to_donate.length > 0 || (end - start - 18) < 5) { %>
-									<a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> Donate</a>
-									<% } else { %>
+                <% if(charity_orgs[i].how_to_donate.length > 0 || (end - start - 18) < 5 ) { %>
+                  <a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> Donate</a>
+                  <% } else { %>
                     <a href="<%= org.substring(start + 18, end) %>" class="btn btn-corona" target="_blank"><i class="fas fa-hand-holding-usd"></i> Donate</a>
-								<% } %>
-									<a href="#" class="btn btn-corona contact-info-btn"><i class="fas fa-phone-alt"></i> Contact Information</a>
-							</div>
+                <% } %>
+                  <a href="#" class="btn btn-corona contact-info-btn"><i class="fas fa-phone-alt"></i> Contact Information</a>
+              </div>
 	
               <% if(charity_orgs[i].how_to_donate.length > 0 || (end - start - 18) < 5) { %>
 								<div class="how-to-donate">
