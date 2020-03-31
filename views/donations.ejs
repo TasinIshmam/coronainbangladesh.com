@@ -104,7 +104,7 @@
           <h2>করোনাভাইরাস: সুপারহিরোদের গল্প</h2>
         </div>
         <div class="corona-content">
-          <p class="superhero-intro">সুপারহিরোরা বইয়ের পাতায় বা টিভির পর্দায় নয়, আমাদের আশে পাশের জগতেই ছড়িয়ে ছিটিয়ে রয়েছে। তারা দিন রাত খেটে যাচ্ছে হত দরিদ্র মানুষের মুখে একবেলার খাবার তুলে দিতে, আমাদের ডাক্তারদের বাঁচিয়ে রাখার পিপিই বানাতে আর আমাদের দেশের মানুষের হাতে হ্যান্ড স্যানিটাইজার তুলে দিতে। আমাদের বন্ধুরা - হাসান মুনহামান্নাহ আর মালিহা মোহসিন - <a href="https://docs.google.com/spreadsheets/d/1MJ9uuMqLBujJ-R2HPPphPf6NwFn72AYSVhmWrZIkJnE/edit?usp=sharing" target="_blank">এই তালিকাটি</a> প্রস্তুত করেছেন, যার ফলে আমরা আপনাদের সামনে এই সুপারহিরোদের গল্প তুলে ধরতে পারছি।<br><br>আপনি কি জানেন এমনই কোনও সুপারহিরোর কথা? তাহলে এখনই জানিয়ে দিন তাদের গল্পটি, আমাদের ইমেইলেঃ <a href="mailto:contact@coronainbangladesh.com">contact@coronainbangladesh.com</a></p>
+          <p class="superhero-intro">সুপারহিরোরা বইয়ের পাতায় বা টিভির পর্দায় নয়, আমাদের আশে পাশের জগতেই ছড়িয়ে ছিটিয়ে রয়েছে। তারা দিন রাত খেটে যাচ্ছে হত দরিদ্র মানুষের মুখে একবেলার খাবার তুলে দিতে, আমাদের ডাক্তারদের বাঁচিয়ে রাখার পিপিই বানাতে আর আমাদের দেশের মানুষের হাতে হ্যান্ড স্যানিটাইজার তুলে দিতে। আমাদের বন্ধুরা - নোশিন নাওয়ার, হাসসান মুনহামান্না আর মালীহা মোহসিন - <a href="https://docs.google.com/spreadsheets/d/1MJ9uuMqLBujJ-R2HPPphPf6NwFn72AYSVhmWrZIkJnE/edit?usp=sharing" target="_blank">এই তালিকাটি</a> প্রস্তুত করেছেন, যার ফলে আমরা আপনাদের সামনে এই সুপারহিরোদের গল্প তুলে ধরতে পারছি।<br><br>আপনি কি জানেন এমনই কোনও সুপারহিরোর কথা? তাহলে এখনই জানিয়ে দিন তাদের গল্পটি, আমাদের ইমেইলেঃ <a href="mailto:contact@coronainbangladesh.com">contact@coronainbangladesh.com</a></p>
         </div>
       </div>
 
@@ -164,8 +164,17 @@
                 <p>দুঃখিত, কোন তথ্য পাওয়া যায় নি!</p>
               <% } %>
               <% for (let contact_method of charity_orgs[i].contact) { %>
-								<p style="overflow-wrap: break-word;"><strong><%= contact_method.platform %></strong> <br>
-                  <%= contact_method.contact_info %></p>
+                <p style="overflow-wrap: break-word;"><strong><%= contact_method.platform %></strong> <br>
+                  <% if(contact_method.type == "URL") { %>
+                    <a style="color: black;" href="<%= contact_method.contact_info %>" target="_blank"><%= contact_method.contact_info %></a>
+                  <% } else if (contact_method.type == "EMAIL") { %>
+                    <a style="color: black;" href="mailto:<%= contact_method.contact_info %>"><%= contact_method.contact_info %></a>
+                  <% } else if (contact_method.type == "PHONE") { %>
+                    <a style="color: black;" href="tel:<%= contact_method.contact_info %>"><%= contact_method.contact_info %></a>
+                  <% } else { %>
+                    <%= contact_method.contact_info %>
+                  <% } %>
+                </p>
 							<% } %>
             </div>
           </div>
