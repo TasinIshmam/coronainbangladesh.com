@@ -26,8 +26,8 @@ async function handle_live_news_update(req, res) {
             return res.sendStatus(200);
 
         } else {
-            console.error("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + res.length);
-            return res.sendStatus(500).send("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + res.length);
+            console.error("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + db_response.length);
+            return res.sendStatus(500).send("Error in /api/tasks/update-live-news. Not all the news that were found could be inserted in database.\nNew News found: " + new_news.length + "\nInserted in database: " + db_response.length);
         }
     } catch (e) {
         console.error("ERROR in GET /api/tasks/update-live-news");

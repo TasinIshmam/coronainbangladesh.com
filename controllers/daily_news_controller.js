@@ -22,9 +22,9 @@ async function handle_POST_daily_news(req, res) {
             return res.sendStatus(200);
 
         } else {
-            console.error("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + res.length);
+            console.error("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + result.length);
 
-            return res.status(500).send("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + res.length);
+            return res.status(500).send("ERROR in POST /api/dailynews. Not all the news that were sent could be inserted in database.\nNew News found: " + daily_news_arr.length + "\nInserted in database: " + result.length);
         }
 
     } catch (e) {
