@@ -23,6 +23,8 @@
 
       gtag('config', 'UA-110318517-12');
     </script>
+    <script src="js/mapdata.js"></script>
+    <script src="js/countrymap.js"></script>
   </head>
   <body class="corona-bg-dark">
     <header>
@@ -236,21 +238,12 @@
         <div class="col-md-6">
           <div class="corona-box">
             <div class="corona-title">
-              <h2>Featured News</h2>
+              <h2>Home Quarantine in Bangladesh</h2>
             </div>
-            <div class="corona-content">
-              <div class="news-box">
-                <% for (let news of featured_news) { %>
-                  <a href="<%= news.link %>" class="news" target="_blank">
-                    <h5><%= news.title %></h5>
-                    <p><%= news.description %></p>
-                    <% let news_date = new Date(news.date) %>
-                    <p class="time-ago"><i class="fa fa-clock"></i> <%= news_date.getFullYear()+'-' + (news_date.getMonth()+1) + '-'+news_date.getDate() %></p>
-                </a>
-                <% } %>
-              </div>
-
-              <p class="text-right mt-0"><small><a href="#">[Source: Online News Portals of Bangladesh]</a></small></p>
+            <div id="map" class="corona-content">
+            </div>
+            <div class="corona-title" style="background-image: linear-gradient(to right, rgba(255, 170, 66, 0.15), rgba(255, 170, 66, 1));display: flex; justify-content: space-between;">
+              <span style="font-size: larger;">0</span><span style="font-size: small; position: relative; top: 5px;">No. of People in Home Quarantine</span><span style="font-size: larger;">12320</span>
             </div>
           </div>
         </div>
@@ -281,6 +274,8 @@
 
       $(document).ready(function(){
         fix_height();
+
+        $('tspan').remove();
 
         $('.right_button').click(function(){
           $('.the_answer .wrong_answer').show();

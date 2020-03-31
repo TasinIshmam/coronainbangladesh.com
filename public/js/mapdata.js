@@ -1,3 +1,7 @@
+function get_intensity(quarantined_pop) {
+	return quarantined_pop / 12500;
+}
+
 var simplemaps_countrymap_mapdata = {
 	main_settings: {
 		//General settings
@@ -14,7 +18,7 @@ var simplemaps_countrymap_mapdata = {
 		state_url: '',
 		border_size: 1.5,
 		all_states_inactive: 'no',
-		all_states_zoomable: 'yes',
+		all_states_zoomable: 'no',
 
 		//Location defaults
 		location_description: 'Location description',
@@ -57,7 +61,7 @@ var simplemaps_countrymap_mapdata = {
 		popup_opacity: 0.9,
 		popup_shadow: 1,
 		popup_corners: 5,
-		popup_font: '12px/1.5 Verdana, Arial, Helvetica, sans-serif',
+		popup_font: '15px/1.5 Verdana, Arial, Helvetica, sans-serif',
 		popup_nocss: 'no',
 
 		//Advanced settings
@@ -71,41 +75,55 @@ var simplemaps_countrymap_mapdata = {
 	state_specific: {
 		BGD1806: {
 			name: 'Dhaka',
-			description: 'baaal sal',
-			color: 'red'
+			description: 'Completed Home Quarintine: 6229\r\nHome Quarantined: 12320\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(12320)
 		},
 		BGD2432: {
 			name: 'Khulna',
-			description: 'boro baal sar\
-			Khub boro nah\
-			adkaksdkka dasasdasd\
-			dsadasdasd',
-			color: 'orange'
+			description: 'Completed Home Quarintine: 1128\r\nHome Quarantined: 2218\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(2218)
 		},
 		BGD2475: {
-			name: 'Barisal'
+			name: 'Barisal',
+			description: 'Completed Home Quarintine: 3284\r\nHome Quarantined: 9950\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(9950)
 		},
 		BGD2476: {
-			name: 'Chittagong'
+			name: 'Chittagong',
+			description: 'Completed Home Quarintine: 8476\r\nHome Quarantined: 7252\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(7252)
 		},
 		BGD2488: {
-			name: 'Sylhet'
+			name: 'Sylhet',
+			description: 'Completed Home Quarintine: 1020\r\nHome Quarantined: 2550\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(2550)
 		},
 		BGD3255: {
-			name: 'Rajshahi'
+			name: 'Rajshahi',
+			description: 'Completed Home Quarintine: 2056\r\nHome Quarantined: 5818\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(5818)
 		},
 		BGD5492: {
-			name: 'Rangpur'
+			name: 'Rangpur',
+			description: 'Completed Home Quarintine: 1238\r\nHome Quarantined: 2585\r\n',
+			color: '#ffaa42',
+			opacity: 0.15 + get_intensity(2585)
 		}
 	},
 	locations: {
-		'0': {
-			lat: '23.723056',
-			lng: '90.408611',
-			name: 'Somossha',
-			type: 'image',
-			image_url:
-				'https://img.favpng.com/14/24/14/icon-hospital-computer-icons-medicine-png-favpng-JscTfAXtMaXEst7npbB2NwJiH.jpg'
-		}
+		// '0': {
+		// 	lat: '23.723056',
+		// 	lng: '90.408611',
+		// 	name: 'Somossha',
+		// 	type: 'image',
+		// 	image_url:
+		// 		'https://img.favpng.com/14/24/14/icon-hospital-computer-icons-medicine-png-favpng-JscTfAXtMaXEst7npbB2NwJiH.jpg'
+		// }
 	}
 };
