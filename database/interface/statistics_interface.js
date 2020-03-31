@@ -36,7 +36,7 @@ async function update_override_statistics_bangladesh(stat_object) {
 
 
 /**
-  * Returns the override statistics values for Bangladesh.
+ * Returns the override statistics values for Bangladesh.
  * Sorting and limiting makes sure even if there are multiple, only the latest is returned.
  *
  * @returns {Promise<{Statistics}|*>}
@@ -47,11 +47,23 @@ async function get_override_statistics_bangladesh() {
             "stat_type": "override",
             "locale": "BD"
         }).sort({'date': -1}).limit(1);
+
+        //incase the value dosen't exist, we just enter 0 values.
+        if (res === null || res === undefined || res === []) return {
+            confirmed: 0,
+            recovered: 0,
+            deaths: 0
+        };
+
         return res;
     } catch (e) {
         console.error("ERROR: in get_override_statistics_bangladesh");
         console.error(e);
-        return {};
+        return {
+            confirmed: 0,
+            recovered: 0,
+            deaths: 0
+        };
     }
 }
 
