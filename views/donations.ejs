@@ -153,7 +153,7 @@
                   <p>দুঃখিত, কোন তথ্য পাওয়া যায় নি!</p>
                 <% } %>
 								<% for (let donation_method of charity_orgs[i].how_to_donate) { %>
-									<p>প্ল্যাটফর্ম : <%= donation_method.platform %> <br>
+									<p style="overflow-wrap: break-word;">প্ল্যাটফর্ম : <%= donation_method.platform %> <br>
 									যোগাযোগ : <%= donation_method.contact_info %></p>
 								<% } %>
 							</div>
@@ -164,7 +164,7 @@
                 <p>দুঃখিত, কোন তথ্য পাওয়া যায় নি!</p>
               <% } %>
               <% for (let contact_method of charity_orgs[i].contact) { %>
-								<p>প্ল্যাটফর্ম : <%= contact_method.platform %> <br>
+								<p style="overflow-wrap: break-word;">প্ল্যাটফর্ম : <%= contact_method.platform %> <br>
 								যোগাযোগ : <%= contact_method.contact_info %></p>
 							<% } %>
             </div>
