@@ -131,14 +131,14 @@
 	
 							<div class="org-donate">
 								<% if(charity_orgs[i].how_to_donate.length > 0) { %>
-									<a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> How To Donate</a>
+									<a href="#" class="btn btn-corona how-to-donate-btn"><i class="fas fa-hand-holding-usd"></i> Donate</a>
 									<% } else { %>
 										<%
                     let org = JSON.stringify(charity_orgs[i]);
-                    let start = org.indexOf('"donate"');
+                    let start = org.indexOf('"donate_website"');
                     let end = org.indexOf('"', start + 10);
                   %>
-									<a href=<%= org.substring(start + 10, end) %> class="btn btn-corona" target="_blank"><i class="fas fa-donate"></i> Donate</a>
+									<a href=<%= org.donate_website %> class="btn btn-corona" target="_blank"><i class="fas fa-hand-holding-usd"></i> Donate</a>
 								<% } %>
 									<a href="#" class="btn btn-corona contact-info-btn"><i class="fas fa-phone-alt"></i> Contact Information</a>
 							</div>
