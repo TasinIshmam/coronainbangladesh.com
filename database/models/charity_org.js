@@ -52,6 +52,7 @@ const charity_org_schema = new mongoose.Schema({
             required: true
         }
     }],
+
     contact: [{
         platform : {
             type: String,
