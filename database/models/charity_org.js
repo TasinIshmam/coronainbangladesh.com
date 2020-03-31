@@ -9,7 +9,7 @@ function validateLength(val) {
 const urlValidator_reference = [
     validate({
         validator: 'isURL',
-        passIfEmpty: false,
+        passIfEmpty: true,
         message: 'Should be URL',
     })
 ];
@@ -38,7 +38,8 @@ const charity_org_schema = new mongoose.Schema({
     donate_website: {
         type: String,
         validate: urlValidator_reference,
-        required : false
+        required : false,
+        default: ""
     },
 
     how_to_donate: [{
@@ -59,6 +60,11 @@ const charity_org_schema = new mongoose.Schema({
         contact_info : {
             type: String,
             required: true
+        },
+        type : {
+            type: String,
+            enum: ["EMAIL", "PHONE", "URL", "MISC" ],
+            default: "MISC"
         }
     }],
 
