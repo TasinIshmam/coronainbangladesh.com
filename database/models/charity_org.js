@@ -35,7 +35,7 @@ const charity_org_schema = new mongoose.Schema({
         required: true
     },
 
-    donate_webiste: {
+    donate_website: {
         type: String,
         validate: urlValidator_reference,
         required : false
