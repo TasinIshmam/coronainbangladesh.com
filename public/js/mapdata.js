@@ -75,43 +75,43 @@ var simplemaps_countrymap_mapdata = {
 	state_specific: {
 		BGD1806: {
 			name: 'Dhaka',
-			description: 'Completed Home Quarantine: 6229\r\nHome Quarantined: 12320\r\n',
+			description: 'Completed Home Quarantine: 6229<br>Home Quarantined: 12320<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(12320)
 		},
 		BGD2432: {
 			name: 'Khulna',
-			description: 'Completed Home Quarantine: 1128\r\nHome Quarantined: 2218\r\n',
+			description: 'Completed Home Quarantine: 1128<br>Home Quarantined: 2218<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(2218)
 		},
 		BGD2475: {
 			name: 'Barisal',
-			description: 'Completed Home Quarantine: 3284\r\nHome Quarantined: 9950\r\n',
+			description: 'Completed Home Quarantine: 3284<br>Home Quarantined: 9950<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(9950)
 		},
 		BGD2476: {
 			name: 'Chittagong',
-			description: 'Completed Home Quarantine: 8476\r\nHome Quarantined: 7252\r\n',
+			description: 'Completed Home Quarantine: 8476<br>Home Quarantined: 7252<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(7252)
 		},
 		BGD2488: {
 			name: 'Sylhet',
-			description: 'Completed Home Quarantine: 1020\r\nHome Quarantined: 2550\r\n',
+			description: 'Completed Home Quarantine: 1020<br>Home Quarantined: 2550<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(2550)
 		},
 		BGD3255: {
 			name: 'Rajshahi',
-			description: 'Completed Home Quarantine: 2056\r\nHome Quarantined: 5818\r\n',
+			description: 'Completed Home Quarantine: 2056<br>Home Quarantined: 5818<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(5818)
 		},
 		BGD5492: {
 			name: 'Rangpur',
-			description: 'Completed Home Quarantine: 1238\r\nHome Quarantined: 2585\r\n',
+			description: 'Completed Home Quarantine: 1238<br>Home Quarantined: 2585<br>',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(2585)
 		}
