@@ -217,7 +217,7 @@ router.get('/en/privacy-policy', function(req, res, next) {
 	res.render('privacy_en');
 });
 
-/* GET bn privacy page. */
+/* GET bn donations page. */
 router.get('/donations', async function(req, res, next) {
 	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('BN');
 
@@ -226,13 +226,18 @@ router.get('/donations', async function(req, res, next) {
 	});
 });
 
-/* GET en privacy page. */
+/* GET en donations page. */
 router.get('/en/donations', async function(req, res, next) {
 	const charity_orgs = await charity_orgs_data_repository.get_all_charity_org('EN');
 
 	res.render('donations_en', {
 		charity_orgs: charity_orgs
 	});
+});
+
+/* GET en dashboard page. */
+router.get('/dashboard', function(req, res, next) {
+	res.render('dashboard');
 });
 
 module.exports = router;

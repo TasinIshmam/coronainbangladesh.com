@@ -862,3 +862,7 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
+
+tspan {
+	display: none !important;
+}

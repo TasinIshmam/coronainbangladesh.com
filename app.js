@@ -77,6 +77,8 @@ app.use('/en/updates', indexRouter);
 app.use('/donations', indexRouter);
 app.use('/en/donations', indexRouter);
 
+app.use('/dashboard', indexRouter);
+
 //API ROUTES
 app.use('/api', apiRouter);
 
