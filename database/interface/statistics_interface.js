@@ -136,9 +136,46 @@ async function get_statistics_world_old_date(date) {
 }
 
 
+/**
+ * Takes a batch of timeseries statistics data and inserts into the database
+ * @param timeseries_arr - an array of statistics data, usually in the form of a timeseries
+ * @returns {Promise<*[]|*>}
+ */
+async function insert_many_statistics(timeseries_arr) {
+    try {
+        let res = await Statistics.insertMany(timeseries_arr);
+        if (res === null || res === undefined) return [];
+        return res;
+
+    } catch (e) {
+        console.log("ERROR: Failed to insert_many statistics data");
+        console.log(e);
+        return [];
+    }
+}
+
+/**
+ * Get all timeseries statistics data for Bangladesh
+ * @returns {Promise<*[]|*>}
+ */
+async function get_all_timeseries_BD() {
+    try {
+        return await Statistics.find({
+            stat_type : 'timeseries',
+            locale: 'BD'
+        }).sort({"date":1});
+    } catch (e) {
+        console.error("ERROR: Failed to return timeseries for BD");
+        console.error(e);
+        return [];
+    }
+}
+
 module.exports = {
     get_statistics_bangladesh,
     get_statistics_world,
     update_override_statistics_bangladesh,
-    get_override_statistics_bangladesh
+    get_override_statistics_bangladesh,
+    insert_many_statistics,
+    get_all_timeseries_BD
 };
