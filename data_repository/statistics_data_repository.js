@@ -157,4 +157,4 @@ async function get_all_timeseries_BD() {
 }
 
 
-module.exports = {get_statistics_world, get_statistics_bangladesh};
+module.exports = {get_statistics_world, get_statistics_bangladesh, get_all_timeseries_BD};
