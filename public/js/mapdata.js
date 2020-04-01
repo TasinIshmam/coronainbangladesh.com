@@ -75,11 +75,7 @@ var simplemaps_countrymap_mapdata = {
 	state_specific: {
 		BGD1806: {
 			name: 'Dhaka',
-<<<<<<< HEAD
-			description: 'Home Quarantined: 12320 <br> Completed Home Quarantine: 6229\r\n',
-=======
 			description: 'Completed Home Quarantine: 6229<br>Home Quarantined: 12320<br>',
->>>>>>> d2ff3ebd40bdb480c9b6f314cae9f04034d150d0
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(12320)
 		},
