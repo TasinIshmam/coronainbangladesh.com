@@ -61,7 +61,7 @@ var simplemaps_countrymap_mapdata = {
 		popup_opacity: 0.9,
 		popup_shadow: 1,
 		popup_corners: 5,
-		popup_font: '15px/1.5 Verdana, Arial, Helvetica, sans-serif',
+		popup_font: '12px/1.5 Verdana, Arial, Helvetica, sans-serif',
 		popup_nocss: 'no',
 
 		//Advanced settings
@@ -75,7 +75,7 @@ var simplemaps_countrymap_mapdata = {
 	state_specific: {
 		BGD1806: {
 			name: 'Dhaka',
-			description: 'Completed Home Quarantine: 6229\r\nHome Quarantined: 12320\r\n',
+			description: 'Home Quarantined: 12320 <br> Completed Home Quarantine: 6229\r\n',
 			color: '#BF6087',
 			opacity: 0.15 + get_intensity(12320)
 		},
