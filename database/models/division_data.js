@@ -27,6 +27,12 @@ const division_data_schema = new mongoose.Schema({
     isolation_beds: {
         type: Number,
         required: true
+    },
+
+    last_update: {
+        type: Date,
+        required: false,
+        default: Date.now
     }
 });
 
