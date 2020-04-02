@@ -13,6 +13,8 @@ router.get('/', async function(req, res, next) {
 	const featured_news = await news_data_repository.get_featured_news();
 	const live_news = await news_data_repository.get_live_news(10);
 
+	const statistics_timeseries = await statistics_data_repository.get_all_timeseries_BD();
+	console.log(JSON.stringify(statistics_timeseries, undefined, 4));
 	res.render('index', {
 		stats: stats,
 		featured_news: featured_news,
