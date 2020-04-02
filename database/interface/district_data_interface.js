@@ -4,7 +4,7 @@ const {DistrictData} =  require('../models/district_data');
 /**
  * Bulk update. As Mongoose does not natively support this, we are doing it iteratively.
  * Due to the small number of documents, performance is not a concern.
- * @returns {Promise<[{DivisionData}]|[]>}
+ * @returns {Promise<[{DistrictData}]|[]>}
  * @param district_data_arr
  */
 async function upsert_district_data(district_data_arr) {
@@ -59,7 +59,7 @@ async function get_district_by_id(id) {
 
 /**
  * Get All method
- * @returns {Promise<[{DivisionData}]|[]>}
+ * @returns {Promise<[{DistrictData}]|[]>}
  */
 async function get_district_all() {
     try {
