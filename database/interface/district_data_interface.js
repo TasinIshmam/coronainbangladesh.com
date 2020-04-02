@@ -1,22 +1,22 @@
-const {DivisionData} =  require('../models/division_data');
+const {DistrictData} =  require('../models/district_data');
 
 
 /**
  * Bulk update. As Mongoose does not natively support this, we are doing it iteratively.
  * Due to the small number of documents, performance is not a concern.
  * @returns {Promise<[{DivisionData}]|[]>}
- * @param division_data_arr
+ * @param district_data_arr
  */
-async function upsert_division_data(division_data_arr) {
-    //
+async function upsert_district_data(district_data_arr) {
 
     try {
         let res = [];
-        for(let i = 0; i < division_data_arr.length ; i++) {
 
-            let temp = await DivisionData.findOneAndUpdate({
-                "name" : division_data_arr[i].name
-            }, division_data_arr[i], {
+        for(let i = 0; i < district_data_arr.length ; i++) {
+
+            let temp = await DistrictData.findOneAndUpdate({
+                "name" : district_data_arr[i].name
+            }, district_data_arr[i], {
                 upsert: true,
                 new: true,
                 runValidators: true,
@@ -24,6 +24,7 @@ async function upsert_division_data(division_data_arr) {
             });
 
             res.push(temp);
+
         }
 
         return res;
@@ -36,20 +37,20 @@ async function upsert_division_data(division_data_arr) {
 }
 
 /**
- * Searches for division entry by division id
- * @param {Number} id - Division id
+ * Searches for district entry by district id
+ * @param {Number} id - District id
  * @returns {Promise<{}|*>}
  */
-async function get_division_by_id(id) {
+async function get_district_by_id(id) {
     try {
-        let result = await DivisionData.findOne({"id" : id});
+        let result = await DistrictData.findOne({"id" : id});
 
         if (result === undefined || result === null) return {};
 
         return result;
 
     } catch (e) {
-        console.error("ERROR: Error in find_division_by_id");
+        console.error("ERROR: Error in find_district_by_id");
         console.error(e);
         return {};
     }
@@ -60,19 +61,19 @@ async function get_division_by_id(id) {
  * Get All method
  * @returns {Promise<[{DivisionData}]|[]>}
  */
-async function get_division_all() {
+async function get_district_all() {
     try {
-        let result = await DivisionData.find();
+        let result = await DistrictData.find();
 
         if (result === undefined || result === null) return [];
 
         return result;
     } catch (e) {
-        console.error("ERROR: Error in get_division_all");
+        console.error("ERROR: Error in get_district_all");
         console.error(e);
         return [];
     }
 }
 
 
-module.exports = {upsert_division_data, get_division_by_id, get_division_all};
+module.exports = {upsert_district_data, get_district_by_id, get_district_all};
