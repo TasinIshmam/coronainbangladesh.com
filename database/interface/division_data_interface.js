@@ -34,7 +34,7 @@ async function upsert_division_data(division_data_arr) {
  * @param {Number} id - Division id
  * @returns {Promise<{}|*>}
  */
-async function find_division_by_id(id) {
+async function get_division_by_id(id) {
     try {
         let result = await DivisionData.findOne({"id" : id});
 
@@ -50,4 +50,23 @@ async function find_division_by_id(id) {
 }
 
 
-module.exports = { upsert_division_data, find_division_by_id};
+/**
+ * Get All method
+ * @returns {Promise<[{DivisionData}]|[]>}
+ */
+async function get_division_all() {
+    try {
+        let result = await DivisionData.find();
+
+        if (result === undefined || result === null) return [];
+
+        return result;
+    } catch (e) {
+        console.error("ERROR: Error in get_division_all");
+        console.error(e);
+        return [];
+    }
+}
+
+
+module.exports = { upsert_division_data, get_division_by_id, get_division_all};
