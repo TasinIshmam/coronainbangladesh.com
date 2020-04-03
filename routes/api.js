@@ -29,6 +29,7 @@ router.post('/featurednews' , authentication_middleware.verify_validation_token 
 
 //Cron job routes
 router.get('/tasks/update-live-news', authentication_middleware.verify_cron_job_gcloud_source, live_news_controller.handle_live_news_update );
+router.get('/tasks/update-timeseries-bd', authentication_middleware.verify_cron_job_gcloud_source, statistics_controller.handle_timeseries_update_cronjob_bangladesh );
 
 
 //dailynews
