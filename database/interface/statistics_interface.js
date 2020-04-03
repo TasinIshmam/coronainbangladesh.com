@@ -2,13 +2,18 @@
 const axios = require('axios');
 const moment = require('moment');
 const {Statistics} = require('../models/statistics');
+
+
 //Data Sources
-//https://covid19.mathdro.id/api/countries/BD/deaths  Source: Worldometers
-//https://covid2019-api.herokuapp.com/country/bangladesh
+
 //https://covid19.mathdro.id/api/countries/BD/
+//https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#00030720-fae3-4c72-8aea-ad01ba17adf8
+//https://covid19api.com/
+//https://covid19.mathdro.id/api/daily/
 
 
 /**
+ *
  * Override values are those used to quickly update the website statistics for bangladesh (Infected/recovered/death) when the API is lagging behind real time information.
  *
  * This only needs to be updated and there should only be one instance of this value in the database.
@@ -85,6 +90,7 @@ async function get_statistics_bangladesh() {
         return stats_object;
     } catch (e) {
         console.error("ERROR: Error in get_statistics_bangladesh API call");
+        console.error(e);
         return {};
     }
 
@@ -107,38 +113,81 @@ async function get_statistics_world() {
         return stats_object;
     } catch (e) {
         console.error("ERROR: Error in get_statistics_world API call");
+        console.error(e);
         return {};
     }
 
 }
 
 
-//Unusued functions. Pore korle korbo ne :'3
+/**
+ * Takes a batch of timeseries statistics data and inserts into the database
+ * @param [{Statistics}] timeseries_arr - an array of statistics data, usually in the form of a timeseries
+ * @returns {Promise<*[]|*>}
+ */
+async function insert_many_statistics(timeseries_arr) {
+    try {
+        let res = await Statistics.insertMany(timeseries_arr);
+        if (res === null || res === undefined) return [];
+        return res;
 
-async function get_statistics_bangladesh_old_date(date) {
-    let formatted_date_string = date.format('YYYY-MM-DD');
-    console.log(formatted_date_string);
-    //https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#00030720-fae3-4c72-8aea-ad01ba17adf8
-    //https://covid19api.com/
-    //Eitate paba. Apatoto eto pera nite parbo na :'3
+    } catch (e) {
+        console.log("ERROR: Failed to insert_many statistics data");
+        console.log(e);
+        return [];
+    }
 }
 
-async function get_statistics_world_old_date(date) {
-    let formatted_date_string = date.format('YYYY-MM-DD');
-    console.log(formatted_date_string);
-    let response = await axios.get("https://covid19.mathdro.id/api/daily/");
-
-    let res_for_date = response.data.filter((element) => {
-        return element.reportDate === formatted_date_string
-    });
-    //PROBLEM. Recovered data is missing in this api. So Can't use it.
-    //Also can't find this data in any other API. So fuck this pera nite parbo na.
+/**
+ * Get all timeseries statistics data for Bangladesh
+ * @returns {Promise<*[]|*>}
+ */
+async function get_all_timeseries_BD() {
+    try {
+        return await Statistics.find({
+            stat_type: 'timeseries',
+            locale: 'BD'
+        }).sort({"date": 1});
+    } catch (e) {
+        console.error("ERROR: Failed to return timeseries for BD");
+        console.error(e);
+        return [];
+    }
 }
 
+/**
+ * Updates statistics timeseries with today's data.
+ * @returns {Promise<boolean>} - Success status of operation
+ */
+async function update_timeseries_today_BD() {
+
+    try {
+        let stat_object_today = await get_statistics_bangladesh();
+        let res = await Statistics.findOneAndUpdate({
+                "stat_type": "timeseries",
+                "locale": "BD",
+                "date": moment().endOf('day').toString()
+            },
+            stat_object_today,
+            {upsert: true, new: true, runValidators: true, useFindAndModify: false});
+
+        return res.confirmed === stat_object_today.confirmed && res.deaths === stat_object_today.deaths &&
+            res.recovered === stat_object_today.recovered;
+
+    } catch (e) {
+        console.error("ERROR: in update_timeseries_today_BD");
+        console.error(e);
+        return false;
+    }
+
+}
 
 module.exports = {
     get_statistics_bangladesh,
     get_statistics_world,
     update_override_statistics_bangladesh,
-    get_override_statistics_bangladesh
+    get_override_statistics_bangladesh,
+    insert_many_statistics,
+    get_all_timeseries_BD,
+    update_timeseries_today_BD
 };

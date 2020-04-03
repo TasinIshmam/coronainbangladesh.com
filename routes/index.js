@@ -6,6 +6,7 @@ const moment = require('moment');
 const statistics_data_repository = require('../data_repository/statistics_data_repository');
 const news_data_repository = require('../data_repository/news_data_repository');
 const charity_orgs_data_repository = require('../data_repository/charity_org_data_repository');
+const map_data_repository = require('../data_repository/map_data_repository');
 
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {

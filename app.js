@@ -3,6 +3,7 @@ const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
 	process.env.MONGODB_URI = 'mongodb://localhost:27017/coronavirus_information_bot';
+
 	//todo make a package.json to do this run locally connect to livedb thing.
 	process.env.NODE_ENV = 'development';
 	process.env.PORT = 1338;
