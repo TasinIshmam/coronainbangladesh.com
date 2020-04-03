@@ -6,13 +6,13 @@ const moment = require('moment');
 const statistics_data_repository = require('../data_repository/statistics_data_repository');
 const news_data_repository = require('../data_repository/news_data_repository');
 const charity_orgs_data_repository = require('../data_repository/charity_org_data_repository');
+const map_data_repository = require('../data_repository/map_data_repository');
 
 /* GET bn home page. */
 router.get('/', async function(req, res, next) {
 	const stats = await statistics_data_repository.get_statistics_bangladesh();
 	const featured_news = await news_data_repository.get_featured_news();
 	const live_news = await news_data_repository.get_live_news(10);
-
 
 	res.render('index', {
 		stats: stats,

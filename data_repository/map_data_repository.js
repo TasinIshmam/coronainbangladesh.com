@@ -19,6 +19,7 @@ async function get_division_all() {
     } else {
         let db_result = await division_data_interface.get_division_all();
         cache.set_cache_with_exp(key, db_result, EXPIRATION_TIME);
+        console.log("Division data cache update");
         return db_result;
     }
 }
@@ -37,6 +38,7 @@ async function get_district_all() {
     } else {
         let db_result = await district_data_interface.get_district_all();
         cache.set_cache_with_exp(key, db_result, EXPIRATION_TIME);
+        console.log("District data cache update");
         return db_result;
     }
 }

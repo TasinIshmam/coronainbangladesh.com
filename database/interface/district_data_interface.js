@@ -1,4 +1,4 @@
-const {DistrictData} =  require('../models/district_data');
+const {DistrictData} = require('../models/district_data');
 
 
 /**
@@ -12,11 +12,22 @@ async function upsert_district_data(district_data_arr) {
     try {
         let res = [];
 
-        for(let i = 0; i < district_data_arr.length ; i++) {
+        for (let i = 0; i < district_data_arr.length; i++) {
 
             let temp = await DistrictData.findOneAndUpdate({
-                "name" : district_data_arr[i].name
-            }, district_data_arr[i], {
+                "name": district_data_arr[i].name
+            }, {
+                $currentDate: {
+                    last_update: true
+                },
+                $set: {
+                    id: district_data_arr[i].id,
+                    name: district_data_arr[i].name,
+                    division: district_data_arr[i].division,
+                    total_quarantined: district_data_arr[i].total_quarantined,
+                    passengers_screened: district_data_arr[i].passengers_screened,
+                }
+            }, {
                 upsert: true,
                 new: true,
                 runValidators: true,
@@ -30,8 +41,8 @@ async function upsert_district_data(district_data_arr) {
         return res;
 
     } catch (e) {
-        console.error("ERROR: Error in upsert_division_data of division_data db interface");
-        console.error(e);
+        console.error("ERROR: Error in upsert_district_data of district_data db interface");
+        console.error(JSON.stringify(e, undefined, 4));
         return [];
     }
 }
@@ -43,7 +54,7 @@ async function upsert_district_data(district_data_arr) {
  */
 async function get_district_by_id(id) {
     try {
-        let result = await DistrictData.findOne({"id" : id});
+        let result = await DistrictData.findOne({"id": id});
 
         if (result === undefined || result === null) return {};
 

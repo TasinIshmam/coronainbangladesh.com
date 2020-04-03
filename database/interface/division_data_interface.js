@@ -1,4 +1,4 @@
-const {DivisionData} =  require('../models/division_data');
+const {DivisionData} = require('../models/division_data');
 
 
 /**
@@ -12,11 +12,22 @@ async function upsert_division_data(division_data_arr) {
 
     try {
         let res = [];
-        for(let i = 0; i < division_data_arr.length ; i++) {
+        for (let i = 0; i < division_data_arr.length; i++) {
 
             let temp = await DivisionData.findOneAndUpdate({
-                "name" : division_data_arr[i].name
-            }, division_data_arr[i], {
+                "name": division_data_arr[i].name
+            }, {
+                $currentDate: {
+                    last_update: true
+                },
+                $set: {
+                    name: division_data_arr[i].name,
+                    id: division_data_arr[i].id,
+                    quarantine_ongoing: division_data_arr[i].quarantine_ongoing,
+                    quarantine_complete: division_data_arr[i].quarantine_complete,
+                    isolation_beds: division_data_arr[i].isolation_beds,
+                }
+            }, {
                 upsert: true,
                 new: true,
                 runValidators: true,
@@ -42,7 +53,7 @@ async function upsert_division_data(division_data_arr) {
  */
 async function get_division_by_id(id) {
     try {
-        let result = await DivisionData.findOne({"id" : id});
+        let result = await DivisionData.findOne({"id": id});
 
         if (result === undefined || result === null) return {};
 

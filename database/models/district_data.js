@@ -38,7 +38,7 @@ district_data_schema.index( {"name" : 1} , {unique: true});
 district_data_schema.plugin(beautifyUnique);
 
 
-let DistrictData = mongoose.model("DivisionData", district_data_schema);
+let DistrictData = mongoose.model("DistrictData", district_data_schema);
 
 DistrictData.createIndexes();  //idempotent operation.
 
