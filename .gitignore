@@ -9,7 +9,8 @@
 # playground/
 playground/dump
 playground/*.txt
-
+playground/backup-live-database-script.js
+dump
 ### Node ###
 # Logs
 logs
