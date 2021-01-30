@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('short', morgan_utils.morgan_options));
-app.use(limiter.rateLimiterMiddlewareInMemory); //prevents too many requests from the same ip
+app.use(limiter.rateLimiterMiddlewareInMemory);  //prevents too many requests from the same ip.
 
 //Templating Engine Setup
 app.set('views', path.join(__dirname, 'views'));
