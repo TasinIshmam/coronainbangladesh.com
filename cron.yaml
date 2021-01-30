@@ -1,7 +1,0 @@
-cron:
-  - description: "regular livenews update job"
-    url: /api/tasks/update-live-news
-    schedule: every 30 minutes
-  - description: "regular timeseries update job"
-    url: /api/tasks/update-timeseries-bd
-    schedule: every 12 hours
